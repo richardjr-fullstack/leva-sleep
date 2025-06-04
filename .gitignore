@@ -1,0 +1,21 @@
+# Shopify CLI folders
+.shopify/
+.cache/
+
+# Node modules (if you're using any build tools)
+node_modules/
+
+# Build artifacts (optional)
+dist/
+build/
+
+# Environment variables
+.env
+
+# Mac system files
+.DS_Store
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
