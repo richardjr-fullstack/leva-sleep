@@ -1,0 +1,295 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_with_text_overlay_bfV39q": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_Cx7jzy": {
+          "type": "heading",
+          "settings": {
+            "text": "Hero Banner",
+            "heading_tag": "h4"
+          }
+        },
+        "richtext_j6ngWD": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>Add your own custom content to give more information about your store, availability details...</p>"
+          }
+        },
+        "button_3PafXp": {
+          "type": "button",
+          "settings": {
+            "style": "solid",
+            "text": "Shop Now",
+            "url": "",
+            "background": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_Cx7jzy",
+        "richtext_j6ngWD",
+        "button_3PafXp"
+      ],
+      "name": "t:sections.image_with_text_overlay.presets.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "",
+        "image_size": "auto",
+        "allow_transparent_header": false,
+        "reveal_on_scroll": true,
+        "remove_vertical_spacing": true,
+        "content_width": "md",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      }
+    },
+    "featured_collections_TMwA8J": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_MFNatK": {
+          "type": "collection",
+          "settings": {
+            "collection": "weekend-deals-feature",
+            "products_count": 6,
+            "title": "",
+            "link_url": "",
+            "link_text": "View all"
+          }
+        }
+      },
+      "block_order": [
+        "collection_MFNatK"
+      ],
+      "name": "t:sections.featured_collections.presets.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "hide_product_information": false,
+        "stack_products": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "horizontal_spacing_factor": 1,
+        "vertical_spacing_factor": 1,
+        "subheading": ""
+      }
+    },
+    "collection_list_hzPEUx": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_HBEJDM": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "adjustable-bed-packages",
+            "image": "shopify://shop_images/tempurpedic_t2_proadapt_hybrid_silo_adjustablebase_tempur-ergoextend_threequarter_outline_queen_nov17_5x7_261218095103613094.png",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "Adjustable Bed Packages",
+            "button_text": "View products",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_nzpYHQ": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "adjustable-bases",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "Adjustable Bases",
+            "button_text": "View products",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_iTHx4H": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "mattresses",
+            "image": "shopify://shop_images/tempurpedic_t2_proadapt_hybrid_silo_adjustablebase_tempur-ergoextend_threequarter_outline_queen_nov17_5x7_261218095103613094.png",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "Mattresses",
+            "button_text": "View products",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "collection_HBEJDM",
+        "collection_nzpYHQ",
+        "collection_iTHx4H"
+      ],
+      "name": "t:sections.collection_list.presets.collection_list.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "image_size": "auto",
+        "show_text_outside": false,
+        "space_items": true,
+        "stack_collections": true,
+        "collections_per_row_mobile": "1",
+        "collections_per_row_desktop": 3,
+        "subheading": "",
+        "title": "<strong>Explore Our Products</strong>",
+        "content": ""
+      }
+    },
+    "image_with_text_Uwaj3W": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_wmdPir": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading_Ay3C7q": {
+          "type": "heading",
+          "settings": {
+            "text": "We are Canada's Adjustable Bed Experts.",
+            "heading_tag": "h3"
+          }
+        },
+        "richtext_Cizm9U": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>Adjustable beds, made right here in Canada. Delivered directly to you and setup in your home, so all you have to think about is how much better you will sleep.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_wmdPir",
+        "heading_Ay3C7q",
+        "richtext_Cizm9U"
+      ],
+      "name": "t:sections.image_with_text.presets.image_with_text.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "image": "shopify://shop_images/2023.11.27_The_Leva_Sleep_Difference_w._disclaimer.png",
+        "reveal_on_scroll": true,
+        "image_position": "start",
+        "content_width": "md",
+        "remove_vertical_spacing": false
+      }
+    },
+    "testimonials_rTAUXh": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_VU8LUf": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p><strong>Love the Leva Bed</strong></p><p>My husband has been having trouble with his back and sleeping in a raised position helps. I, on the other hand prefer to be lower. The split King was the perfect answer to our dilemma. The mattress is very comfortable and the system is very quiet! Love it!</p>",
+            "logo_max_width": 140,
+            "logo_mobile_max_width": 100,
+            "author": "<strong>Jane Diercks</strong>"
+          }
+        },
+        "testimonial_DrcKdR": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p>Great product and received exceptional service from Rob at the Mississaugus store, both online and in person. From answering my questions online which helped me decide and confirm my order, to testing in store, to helping us resolve an issue on delivery day and follow up.</p>",
+            "logo_max_width": 140,
+            "logo_mobile_max_width": 100,
+            "author": "<strong>Ian</strong>"
+          }
+        },
+        "testimonial_fEVAhn": {
+          "type": "testimonial",
+          "settings": {
+            "content": "<p><strong>New bed love it</strong></p><p>Waiting for hip surgery been sleeping in lazyboy chair for a year. So much better in new bed able to elevate feet.❤️❤️❤️</p>",
+            "logo_max_width": 140,
+            "logo_mobile_max_width": 100,
+            "author": "<strong>Laura Van Camp</strong>"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_VU8LUf",
+        "testimonial_DrcKdR",
+        "testimonial_fEVAhn"
+      ],
+      "name": "t:sections.testimonials.presets.testimonials.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "auto_rotate_between_testimonials": false,
+        "cycle_speed": 5,
+        "font_size_factor": 1,
+        "subheading": "",
+        "title": "Customer Reviews",
+        "content": "<p>from 605 reviews</p>"
+      }
+    },
+    "image_with_text_overlay_hCHUCQ": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_737fzy": {
+          "type": "heading",
+          "settings": {
+            "text": "",
+            "heading_tag": "h4"
+          }
+        },
+        "richtext_nmKKcf": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>Leva Sleep is thrilled to announce the addition of Interest Free Financing with Paybright. Get the adjustable bed you want now and pay later!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_737fzy",
+        "richtext_nmKKcf"
+      ],
+      "name": "t:sections.image_with_text_overlay.presets.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "",
+        "image_size": "auto",
+        "image": "shopify://shop_images/Leva-Sleep-Shop-Mattreses-Bedframes-Online-Finance-Available_7ca756aa-ee8c-449d-92a4-30f3adac0d0d.png",
+        "mobile_image": "shopify://shop_images/Leva-Sleep-Shop-Mattreses-Bedframes-Online-Finance-Available-Mobile.png",
+        "allow_transparent_header": false,
+        "reveal_on_scroll": true,
+        "remove_vertical_spacing": true,
+        "content_width": "xs",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center-start sm:text-start",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_bfV39q",
+    "featured_collections_TMwA8J",
+    "collection_list_hzPEUx",
+    "image_with_text_Uwaj3W",
+    "testimonials_rTAUXh",
+    "image_with_text_overlay_hCHUCQ"
+  ]
+}
