@@ -17,7 +17,7 @@ html {
 
 body {
   background: rgb(var(--page-background));
-  font: var(--text-font-style) var(--text-font-weight) var(--text-base) / 1.65 var(--text-font-family);
+  font-family: 'Quicksand', sans-serif;
   letter-spacing: var(--text-letter-spacing);
   margin: 0;
   position: relative;
@@ -201,6 +201,23 @@ video {
 
 height-observer {
   display: block;
+}
+
+height-observer .is-solid {
+    color: #222;
+}
+
+.header__account-link:hover,
+.header__search-link:hover,
+.header__cart-link:hover {
+  color: #452276;
+}
+
+.prestige-announcement {
+  display: grid ;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 0 20px;
 }
 
 .color-scheme {
@@ -2650,7 +2667,7 @@ model-media model-viewer, model-media .shopify-model-viewer-ui {
 
 @media screen and (pointer: fine) {
   .link-faded-reverse:hover {
-    color: rgb(var(--text-color) / .65);
+    color: #222;
   }
 }
 
@@ -3768,7 +3785,6 @@ product-rerender {
   padding-block: 1em;
   padding-inline-start: max(var(--announcement-bar-gutter), 50% - var(--container-max-width) / 2);
   padding-inline-end: max(var(--announcement-bar-gutter), 50% - var(--container-max-width) / 2);
-  display: flex;
 }
 
 .announcement-bar__carousel {
@@ -4774,12 +4790,9 @@ product-rerender {
   justify-content: center;
   align-items: center;
   column-gap: 1.25rem;
+  padding: 5px 15px;
   row-gap: var(--header-padding-block);
   box-shadow: 0 -1px rgb(var(--header-separation-border-color)) inset;
-  padding-block-start: var(--header-padding-block);
-  padding-block-end: var(--header-padding-block);
-  padding-inline-start: var(--container-gutter);
-  padding-inline-end: var(--container-gutter);
   transition: background .2s, color .2s, border .2s, box-shadow .2s, transform .15s ease-in-out;
   display: grid;
   position: relative;
@@ -4841,7 +4854,7 @@ product-rerender {
 }
 
 .header__logo-image {
-  width: var(--header-logo-width);
+  width: 150px;
   max-width: 100%;
   height: auto;
 }
@@ -4869,26 +4882,6 @@ product-rerender {
   align-items: center;
   gap: .625rem 1.25rem;
   display: flex;
-}
-
-.header__primary-nav-item:before {
-  content: attr(data-title);
-  width: max-content;
-  height: 2px;
-  transform-origin: var(--transform-origin-start);
-  background: rgb(var(--text-color));
-  color: #0000;
-  font-size: var(--text-h6);
-  font-family: var(--heading-font-family);
-  font-weight: var(--heading-font-weight);
-  font-style: var(--heading-font-style);
-  letter-spacing: var(--heading-letter-spacing);
-  text-transform: var(--heading-text-transform);
-  pointer-events: none;
-  transition: transform .2s ease-in-out;
-  position: absolute;
-  inset-block-end: 0;
-  transform: scaleX(0);
 }
 
 .header__primary-nav-item:hover:before {
@@ -4955,17 +4948,22 @@ product-rerender {
   overflow: auto;
 }
 
-.header__dropdown-menu:before {
-  content: "";
-  width: 100%;
-  height: 2px;
-  transform-origin: var(--transform-origin-start);
-  background: rgb(var(--text-color));
-  transition: transform .25s ease-in-out 50ms;
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  transform: scaleX(0);
+.header__primary-nav-item .h6 {
+    font-size: 14.5px;
+    font-weight: 600;
+}
+
+.header__primary-nav-item .header__menu-disclosure .h6::after {
+  content: "\f078"; /* Unicode for fa-chevron-down */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-left: 6px;
+  font-size: .80em;
+  color: rgba(82, 82, 82, 0.45);
+}
+
+.header__primary-nav-item:hover {
+    color: #452276 !important;
 }
 
 [aria-expanded="true"] > .header__dropdown-menu:before {
@@ -4973,8 +4971,11 @@ product-rerender {
 }
 
 .header__dropdown-menu :is(a, summary) {
-  padding: .375rem 1.5625rem;
-  display: block;
+    padding: 14px 15px;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #888;
 }
 
 .header__dropdown-menu .header__menu-disclosure {
@@ -7944,4 +7945,16 @@ ul {
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
+}
+
+/* Headings: Poppins */
+h1, h2, h3, h4, h5, h6,
+.section__title, .heading, .title, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+p, span {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 }

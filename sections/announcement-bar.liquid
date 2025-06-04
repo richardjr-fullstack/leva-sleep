@@ -32,33 +32,35 @@
     }
   </style>
 
-  <height-observer variable="announcement-bar">
+  <height-observer variable="announcement-bar" class="prestige-announcement">
+      <div>
+       <p>{{ section.settings.content }}</p>
+      </div>
     <div class="announcement-bar color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
       {%- assign carousel_id = 'carousel-' | append: section.id -%}
 
-      {%- if section.blocks.size > 1 -%}
+      {% comment %} {%- if section.blocks.size > 1 -%}
         <carousel-prev-button aria-controls="{{ carousel_id }}" class="contents">
           <button type="button" class="tap-area">
             <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
             {%- render 'icon' with 'arrow-left', width: 12, direction_aware: true -%}
           </button>
         </carousel-prev-button>
-      {%- endif -%}
-
+      {%- endif -%} {% endcomment %}
       <announcement-bar-carousel allow-swipe {% if section.settings.autoplay %}autoplay="{{ section.settings.cycle_speed }}"{% endif %} id="{{ carousel_id }}" class="announcement-bar__carousel">
         {%- for block in section.blocks -%}
           <p class="prose heading {% if forloop.first %}is-selected{% endif %}" {{ block.shopify_attributes }}>{{- block.settings.text -}}</p>
         {%- endfor -%}
       </announcement-bar-carousel>
 
-      {%- if section.blocks.size > 1 -%}
+      {% comment %} {%- if section.blocks.size > 1 -%}
         <carousel-next-button aria-controls="{{ carousel_id }}" class="contents">
           <button type="button" class="tap-area">
             <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
             {%- render 'icon' with 'arrow-right', width: 12, direction_aware: true -%}
           </button>
         </carousel-next-button>
-      {%- endif -%}
+      {%- endif -%} {% endcomment %}
     </div>
   </height-observer>
 
@@ -93,6 +95,11 @@
       "id": "color_scheme",
       "label": "t:global.colors.scheme",
       "default": "scheme-3"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:global.text.content"
     },
     {
       "type": "checkbox",
