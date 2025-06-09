@@ -18,18 +18,21 @@
     "warning_color": "#ed8a00",
     "error_color": "#cb2b2b",
     "heading_font": "jost_n4",
-    "heading_letter_spacing": 18,
+    "heading_text_transform": "normal",
+    "heading_letter_spacing": 5,
     "text_font": "poppins_n4",
     "text_font_size_desktop": 14,
+    "button_text_font": "body",
     "button_letter_spacing": 18,
+    "cart_icon": "shopping_bag",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#e3e6f2",
           "background_gradient": "",
-          "text_color": "#5c5c5c",
-          "primary_button_background": "#5c5c5c",
+          "text_color": "#452276",
+          "primary_button_background": "#452276",
           "primary_button_text_color": "#ffffff",
           "circle_button_background": "#ffffff",
           "circle_button_icon": "#1c1c1c"
@@ -37,11 +40,11 @@
       },
       "scheme-2": {
         "settings": {
-          "background": "#f3f3f3",
+          "background": "#e3e6f2",
           "background_gradient": "",
-          "text_color": "#5c5c5c",
+          "text_color": "#452276",
           "primary_button_background": "#5c5c5c",
-          "primary_button_text_color": "#ffffff",
+          "primary_button_text_color": "#452276",
           "circle_button_background": "#ffffff",
           "circle_button_icon": "#5c5c5c"
         }

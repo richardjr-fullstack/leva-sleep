@@ -101,10 +101,10 @@
         "newsletter": {
           "type": "newsletter",
           "settings": {
-            "title": "Newsletter",
-            "content": "<p>Sign up to our newsletter to receive exclusive offers.</p>",
-            "button_background": "",
-            "button_text_color": ""
+            "title": "<strong>Signup Today!</strong>",
+            "content": "<p>Never miss out on the latest products and promotions coming to store.<br/><br/></p>",
+            "button_background": "#452276",
+            "button_text_color": "#ffffff"
           }
         }
       },
@@ -115,14 +115,14 @@
         "newsletter"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "separate_section_with_border": false,
-        "show_social_media": true,
-        "show_payment_icons": true,
-        "show_country_selector": true,
-        "show_country_name": true,
-        "show_country_flag": true,
-        "show_locale_selector": true
+        "show_social_media": false,
+        "show_payment_icons": false,
+        "show_country_selector": false,
+        "show_country_name": false,
+        "show_country_flag": false,
+        "show_locale_selector": false
       }
     }
   },

@@ -42,11 +42,11 @@
                   {%- if block.settings.title != blank or block.settings.content != blank or shop.features.follow_on_shop? and block.settings.enable_follow_on_shop -%}
                     <div class="v-stack gap-4 sm:gap-5">
                       {%- if block.settings.title != blank -%}
-                        <p class="h6">{{ block.settings.title }}</p>
+                        <h4 class="footer-title">{{ block.settings.title }}</h4>
                       {%- endif -%}
 
                       {%- if block.settings.content != blank -%}
-                        <div class="prose text-subdued">
+                        <div>
                           {{- block.settings.content -}}
                         </div>
                       {%- endif -%}
@@ -65,13 +65,13 @@
                   {%- if menu != blank and menu.links.size > 0 -%}
                     <div class="v-stack gap-4 sm:gap-5">
                       {%- if block.settings.show_menu_title != blank -%}
-                        <p class="h6">{{ block.settings.menu_title | default: menu.title }}</p>
+                        <h4 class="footer-title">{{ block.settings.menu_title | default: menu.title }}</h4>
                       {%- endif -%}
 
                       <ul class="v-stack gap-2.5 unstyled-list" role="list">
                         {%- for link in menu.links -%}
                           <li>
-                            <a href="{{ link.url }}" class="link-faded">{{ link.title }}</a>
+                            <a href="{{ link.url }}">{{ link.title }}</a>
                           </li>
                         {%- endfor -%}
                       </ul>
@@ -81,12 +81,12 @@
                 {%- when 'newsletter' -%}
                   <div class="v-stack gap-4 sm:gap-5">
                     {%- if block.settings.title != blank -%}
-                      <p class="h6">{{ block.settings.title }}</p>
+                      <h4 class="footer-title">{{ block.settings.title }}</h4>
                     {%- endif -%}
 
                     {%- if block.settings.content != blank -%}
-                      <div class="prose text-subdued">
-                        {{- block.settings.content -}}
+                      <div>
+                        <p>{{- block.settings.content -}}</p>
                       </div>
                     {%- endif -%}
 
@@ -114,27 +114,51 @@
                       {%- endif -%}
                     {%- endform -%}
                   </div>
+                {% when "get_in_touch" %}
+                  <div class="v-stack gap-4 sm:gap-5">
+                    <div class="v-stack gap-4 sm:gap-5h col-lg-{{ block.settings.cl }} col-md-{{ block.settings.cl_tb }} col-{{ block.settings.cl_mb }} order-{{ block.settings.order }}">
+                      {% if block.settings.image != blank %}
+                        <div class="footer__logo">
+                          <img 
+                            src="{{ block.settings.image | image_url: width: block.settings.logo_width }}" 
+                            alt="{{ block.settings.title | escape }}" 
+                            width="{{ block.settings.logo_width }}">
+                        </div>
+                      {% elsif block.settings.title != blank %}
+                        <h4 class="footer__heading">{{ block.settings.title }}</h4> 
+                      {% endif %}
 
-              {%- endcase -%}
+                      <div class="footer__content">
+                        {{ block.settings.content }}
+                      </div>
+
+                      {% if block.settings.social_mode == "3" %}
+                        <div class="footer__social-icons">
+                          {% for social_block in block.blocks %}
+                            {% if social_block.type == 'icon_link' %}
+                              <a href="{{ social_block.settings.link_url }}" aria-label="{{ social_block.settings.aria_label }}" target="_blank" rel="noopener">
+                                <i class="{{ social_block.settings.icon_class }}"></i>
+                              </a>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  {%- if section.settings.show_social_media -%}
+                    {%- render 'social-media', layout: 'list' -%}
+                  {%- endif -%}
+                {%- endcase -%}
             {%- endcapture -%}
 
             {%- if block_content != blank -%}
-              <div class="footer__block footer__block--{{ block.type | remove_first: '@' }}" {{ block.shopify_attributes }}>
+              <div class="footer__block footer__block--links footer__block--{{ block.type | remove_first: '@' }}" {{ block.shopify_attributes }}>
                 {{- block_content -}}
               </div>
             {%- endif -%}
           {%- endfor -%}
         </div>
-      {%- endif -%}
-
-      {%- comment -%}
-      ------------------------------------------------------------------------------------------------------------------
-      FOOTER SOCIAL MEDIA
-      ------------------------------------------------------------------------------------------------------------------
-      {%- endcomment -%}
-
-      {%- if section.settings.show_social_media -%}
-        {%- render 'social-media', layout: 'list' -%}
       {%- endif -%}
 
       {%- comment -%}
@@ -356,6 +380,120 @@
           "type": "color",
           "id": "button_text_color",
           "label": "t:global.colors.button_text"
+        }
+      ]
+    },
+    {
+      "type": "get_in_touch",
+      "name": "Get in touch",
+      "settings": [
+        {
+          "type": "header",
+          "content": "== Logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom logo",
+          "info": "190px wide recommended"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "label": "== Custom logo width",
+          "min": 50,
+          "max": 350,
+          "step": 5,
+          "unit": "px",
+          "default": 100
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Get in touch",
+          "info": "If you don't use logo, you can use text"
+        },
+        {
+          "type": "header",
+          "content": "== Get in touch"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "Content",
+          "default": "<p><i class=\"pegk pe-7s-map-marker\"></i><span>184 Main Rd E, St Albans <br><span class=\"pl__30\">VIC 3021, Australia</span></span></p><p><i class=\"pegk pe-7s-mail\"></i><span> <a href=\"mailto:contact@company.com\">contact@company.com</a></span></p><p><i class=\"pegk pe-7s-call\"></i> <span>+001 2233 456 </span></p>"
+        },
+        {
+          "type": "select",
+          "id": "social_mode",
+          "label": "Footer social:",
+          "default": "3",
+          "options": [
+            { "value": "1", "label": "Disable" },
+            { "value": "2", "label": "Share" },
+            { "value": "3", "label": "Follow" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "== Width settings"
+        },
+        {
+          "type": "select",
+          "id": "order",
+          "label": "Order position mobile, tablet",
+          "default": "1",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" },
+            { "value": "9", "label": "9" },
+            { "value": "10", "label": "10" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "cl",
+          "label": "Container width",
+          "default": "3",
+          "options": [
+            { "value": "12", "label": "100%" },
+            { "value": "8", "label": "66%" },
+            { "value": "6", "label": "50%" },
+            { "value": "4", "label": "33%" },
+            { "value": "3", "label": "25%" },
+            { "value": "15", "label": "20%" },
+            { "value": "2", "label": "16%" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "cl_tb",
+          "label": "Container width tablet",
+          "default": "6",
+          "options": [
+            { "value": "12", "label": "100%" },
+            { "value": "8", "label": "66%" },
+            { "value": "6", "label": "50%" },
+            { "value": "4", "label": "33%" },
+            { "value": "3", "label": "25%" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "cl_mb",
+          "label": "Container width mobile",
+          "default": "12",
+          "options": [
+            { "value": "12", "label": "100%" },
+            { "value": "6", "label": "50%" }
+          ]
         }
       ]
     }
