@@ -1,0 +1,225 @@
+<section class="container">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="section-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <p class="section-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <!-- Tabs -->
+    <div class="tab-buttons">
+      {% for block in section.blocks %}
+        <button class="tab-button" data-tab="{{ block.id }}">{{ block.settings.label }}</button>
+      {% endfor %}
+    </div>
+
+    <!-- Sliders -->
+    {% for block in section.blocks %}
+      {% assign collection = collections[block.settings.collection] %}
+      <div class="product-slider-wrapper" data-tab="{{ block.id }}" {% unless forloop.first %}style="display:none"{% endunless %}>
+        {% if collection.products.size > 0 %}
+          <div class="splide" id="splide-{{ block.id }}">
+            <div class="splide__track">
+              <ul class="splide__list">
+                {% for product in collection.products %}
+                  <li class="splide__slide">
+                    <a href="{{ product.url }}" class="product-card" style="text-decoration: none;">
+                      <div class="product-card__image-wrapper" style="position: relative;">
+                        <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
+                        
+                        {% if product.compare_at_price > product.price %}
+                          {% assign original_price = product.compare_at_price %}
+                          {% assign sale_price = product.price %}
+
+                          {% assign discount = original_price | minus: sale_price %}
+                          {% assign discount_percentage = discount | times: 100 | divided_by: original_price %}
+
+                          <div class="product-card__badge">
+                            <span class="product-card__discount">-{{ discount_percentage | round }}%</span>
+                          </div>
+                        {% endif %}
+                      </div>
+
+                      <div>
+                        <h3 class="product-card__title">{{ product.title }}</h3>
+                        <div class="product-card__price">
+                          {% if product.compare_at_price > product.price %}
+                            <span class="product-card__price--sale">{{ product.price | money }}</span>
+                          {% else %}
+                            <span class="product-card__price--regular">{{ product.price | money }}</span>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% else %}
+          <p>No products in {{ block.settings.label }}.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <style>
+    .product-card__badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background-color: #452276;
+      color: #fff !important;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      z-index: 10;
+    }
+    .section-heading {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .section-subheading {
+      text-align: center;
+      font-size: 1rem;
+      color: #777;
+      margin-bottom: 30px;
+    }
+    .tab-buttons {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .tab-button{
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    .tab-button.active {
+      padding: 10px 20px;
+      background: none;
+      border: 2px solid #000;
+    }
+    .splide__slide {
+      text-align: start !important;
+    }
+    .splide__slide img {
+      height: 200px;         
+      width: auto;          
+      display: block;      
+      object-fit: fill; 
+    }
+  </style>
+
+  <!-- Splide Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css" />
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Init all sliders
+      document.querySelectorAll('.splide').forEach(el => {
+        new Splide(el, {
+          type: 'slide',
+          perPage: 5,
+          perMove: 1,
+          gap: '20px',
+          pagination: false,
+          breakpoints: {
+            768: { perPage: 2 },
+            480: { perPage: 1 }
+          }
+        }).mount();
+      });
+
+      // Tab switching
+      const buttons = document.querySelectorAll(".tab-button");
+      const tabs = document.querySelectorAll(".product-slider-wrapper");
+
+      // Add active to first button
+      if (buttons.length) {
+        buttons[0].classList.add("active");
+      }
+
+      // Add click event to each tab button
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const target = button.dataset.tab;
+
+          // Remove active from all buttons, then add to clicked
+          buttons.forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          // Show the clicked tab, hide the others
+          tabs.forEach(tab => {
+            tab.style.display = tab.dataset.tab === target ? 'block' : 'none';
+          });
+        });
+      });
+    });
+  </script>
+</section>
+
+
+{% schema %}
+{
+  "name": "Tabbed Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore Our Collections"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Choose a category to explore products"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab Label",
+          "default": "Adjustable Beds"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabbed Collection Slider",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Adjustable Beds"
+          }
+        },
+        {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Mattresses"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
