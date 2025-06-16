@@ -77,10 +77,20 @@ Supported variables
       -%}
     </div>
 
-    {%- if display_mode == 'count' -%}
-      <span class="smallcaps text-xxs text-subdued">({{ rating_count }})</span>
-    {%- else -%}
-      <span class="smallcaps text-xxs text-subdued">({{ rating_value }})</span>
-    {%- endif -%}
+    <span class="reviews-text">
+      {{ rating_count }}
+      {% if rating_count == 1 %}
+        review
+      {% else %}
+        reviews
+      {% endif %}
+    </span>
   </span>
 {%- endunless -%}
+
+<style>
+  .reviews-text {
+    font-size: 14px;
+    color: #5a5a5a;
+  }
+</style>

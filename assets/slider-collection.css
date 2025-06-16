@@ -1,0 +1,100 @@
+.slider-title {
+  text-align: center;
+}
+.product-card__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #452276;
+  color: #fff !important;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  z-index: 10;
+}
+.product-card__price--sale, 
+.product-card__price--regular{
+  color: #452276;
+}
+.product-card__title {
+  font-size: 16px;  
+  font-weight: 500;
+}
+.product-card__price {
+  color: #000000;
+}
+.section-subheading {
+  text-align: center;
+  font-size: 1rem;
+  color: #777;
+  width: 80%;
+  margin: 30px auto;
+}
+.section-heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  position: relative;
+    display: inline-block;
+  padding: 0 20px;
+}
+.section-heading::before,
+.section-heading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 2px;
+  background-color: #000;
+}
+
+.section-heading::before {
+  left: -60px;
+}
+
+.section-heading::after {
+  right: -60px;
+}
+.tab-buttons {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.tab-button{
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  color: #878787;
+}
+.tab-button.active {
+  padding: 10px 20px;
+  background: none;
+  border: 1px solid #222;
+  color: #222222;
+}
+.splide__slide {
+  text-align: start !important;
+}
+.splide__slide img {
+  height: 200px;         
+  width: auto;          
+  display: block;      
+  object-fit: fill; 
+}
+.splide__arrow {
+  background: transparent;
+  border: 1px solid #222;
+  color: #222;
+}
+@media (max-width: 600px) {
+    .splide__slide img {
+      height: 300px;
+      width: auto;
+      display: block;
+      object-fit: fill;
+    }
+    .product-slider-wrapper {
+      padding: 20px;
+    }
+}

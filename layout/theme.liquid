@@ -38,6 +38,61 @@
       <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
     {%- endif -%}
 
+    <!-- Splide Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css" />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.splide').forEach(el => {
+          new Splide(el, {
+            type: 'slide',
+            perPage: 5,
+            perMove: 1,
+            gap: '20px',
+            pagination: false,
+            breakpoints: {
+              768: { 
+                perPage: 2,
+                gap: '10px',
+                focus: 'center'
+              },
+              480: { 
+                perPage: 1,
+                gap: '10px',
+                focus: 'center'
+               }
+            }
+          }).mount();
+        });
+
+        // Tab switching
+        const buttons = document.querySelectorAll(".tab-button");
+        const tabs = document.querySelectorAll(".product-slider-wrapper");
+
+        // Add active to first button
+        if (buttons.length) {
+          buttons[0].classList.add("active");
+        }
+
+        // Add click event to each tab button
+        buttons.forEach(button => {
+          button.addEventListener("click", () => {
+            const target = button.dataset.tab;
+
+            // Remove active from all buttons, then add to clicked
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            // Show the clicked tab, hide the others
+            tabs.forEach(tab => {
+              tab.style.display = tab.dataset.tab === target ? 'block' : 'none';
+            });
+          });
+        });
+      });
+    </script>
+
     <script type="importmap">
       {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
       {
@@ -55,7 +110,9 @@
     {{ content_for_header }}
 
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
-    
+    {{- 'slider-collection.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'global.css' | asset_url | stylesheet_tag: preload: true -}}
+
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 

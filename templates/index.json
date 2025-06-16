@@ -16,7 +16,7 @@
           "type": "heading",
           "settings": {
             "text": "Our Demos Days Mega Sale Is On Now!",
-            "heading_tag": "h1"
+            "heading_tag": "h4"
           }
         },
         "richtext_j6ngWD": {
@@ -50,115 +50,58 @@
         "allow_transparent_header": false,
         "reveal_on_scroll": true,
         "remove_vertical_spacing": true,
-        "content_width": "md",
-        "mobile_text_position": "place-self-center text-center",
+        "content_width": "lg",
+        "mobile_text_position": "place-self-start-center text-center",
         "desktop_text_position": "sm:place-self-center-end sm:text-end",
         "overlay_color": "#000000",
         "overlay_opacity": 30
       }
     },
-    "featured_collections_TMwA8J": {
-      "type": "featured-collections",
+    "slideshow_bWbid8": {
+      "type": "slideshow",
       "blocks": {
-        "collection_MFNatK": {
-          "type": "collection",
+        "image_3JdqLC": {
+          "type": "image",
           "settings": {
-            "collection": "weekend-deals-feature",
-            "products_count": 6,
+            "image": "shopify://shop_images/Shopify_Homepage_Badges_desktopv2.png",
+            "mobile_image": "shopify://shop_images/Shopify_Homepage_Badges_Mobile_V3.png",
+            "subheading": "",
             "title": "",
-            "link_url": "",
-            "link_text": "View all"
+            "mobile_text_position": "place-self-center text-center",
+            "desktop_text_position": "sm:place-self-center sm:text-center",
+            "content_max_width": 780,
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_1_style": "solid",
+            "button_1_background": "#ffffff",
+            "button_1_text_color": "#ffffff",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_style": "outline",
+            "button_2_background": "#ffffff",
+            "button_2_text_color": "#000000",
+            "background": "",
+            "background_opacity": 12,
+            "text_color": "#ffffff",
+            "border_color": "",
+            "gradient_overlay": "linear-gradient(180deg, rgba(136, 136, 136, 0.2) 100%, rgba(214, 211, 211, 0.2) 100%)"
           }
         }
       },
       "block_order": [
-        "collection_MFNatK"
+        "image_3JdqLC"
       ],
-      "name": "t:sections.featured_collections.presets.featured_collections.name",
+      "name": "t:sections.slideshow.presets.slideshow.name",
       "settings": {
-        "color_scheme": "",
-        "separate_section_with_border": true,
-        "hide_product_information": false,
-        "stack_products": false,
-        "products_per_row_mobile": "2",
-        "products_per_row_desktop": 4,
-        "horizontal_spacing_factor": 1,
-        "vertical_spacing_factor": 1,
-        "subheading": ""
-      }
-    },
-    "collection_list_hzPEUx": {
-      "type": "collection-list",
-      "blocks": {
-        "collection_HBEJDM": {
-          "type": "collection",
-          "settings": {
-            "color_scheme": "",
-            "collection": "adjustable-bed-packages",
-            "image": "shopify://shop_images/tempurpedic_t2_proadapt_hybrid_silo_adjustablebase_tempur-ergoextend_threequarter_outline_queen_nov17_5x7_261218095103613094.png",
-            "expand_collection": false,
-            "content_position": "place-self-end-start text-start",
-            "subheading": "",
-            "title": "Adjustable Bed Packages",
-            "button_text": "View products",
-            "button_link": "",
-            "button_style": "solid",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "collection_nzpYHQ": {
-          "type": "collection",
-          "settings": {
-            "color_scheme": "",
-            "collection": "adjustable-bases",
-            "expand_collection": false,
-            "content_position": "place-self-end-start text-start",
-            "subheading": "",
-            "title": "Adjustable Bases",
-            "button_text": "View products",
-            "button_link": "",
-            "button_style": "solid",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "collection_iTHx4H": {
-          "type": "collection",
-          "settings": {
-            "color_scheme": "",
-            "collection": "mattresses",
-            "image": "shopify://shop_images/tempurpedic_t2_proadapt_hybrid_silo_adjustablebase_tempur-ergoextend_threequarter_outline_queen_nov17_5x7_261218095103613094.png",
-            "expand_collection": false,
-            "content_position": "place-self-end-start text-start",
-            "subheading": "",
-            "title": "Mattresses",
-            "button_text": "View products",
-            "button_link": "",
-            "button_style": "solid",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        }
-      },
-      "block_order": [
-        "collection_HBEJDM",
-        "collection_nzpYHQ",
-        "collection_iTHx4H"
-      ],
-      "name": "t:sections.collection_list.presets.collection_list.name",
-      "settings": {
-        "color_scheme": "",
-        "separate_section_with_border": true,
-        "image_size": "auto",
-        "show_text_outside": false,
-        "space_items": true,
-        "stack_collections": true,
-        "collections_per_row_mobile": "1",
-        "collections_per_row_desktop": 3,
-        "subheading": "",
-        "title": "<strong>Explore Our Products</strong>",
-        "content": ""
+        "allow_transparent_header": false,
+        "show_next_section_button": false,
+        "media_size": "auto",
+        "show_initial_transition": false,
+        "autoplay": false,
+        "autoplay_pause_on_video": false,
+        "cycle_speed": 5,
+        "background": "#ffffff",
+        "controls_color": "#ffffff"
       }
     },
     "image_with_text_Uwaj3W": {
@@ -191,13 +134,13 @@
       ],
       "name": "t:sections.image_with_text.presets.image_with_text.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-dc4531c7-5f18-4703-9d98-0a54d766a977",
         "separate_section_with_border": true,
         "image": "shopify://shop_images/2023.11.27_The_Leva_Sleep_Difference_w._disclaimer.png",
         "reveal_on_scroll": true,
-        "image_position": "start",
-        "content_width": "md",
-        "remove_vertical_spacing": false
+        "image_position": "end",
+        "content_width": "lg",
+        "remove_vertical_spacing": true
       }
     },
     "testimonials_rTAUXh": {
@@ -251,23 +194,15 @@
     "image_with_text_overlay_hCHUCQ": {
       "type": "image-with-text-overlay",
       "blocks": {
-        "heading_737fzy": {
-          "type": "heading",
+        "liquid_neWxdR": {
+          "type": "liquid",
           "settings": {
-            "text": "",
-            "heading_tag": "h4"
-          }
-        },
-        "richtext_nmKKcf": {
-          "type": "richtext",
-          "settings": {
-            "content": "<p>Leva Sleep is thrilled to announce the addition of Interest Free Financing with Paybright. Get the adjustable bed you want now and pay later!</p>"
+            "liquid": "<h3 id=\"b_1644155622ffd2f074-1\" class=\"slt4_h3 lh__1 mg__0\"><img src=\"https://cdn.shopify.com/s/files/1/0256/8270/6495/files/Leva-Sleep-Logo.png?v=1644115008\" alt=\"Leva Sleep\" width=\"200\" height=\"83\"><br><br>Leva Sleep is thrilled to announce <br>the addition of Interest Free Financing <br>with Paybright. Get the adjustable bed <br>you want now and pay later!</h3>"
           }
         }
       },
       "block_order": [
-        "heading_737fzy",
-        "richtext_nmKKcf"
+        "liquid_neWxdR"
       ],
       "name": "t:sections.image_with_text_overlay.presets.image_with_text_overlay.name",
       "settings": {
@@ -280,18 +215,71 @@
         "remove_vertical_spacing": true,
         "content_width": "xs",
         "mobile_text_position": "place-self-center text-center",
-        "desktop_text_position": "sm:place-self-center-start sm:text-start",
+        "desktop_text_position": "sm:place-self-start sm:text-start",
         "overlay_color": "#000000",
         "overlay_opacity": 30
+      }
+    },
+    "slider_collection_NpTt8F": {
+      "type": "slider-collection",
+      "blocks": {
+        "collection_tab_kUkc8N": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Adjustable Bed Packages",
+            "collection": "adjustable-bed-packages"
+          }
+        },
+        "collection_tab_dT6iNp": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Adjustable Bases",
+            "collection": "adjustable-bases"
+          }
+        },
+        "collection_tab_Bix4jd": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Mattresses",
+            "collection": "mattresses"
+          }
+        },
+        "collection_tab_pRPDWn": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Accessories",
+            "collection": "pillows-accessories"
+          }
+        },
+        "collection_tab_a7UQCM": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Bed Frames",
+            "collection": "headboards-bedframes"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_kUkc8N",
+        "collection_tab_dT6iNp",
+        "collection_tab_Bix4jd",
+        "collection_tab_pRPDWn",
+        "collection_tab_a7UQCM"
+      ],
+      "name": "Tabbed Collection Slider",
+      "settings": {
+        "color_scheme": "scheme-dc4531c7-5f18-4703-9d98-0a54d766a977",
+        "heading": "The Last Bed You Will Ever Buy",
+        "subheading": "Your sleep needs change as you age, which is why replacing your bed every 10 years is recommendedUnless you buy a Leva Sleep adjustable bed that is! We offer an industry leading 25 Year Warranty and our adjustable bed framesallow you to change your sleep surface as your sleep needs change. Making this the last bed you will ever buy!"
       }
     }
   },
   "order": [
     "image_with_text_overlay_bfV39q",
-    "featured_collections_TMwA8J",
-    "collection_list_hzPEUx",
+    "slideshow_bWbid8",
     "image_with_text_Uwaj3W",
     "testimonials_rTAUXh",
-    "image_with_text_overlay_hCHUCQ"
+    "image_with_text_overlay_hCHUCQ",
+    "slider_collection_NpTt8F"
   ]
 }
