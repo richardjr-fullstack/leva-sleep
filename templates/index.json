@@ -104,6 +104,15 @@
         "controls_color": "#ffffff"
       }
     },
+    "hot_buys_nw9niL": {
+      "type": "hot-buys",
+      "name": "Hot Buys",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "heading": "The Big One Hot Buys",
+        "collection": "weekend-deals-feature"
+      }
+    },
     "image_with_text_Uwaj3W": {
       "type": "image-with-text",
       "blocks": {
@@ -277,6 +286,7 @@
   "order": [
     "image_with_text_overlay_bfV39q",
     "slideshow_bWbid8",
+    "hot_buys_nw9niL",
     "image_with_text_Uwaj3W",
     "testimonials_rTAUXh",
     "image_with_text_overlay_hCHUCQ",

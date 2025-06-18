@@ -52,12 +52,12 @@
             gap: '20px',
             pagination: false,
             breakpoints: {
-              768: { 
+              768: {
                 perPage: 2,
                 gap: '10px',
                 focus: 'center'
               },
-              480: { 
+              480: {
                 perPage: 1,
                 gap: '10px',
                 focus: 'center'
@@ -93,6 +93,18 @@
       });
     </script>
 
+    <!-- Hot buys -->
+    <script>
+      document.querySelectorAll('.quick-shop-button').forEach(button => {
+        button.addEventListener('click', function () {
+          const handle = this.getAttribute('data-product-handle');
+          // Trigger Prestige's modal or a custom quick shop modal
+          console.log('Open quick shop for', handle);
+        });
+      });
+    </script>
+
+
     <script type="importmap">
       {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
       {
@@ -110,6 +122,7 @@
     {{ content_for_header }}
 
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'hot-buys.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'slider-collection.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'global.css' | asset_url | stylesheet_tag: preload: true -}}
 
@@ -122,11 +135,11 @@
 
   {% liquid
     assign features_class = ''
-  
+
     if settings.show_button_transition
       assign features_class = features_class | append: 'features--button-transition '
     endif
-  
+
     if settings.show_image_zoom_on_hover
       assign features_class = features_class | append: 'features--zoom-image '
     endif

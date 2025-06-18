@@ -1,0 +1,86 @@
+{%- liquid
+  if hide_product_information
+    assign show_rating = false
+    assign show_vendor = false
+    assign show_title = false
+    assign show_prices = false
+  else
+    assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true
+    assign show_vendor = show_vendor | default: settings.show_vendor, allow_false: true
+    assign show_title = true
+    assign show_prices = true
+  endif
+-%}
+
+{% comment %}
+  Demo Days Mega Sale Hot Buys - Custom Section
+{% endcomment %}
+<section class="color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
+  <div class="page-width container">
+      <div class="hotbuy-title">
+      {% if section.settings.heading != blank %}
+        <h2 class="section-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+    </div>
+    <div class="hot-buys-products">
+      {% assign collection_handle = section.settings.collection %}
+      {% assign collection = collections[collection_handle] %}
+
+      {% if collection and collection.products.size > 0 %}
+        {% for product in collection.products limit: 6 %}
+          <div class="hot-buy-card">
+            <div class="hot-buy-image">
+              <a href="{{ product.url }}">
+                <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title }}">
+              </a>
+              {% if product.compare_at_price > product.price %}
+                {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+                <span class="discount-badge">-{{ discount | round }}%</span>
+              {% endif %}
+            </div>
+            <div class="hot-buy-info">
+              <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+              <p class="price">
+                from {{ product.price | money }}
+              </p>
+                {%- if show_rating -%}
+                    {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
+                {%- endif -%}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No products found in this collection.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hot Buys",
+  "settings": [
+        {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:global.colors.scheme"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore Our Collections"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Choose Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hot Buys"
+    }
+  ]
+}
+{% endschema %}
