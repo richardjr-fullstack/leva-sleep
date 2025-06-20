@@ -121,10 +121,15 @@
 
     {{ content_for_header }}
 
+    <!-- Styling files -->
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'hot-buys.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'slider-collection.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'global.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'explore-products.css' | asset_url | stylesheet_tag: preload: true -}}
+
+    <!-- Judge Testimonial -->
+    {% render 'judgeme_core' %}
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />

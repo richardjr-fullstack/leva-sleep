@@ -1,0 +1,77 @@
+<div class="explore-products-section">
+  <div class="container">
+    <h2 class="section-heading">{{ section.settings.section_title }}</h2>
+    <div class="product-cards">
+      {% for block in section.blocks %}
+        {% assign collection = block.settings.collection %}
+        <div class="explore-card">
+          {% if block.settings.custom_image != blank %}
+            <img src="{{ block.settings.custom_image | img_url: '600x' }}" alt="{{ block.settings.custom_title }}">
+          {% elsif collection.featured_image %}
+            <img src="{{ collection.featured_image | img_url: '600x' }}" alt="{{ collection.title }}">
+          {% endif %}
+          <a href="{{ collection.url }}"><h3>{{ block.settings.custom_title }}</h3></a>
+          <p>{{ block.settings.description }}</p>
+          <a href="{{ collection.url }}" class="product-button">{{ block.settings.button_label }}</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Explore Our Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Explore Our Products"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Product Block",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Select Custom Image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom Title",
+          "default": "Collection Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Add a short description here."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Explore Our Products",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
