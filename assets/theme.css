@@ -5492,10 +5492,6 @@ product-rerender {
     align-items: center;
   }
 
-  .image-with-text > .prose {
-    padding-inline-start: var(--image-with-text-gap);
-  }
-
   .image-with-text:not(.image-with-text--reverse) picture {
     margin-inline-start: auto;
   }
@@ -5506,7 +5502,6 @@ product-rerender {
 
   .image-with-text--reverse > .prose {
     margin-inline-start: auto;
-    padding-inline-end: var(--image-with-text-gap);
   }
 }
 

@@ -32,11 +32,11 @@
     }
   </style>
 
-  <height-observer variable="announcement-bar" class="prestige-announcement">
+  <height-observer variable="announcement-bar" class="prestige-announcement color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
       <div>
        <p>{{ section.settings.content }}</p>
       </div>
-    <div class="announcement-bar color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
+    <div class="announcement-bar">
       {%- assign carousel_id = 'carousel-' | append: section.id -%}
 
       {% comment %} {%- if section.blocks.size > 1 -%}

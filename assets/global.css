@@ -4,10 +4,16 @@ h1, h2, h3, h4, h5, h6,
   font-family: 'Poppins', sans-serif !important;
 }
 
-p, span {
+span, .content {
   font-family: 'Quicksand', sans-serif;
   font-size: 14px;
   font-weight: 500;
+  color: #333;
+}
+
+.content-spacing {
+  margin: 0 30%;  
+  width: 100%;
 }
 
 .h4 {
@@ -45,10 +51,18 @@ h4 {
       line-height: 35px;
       font-size: 23px;
     }
+    .content-spacing {
+      margin: 0 20%;
+      width: 80%;
+    }
 }
 @media (max-width: 600px) {
     .container {
         max-width: 100%;
         padding: 30px 0;
+    }
+    .content-spacing {
+      margin: 20% 0 0 0;
+      width: 100%;
     }
 }

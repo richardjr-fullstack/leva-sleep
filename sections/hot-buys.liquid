@@ -29,25 +29,101 @@
       {% if collection and collection.products.size > 0 %}
         {% for product in collection.products limit: 6 %}
           <div class="hot-buy-card">
-            <div class="hot-buy-image">
-              <a href="{{ product.url }}">
-                <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title }}">
+            <div class="hot-buy-media-wrapper">
+              <a href="{{ product.url }}" class="hot-buy-media-link">
+                <img
+                  src="{{ product.featured_image | img_url: '600x600' }}"
+                  alt="{{ product.title }}"
+                  class="primary-image"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+                {% if product.images.size > 1 %}
+                  <img
+                    src="{{ product.images[1] | img_url: '600x600' }}"
+                    alt="{{ product.title }} second image"
+                    class="secondary-image"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {% endif %}
               </a>
+
+              <!-- Size -->
+              {% assign size_option = product.options_with_values | where: "name", "Size" | first %}
+
+              {% if size_option %}
+                {% assign size_index = size_option.position | minus: 1 %}
+                {% assign sizes = '' %}
+                {% assign default_size = product.variants.first.options[size_index] %}
+
+                {% for variant in product.variants %}
+                  {% assign size_value = variant.options[size_index] %}
+                  {% unless sizes contains size_value %}
+                    {% assign sizes = sizes | append: size_value | append: ',' %}
+                  {% endunless %}
+                {% endfor %}
+
+                {% assign size_array = sizes | split: ',' | uniq %}
+                <div class="product-sizes">
+                  {% for size in size_array %}
+                    <span class="size-label{% if size == default_size %} selected{% endif %}">
+                      {{ size }}
+                    </span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+              <!-- Wishlist icon -->
+              <div class="wishlist-icon" data-tooltip="Add to Wishlist">
+                <i class="fa fa-heart"></i>
+              </div>
+
+              <!-- QuickView icon -->
+              <div 
+                class="quickview-icon" 
+                data-tooltip="Quick View" 
+                data-product-handle="{{ product.handle }}">
+                <i class="fa fa-eye"></i>
+              </div>
+
+              <!-- QuickView modal (once, typically in theme.liquid) -->
+              <div id="quickview-modal" class="quickview-modal" style="display: none;">
+                <div class="quickview-content"></div>
+              </div>
+              <div id="quickview-loader" class="quickview-loader" style="display: none;">
+                Loading...
+              </div>
+
+
+              <!-- Quick shop -->
+              <div class="quick-shop-btn">
+                Quick Shop
+              </div>
+
               {% if product.compare_at_price > product.price %}
                 {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
                 <span class="discount-badge">-{{ discount | round }}%</span>
               {% endif %}
             </div>
+
             <div class="hot-buy-info">
               <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
-              <p class="price">
-                from {{ product.price | money }}
-              </p>
-                {%- if show_rating -%}
-                    {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
-                {%- endif -%}
+              <p class="price">from {{ product.price | money }}</p>
+              {%- if show_rating -%}
+                {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
+              {%- endif -%}
             </div>
           </div>
+
+
+
+
+
+
+
         {% endfor %}
       {% else %}
         <p>No products found in this collection.</p>

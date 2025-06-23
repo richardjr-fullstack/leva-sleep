@@ -104,6 +104,15 @@
       });
     </script>
 
+    <!-- Wishlist -->
+    <script>
+      document.querySelectorAll('.hot-buy-wishlist').forEach(el => {
+        el.addEventListener('click', () => {
+          alert('Added to wishlist! (mock)');
+          // You can integrate your actual wishlist app logic here
+        });
+      });
+    </script>
 
     <script type="importmap">
       {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
@@ -120,6 +129,46 @@
     <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
 
     {{ content_for_header }}
+
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.quickview-icon').forEach(function (el) {
+    el.addEventListener('click', function () {
+      const handle = el.getAttribute('data-product-handle');
+      const url = `/products/${handle}?view=quick_view`;
+
+      const modal = document.getElementById('quickview-modal');
+      const content = modal.querySelector('.quickview-content');
+      const loader = document.getElementById('quickview-loader');
+
+      loader.style.display = 'block';
+      modal.style.display = 'flex';
+
+      fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          content.innerHTML = html;
+          loader.style.display = 'none';
+        })
+        .catch(() => {
+          content.innerHTML = '<p>Failed to load product.</p>';
+          loader.style.display = 'none';
+        });
+    });
+  });
+
+  // Close modal on background click
+  document.addEventListener('click', function (e) {
+    const modal = document.getElementById('quickview-modal');
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      modal.querySelector('.quickview-content').innerHTML = '';
+    }
+  });
+});
+</script>
+
 
     <!-- Styling files -->
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}

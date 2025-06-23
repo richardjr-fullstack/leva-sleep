@@ -5,11 +5,11 @@
   ------------------------------------------------------------------------------------------------------------------------
   {%- endcomment -%}
 
-  <style>
+  {% comment %} <style>
     #shopify-section-{{ section.id }} {
       --image-with-text-content-max-width: {% if section.settings.content_width == 'sm' %}430px{% elsif section.settings.content_width == 'md' %}780px{% else %}100%{% endif %};
     }
-  </style>
+  </style> {% endcomment %}
 
   {%- comment -%}
   ------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@
 
             {%- when 'richtext' -%}
               {%- if block.settings.content != blank -%}
-                <div {{ block.shopify_attributes }}>
+                <div class="content" {{ block.shopify_attributes }}>
                   {{- block.settings.content -}}
                 </div>
               {%- endif -%}
@@ -77,7 +77,7 @@
             {%- when 'link' -%}
               <a {% if block.settings.url %}href="{{ block.settings.url }}"{% endif %} class="link" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</a>
 
-            {%- when 'button' -%}
+                {%- when 'button' -%}
               {%- if block.settings.text != blank -%}
                 {% render 'button', content: block.settings.text, href: block.settings.url, style: block.settings.style, background: block.settings.background, text_color: block.settings.text_color, block: block %}
               {%- endif -%}
