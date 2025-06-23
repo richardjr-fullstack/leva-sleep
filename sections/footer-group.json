@@ -77,7 +77,7 @@
         "links": {
           "type": "links",
           "settings": {
-            "menu": "adjustable-bed-bedding",
+            "menu": "catalogue",
             "show_menu_title": true,
             "menu_title": ""
           }
