@@ -220,6 +220,17 @@ height-observer .is-solid {
   padding: 0 20px;
 }
 
+
+@media screen and (max-width: 600px) {
+  .prestige-announcement {
+    display: grid ;
+    grid-template-columns: 1fr;
+  }
+  .prestige-announcement > div > p {
+    text-align: center;
+  }
+}
+
 .color-scheme {
   background-color: rgb(var(--background));
   background-image: var(--background-gradient);
@@ -4902,6 +4913,15 @@ product-rerender {
 @media screen and (max-width: 699px) {
   .header__nav-icon {
     width: 1.375rem;
+  }
+  .footer {
+    padding: 20px;
+  }
+
+  .contact-inline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

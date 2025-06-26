@@ -75,3 +75,24 @@
   transition: 0.8s;
 }
 
+@media screen and (max-width: 600px) {
+  .section-heading {
+    font-size: 22px;
+    margin-bottom: unset;
+  }
+  .product-cards {
+    flex-direction: column;
+  }
+  .explore-products-section {
+    padding: 0 20px;
+  }
+  .section-heading::before {
+    left: -3px;
+  }
+  .section-heading::before, .section-heading::after {
+    width: 10px;
+  }
+  .section-heading::after {
+      right: -3px;
+  }
+}
