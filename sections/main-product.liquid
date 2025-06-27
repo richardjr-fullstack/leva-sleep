@@ -40,8 +40,8 @@
 {%- assign color_scheme_hash = section.settings.color_scheme.settings.background_gradient | default: section.settings.color_scheme.settings.background | md5 -%}
 {%- capture product_form_id -%}product-form-main-{{ product.id }}-{{ section.id }}{%- endcapture -%}
 
-<div class="section-spacing section-spacing--tight color-scheme color-scheme--{{ section.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }}">
-  <div class="container {% unless section.settings.container_size == 'full' %}container--{{ section.settings.container_size }}{% endunless %}">
+<div class="section-spacing--tight color-scheme color-scheme--{{ section.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }}">
+  <div>
     <product-rerender id="product-info-{{ product.id }}-{{ section.id }}" observe-form="{{ product_form_id }}" allow-partial-rerender>
       <div class="product">
         {%- if product.media.size > 0 -%}
@@ -94,9 +94,9 @@
                       render 'accordion', title: accordion_title, content: accordion_content, size: 'lg', prose_content: true, icon: block.settings.icon, custom_icon: block.settings.custom_icon, block: block
                     endif
                   -%}
-
                 {%- when 'complementary_products' -%}
-                  {%- render 'complementary-products', product: product, block: block -%}
+                  {%- render 'complementary-products', product: pro
+                  duct, block: block -%}
               {%- endcase -%}
             {%- endfor -%}
           </div>
@@ -105,6 +105,8 @@
     </product-rerender>
   </div>
 </div>
+{% comment %} Product Accordion {% endcomment %}
+{% render 'product-accordion' %}
 
 {%- if section.settings.show_sticky_add_to_cart and product.available -%}
   <product-rerender id="{{ product_form_id }}-sticky-bar" observe-form="{{ product_form_id }}">

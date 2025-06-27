@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "icon_stroke_width": 1.5,
     "section_vertical_spacing": "md",
     "modal_color_scheme": "scheme-2",
     "product_rating_color": "#ed8a00",
@@ -25,6 +26,8 @@
     "text_font_size_desktop": 14,
     "button_text_font": "body",
     "button_letter_spacing": 18,
+    "show_discount": true,
+    "discount_mode": "saving",
     "cart_icon": "shopping_bag",
     "content_for_index": [],
     "color_schemes": {

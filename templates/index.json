@@ -42,7 +42,6 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Leva_Website_Banner_Images-05.jpg",
-            "mobile_image": "shopify://shop_images/Leva_Website_Banner_Images-01.jpg",
             "subheading": "Save Up To 80% On New And Demo Discontinued Model!Only While Stock available*",
             "title": "<strong>Our Demos Days Mega Sale Is On Now!</strong>",
             "mobile_text_position": "place-self-center text-center",
@@ -89,7 +88,7 @@
         "image_3JdqLC": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Shopify_Homepage_Badges_desktopv2.png",
+            "image": "shopify://shop_images/Shopify_Homepage_Badges_desktopV3.png",
             "mobile_image": "shopify://shop_images/Shopify_Homepage_Badges_Mobile_V3.png",
             "subheading": "",
             "title": "",

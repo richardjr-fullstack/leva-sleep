@@ -30,10 +30,9 @@ Supported variables
     }
   {%- endif -%}
 
-  @media screen and (min-width: 1000px) {
+  /* @media screen and (min-width: 1000px) {
     #shopify-section-{{ section.id }} {
       {%- if desktop_layout == 'carousel_thumbnails_left' or desktop_layout == 'grid' -%}
-        /* Thumbnails on the left */
         --product-gallery-flex-direction: row-reverse;
         --product-gallery-thumbnail-list-grid-auto-flow: row;
 
@@ -58,7 +57,7 @@ Supported variables
         grid-column: span 1;
       }
     {%- endif -%}
-  }
+  } */
 </style>
 
 {%- comment -%}
@@ -148,18 +147,20 @@ only way to do it on Shopify right now.
           -%}
 
           {%- for media in product.media -%}
-            <div class="product-gallery__media snap-center {% if media == default_media %}is-initial{% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}" role="group" aria-label="{{ 'general.accessibility.item_nth_of_count' | t: index: media.position, count: product.media.size }}" {% if filtered_indexes contains media.position %}hidden{% endif %}>
-              {%- if default_media == media -%}
-                {%- assign preload = true -%}
-              {%- else -%}
-                {%- assign preload = false -%}
-              {%- endif -%}
+            <div class="sample102">
+              <div class="sample101 product-gallery__media snap-center {% if media == default_media %}is-initial{% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}" role="group" aria-label="{{ 'general.accessibility.item_nth_of_count' | t: index: media.position, count: product.media.size }}" {% if filtered_indexes contains media.position %}hidden{% endif %}>
+                {%- if default_media == media -%}
+                  {%- assign preload = true -%}
+                {%- else -%}
+                  {%- assign preload = false -%}
+                {%- endif -%}
 
-              {%- comment -%}
-              NOTE: for the product gallery, the autoplay does not work in a similar way. It is always false at the product level,
-              and the product-gallery component itself will autoplay (if needed)
-              {%- endcomment -%}
-              {%- render 'media', media: media, sizes: sizes, preload: preload, controls: true, playsinline: true, muted: enable_media_autoplay, loop: enable_video_looping, group: 'product', product: product -%}
+                {%- comment -%}
+                NOTE: for the product gallery, the autoplay does not work in a similar way. It is always false at the product level,
+                and the product-gallery component itself will autoplay (if needed)
+                {%- endcomment -%}
+                {%- render 'media', media: media, sizes: sizes, preload: preload, controls: true, playsinline: true, muted: enable_media_autoplay, loop: enable_video_looping, group: 'product', product: product -%}
+              </div>
             </div>
           {%- endfor -%}
         {%- else -%}

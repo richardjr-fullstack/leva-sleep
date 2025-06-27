@@ -254,6 +254,23 @@
 }
 
 
+/* Add overlay via pseudo-element */
+.sample101 {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.sample101::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1); /* #0000001a */
+  transition: background 0.3s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .product-sizes {
   position: absolute;
   bottom: 50px;

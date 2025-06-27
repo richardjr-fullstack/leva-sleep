@@ -240,10 +240,6 @@ height-observer .is-solid {
   display: block;
 }
 
-.accordion {
-  border-block-width: 1px;
-}
-
 .accordion :is(svg) {
   transition: transform .2s;
 }
@@ -5910,7 +5906,7 @@ product-rerender {
 
 @media screen and (min-width: 1150px) {
   .product {
-    --product-gap: 5rem;
+    --product-gap: 2rem;
   }
 }
 
@@ -5961,7 +5957,15 @@ product-rerender {
 }
 
 .product-gallery__media > * {
-  width: 100%;
+    aspect-ratio: 4 / 3.1;
+    max-width: 900px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
+    scroll-snap-align: center;
 }
 
 .product-gallery__thumbnail-list {
@@ -6034,6 +6038,10 @@ product-rerender {
   --product-info-gap: 1rem;
   z-index: 2;
   grid-area: product-info;
+}
+
+.product-info__block-list {
+  padding: 0 20px;
 }
 
 .product-info__block-list > :not(:nth-child(1 of :not(:empty))) {
