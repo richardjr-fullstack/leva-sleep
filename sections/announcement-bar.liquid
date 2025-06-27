@@ -36,9 +36,9 @@
       <div>
        <p>{{ section.settings.content }}</p>
       </div>
+
     <div class="announcement-bar">
       {%- assign carousel_id = 'carousel-' | append: section.id -%}
-
       {% comment %} {%- if section.blocks.size > 1 -%}
         <carousel-prev-button aria-controls="{{ carousel_id }}" class="contents">
           <button type="button" class="tap-area">
