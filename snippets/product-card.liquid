@@ -22,7 +22,6 @@ Supported variables
 * hide_product_information: if set to true, all content (vendor, badge, title...) are not rendered, to create image-based grid
 * quick_buy_context: a unique text to dissociate quick buy if the same product is embedded multiple times
 {%- endcomment -%}
-
 {%- liquid
   if hide_product_information
     assign show_badges = false
@@ -54,9 +53,11 @@ Supported variables
 
   {%- if product.media.size > 0 -%}
     <div class="product-card__figure">
-      {%- if show_badges -%}
-        {%- render 'product-badges', product: product, vertical: true, context: 'card' -%}
-      {%- endif -%}
+      {%- unless is_related_product -%}
+        {%- if show_badges -%}
+          {%- render 'product-badges', product: product, vertical: true, context: 'card' -%}
+        {%- endif -%}
+      {%- endunless -%}
 
       <a href="{{ product.url }}" class="product-card__media" draggable="false" data-instant>
         {%- capture sizes -%}
@@ -144,10 +145,11 @@ Supported variables
                 {{- product.title -}}
               </a>
             {%- endif -%}
-
-            {%- if show_prices -%}
-              {%- render 'price-list', product: product, context: 'card' -%}
-            {%- endif -%}
+            {%- unless is_related_product -%}
+              {%- if show_prices -%}
+                {%- render 'price-list', product: product, context: 'card' -%}
+              {%- endif -%}
+            {%- endunless -%}
           </div>
         {%- endif -%}
       </div>
@@ -200,9 +202,10 @@ Supported variables
         {%- endcase -%}
       {%- endif -%}
     {%- endif -%}
-
-    {%- if show_rating -%}
-      {%- render 'product-rating', product: product, show_empty: settings.show_product_rating_if_empty, display_mode: settings.product_rating_mode -%}
-    {%- endif -%}
+    {%- unless is_related_product -%}
+      {%- if show_rating -%}
+        {%- render 'product-rating', product: product, show_empty: settings.show_product_rating_if_empty, display_mode: settings.product_rating_mode -%}
+      {%- endif -%}
+    {%- endunless -%}
   </div>
 </product-card>

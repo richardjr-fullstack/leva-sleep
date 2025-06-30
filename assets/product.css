@@ -1,0 +1,25 @@
+body::-webkit-scrollbar {
+  width: 0;
+}
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.product-gallery {
+  position: sticky;
+  top: 0;
+  flex: 1;
+  align-self: flex-start;
+}
+
+.product-info {
+  flex: 1;
+  min-height: 80vh; /* ensure it has enough scrollable content */
+}
+
+@media screen and (max-width: 600px) {
+  .product-gallery {
+    position: relative;
+  }
+}

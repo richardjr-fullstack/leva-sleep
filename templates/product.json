@@ -106,15 +106,16 @@
         "max_image_zoom_level": 3
       }
     },
-    "related-products": {
+    "related_products_8Jxz6R": {
       "type": "related-products",
+      "name": "t:sections.related_products.presets.related_products.name",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "",
         "separate_section_with_border": true,
         "hide_product_information": false,
         "stack_products": false,
         "recommendations_count": 10,
-        "products_per_row_mobile": "1",
+        "products_per_row_mobile": "2",
         "products_per_row_desktop": 6,
         "horizontal_spacing_factor": 1,
         "vertical_spacing_factor": 1,
@@ -122,50 +123,10 @@
         "title": "Related products",
         "content": ""
       }
-    },
-    "image_with_text_ETUGKg": {
-      "type": "image-with-text",
-      "blocks": {
-        "subheading_T7GAxT": {
-          "type": "subheading",
-          "settings": {
-            "text": ""
-          }
-        },
-        "heading_A4AkUb": {
-          "type": "heading",
-          "settings": {
-            "text": "The standard Lorem Ipsum passage, used since the 1500s",
-            "heading_tag": "h1"
-          }
-        },
-        "richtext_AUwFnD": {
-          "type": "richtext",
-          "settings": {
-            "content": "<p>\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"<br/><br/></p>"
-          }
-        }
-      },
-      "block_order": [
-        "subheading_T7GAxT",
-        "heading_A4AkUb",
-        "richtext_AUwFnD"
-      ],
-      "name": "t:sections.image_with_text.presets.image_with_text.name",
-      "settings": {
-        "color_scheme": "",
-        "separate_section_with_border": false,
-        "image": "shopify://shop_images/2_websize.jpg",
-        "reveal_on_scroll": true,
-        "image_position": "start",
-        "content_width": "lg",
-        "remove_vertical_spacing": true
-      }
     }
   },
   "order": [
     "main",
-    "related-products",
-    "image_with_text_ETUGKg"
+    "related_products_8Jxz6R"
   ]
 }

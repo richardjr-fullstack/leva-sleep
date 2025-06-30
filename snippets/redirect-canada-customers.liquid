@@ -1,0 +1,15 @@
+<!-- redirect-usa-customers.liquid -->
+<script>
+  fetch('https://ipapi.co/json/')
+    .then(response => response.json())
+    .then(data => {
+      if (data.country_code === "US") {
+        const currentUrl = window.location.href;
+        const newUrl = currentUrl.replace("levasleep.com", "levasleepusa.com");
+        window.location.replace(newUrl);
+      }
+    })
+    .catch(error => {
+      console.error("Geolocation error:", error);
+    });
+</script>

@@ -5921,6 +5921,7 @@ product-rerender {
 
   .product {
     --product-gap: 3.5rem;
+    padding-bottom: 50px;
   }
 }
 
@@ -5978,7 +5979,7 @@ product-rerender {
 
 .product-gallery__media > * {
     aspect-ratio: 4 / 3.1;
-    max-width: 900px;
+    max-width: 1000px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -5986,6 +5987,7 @@ product-rerender {
     object-fit: contain;
     image-rendering: auto;
     scroll-snap-align: center;
+    margin: 0 auto;
 }
 
 .product-gallery__thumbnail-list {

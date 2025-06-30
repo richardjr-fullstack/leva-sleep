@@ -169,6 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+    {% comment %} Geolocation redirect {% endcomment %}
+    {% render 'redirect-canada-customers' %}
 
     <!-- Styling files -->
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
@@ -176,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {{- 'slider-collection.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'global.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'explore-products.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'product.css' | asset_url | stylesheet_tag: preload: true -}}
 
     <!-- Judge Testimonial -->
     {% render 'judgeme_core' %}
