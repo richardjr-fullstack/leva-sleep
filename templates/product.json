@@ -115,18 +115,40 @@
         "hide_product_information": false,
         "stack_products": false,
         "recommendations_count": 10,
-        "products_per_row_mobile": "2",
-        "products_per_row_desktop": 6,
-        "horizontal_spacing_factor": 1,
-        "vertical_spacing_factor": 1,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 5,
+        "horizontal_spacing_factor": 0.2,
+        "vertical_spacing_factor": 0.2,
         "subheading": "",
-        "title": "Related products",
+        "title": "You May Also Like",
         "content": ""
+      }
+    },
+    "custom_image_text_LzTiiA": {
+      "type": "custom-image-text",
+      "name": "Custom Image Text",
+      "settings": {
+        "image": "shopify://shop_images/LevaSleep_NovShoot_QuinnCreative_77_573520ee-781f-4070-a30a-2a4dd6df5db3.jpg",
+        "heading": "The standard Lorem Ipsum passage, used since the 1500s",
+        "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",
+        "image_position": "right"
+      }
+    },
+    "custom_image_text_KYjzA6": {
+      "type": "custom-image-text",
+      "name": "Custom Image Text",
+      "settings": {
+        "image": "shopify://shop_images/LevaSleep_NovShoot_QuinnCreative_80.jpg",
+        "heading": "1914 translation by H. Rackham",
+        "text": "\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of",
+        "image_position": "left"
       }
     }
   },
   "order": [
     "main",
-    "related_products_8Jxz6R"
+    "related_products_8Jxz6R",
+    "custom_image_text_LzTiiA",
+    "custom_image_text_KYjzA6"
   ]
 }

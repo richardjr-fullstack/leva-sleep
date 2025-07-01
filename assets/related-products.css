@@ -4,7 +4,7 @@
 .product-card {
     background: #a1a1a11a;
     color: #fff;
-    height: 100%;
+    height: auto;
     padding: 20px;
 }
 
@@ -18,7 +18,7 @@
 .product-card__figure img {
     color: #0000;
     max-width: 100%;
-    height: 300px;
+    height: auto;
 }
 
 .product-title {

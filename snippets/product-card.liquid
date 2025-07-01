@@ -70,7 +70,7 @@ Supported variables
 
         {%- liquid
           assign main_media_loading_strategy = nil
-          
+
           if section.index > 3 or position > 3
             assign main_media_loading_strategy = 'lazy'
           endif
@@ -159,7 +159,7 @@ Supported variables
       {%- liquid
         assign matched_product_option = nil
         assign color_label_list = 'general.label.color' | t | replace: ', ', ',' | downcase | split: ','
-        
+
         # First, we try to find an option named explicitly "color" in the store's language
         for color_label in color_label_list
           if product.options_by_name[color_label] != blank
@@ -190,7 +190,7 @@ Supported variables
           {%- when 'swatch' -%}
             <fieldset class="h-stack wrap justify-center gap-1">
               <legend class="sr-only">{{ matched_product_option.name }}</legend>
-              
+
               {%- capture param_name -%}swatch-{{ quick_buy_context }}-{{ section.id }}-{{ block.id }}-{{ product.id }}-{{ matched_product_option.position }}{%- endcapture -%}
 
               {%- liquid

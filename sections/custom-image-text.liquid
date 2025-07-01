@@ -4,7 +4,7 @@
 <div class="custom-image-text custom-image-text--image-{{ image_position }}">
   <div class="custom-image-text__image">
     {% if section.settings.image %}
-      <img src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.heading }}">
+      <img src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.heading }}" width="100%" height="auto">
     {% endif %}
   </div>
   <div class="custom-image-text__text">
