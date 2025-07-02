@@ -21,6 +21,13 @@ Supported variables
 
 {%- case icon -%}
   {%- comment -%} UI {%- endcomment -%}
+  {%- when 'filter' -%}
+    <svg id="filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-chevron transition-transform duration-300">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+
   {%- when 'chevron-down' -%}
     <svg aria-hidden="true" focusable="false" fill="none" width="{{ width | default: 10 }}" class="{{ class | strip }}" viewBox="0 0 10 10">
       <path d="m1 3 4 4 4-4" stroke="currentColor" stroke-linecap="square"/>

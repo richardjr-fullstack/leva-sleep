@@ -10,3 +10,4 @@ shopify theme dev -s leva-elevate-sleep.myshopify.com -t 132047241279 --theme-ed
 ## To check theme name and ID
 
 shopify theme list --store=leva-elevate-sleep.myshopify.com
+shopify theme dev --theme-editor-sync
