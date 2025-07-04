@@ -1,0 +1,150 @@
+{{- 'collection-page.css' | asset_url | stylesheet_tag: preload: true -}}
+
+{% comment %} Variant Filters {% endcomment %}
+<div class="variant-filter-wrapper">
+  <button type="button" class="filter-toggle-button heading text-xxs w-full" data-toggle-filter>
+    <span class="text-with-icon justify-center">
+      {% render 'icon', icon: 'filter' %}
+      Filter
+    </span>
+  </button>
+
+  <div class="variant-filter-panel" data-filter-panel>
+    <!-- Optional: Search by title -->
+    <div class="variant-filter-group" style="margin-bottom: 2rem;">
+      <h4 class="text-sm font-bold mb-2">By Title</h4>
+      <form method="get" action="/search">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search product titles..."
+          style="width: 100%; padding: 0.5rem; border: 1px solid #ccc;"
+        />
+        <button
+          type="submit"
+          style="margin-top: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #000;"
+        >Search</button>
+      </form>
+    </div>
+
+    <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters" style="display: flex; gap: 2rem;">
+      {% for filter in collection.filters %}
+        {% assign label_downcase = filter.label | downcase %}
+
+        <div class="filter-block">
+          <h4 class="text-sm font-bold mb-2" style="width: 40px; border-bottom: 2px solid #3f2c78; color: #3f2c78;">
+            {{ filter.label }}
+          </h4>
+
+          {% if filter.type == 'list' %}
+            {% for value in filter.values %}
+              <label class="block mb-1">
+                <input
+                  type="checkbox"
+                  name="{{ filter.param_name }}"
+                  value="{{ value.value }}"
+                  {% if value.active %}checked{% endif %}
+                  onchange="this.form.submit()"
+                >
+                {{ value.label }} ({{ value.count }})
+              </label>
+            {% endfor %}
+
+          {% elsif filter.type == 'price_range' %}
+            {%- assign highest_price = 0 -%}
+            {%- for product in collection.products -%}
+              {%- if product.price > highest_price -%}
+                {%- assign highest_price = product.price -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            <div class="price-range-widget">
+              <div class="slider-wrapper">
+                <div class="slider-track-bg"></div>
+                <div id="range-track" class="slider-track-fill"></div>
+
+                <input
+                  type="range"
+                  id="min-range"
+                  min="0"
+                  step="1"
+                  class="range-slider"
+                />
+                <input
+                  type="range"
+                  id="max-range"
+                  min="0"
+                  step="1"
+                  class="range-slider"
+                />
+              </div>
+
+              <div class="price-range-label">
+                Price:
+                <span id="min-price" class="price-value"></span> —
+                <span id="max-price" class="price-value"></span>
+              </div>
+
+              <input type="hidden" name="{{ filter.min_value.param_name }}" id="min-hidden">
+              <input type="hidden" name="{{ filter.max_value.param_name }}" id="max-hidden">
+
+              <button type="submit" class="filter-button">FILTER</button>
+            </div>
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                const minInput = document.getElementById('min-range');
+                const maxInput = document.getElementById('max-range');
+                const track = document.getElementById('range-track');
+                const minPrice = document.getElementById('min-price');
+                const maxPrice = document.getElementById('max-price');
+                const minHidden = document.getElementById('min-hidden');
+                const maxHidden = document.getElementById('max-hidden');
+
+                const max = {{ highest_price | divided_by: 100 }};
+                const min = 0;
+
+                minInput.max = max;
+                maxInput.max = max;
+                minInput.value = min;
+                maxInput.value = max;
+
+                function updateSlider() {
+                  let minVal = Math.min(parseInt(minInput.value), parseInt(maxInput.value));
+                  let maxVal = Math.max(parseInt(minInput.value), parseInt(maxInput.value));
+
+                  if (minVal >= maxVal) {
+                    if (document.activeElement === minInput) {
+                      minVal = maxVal - 1;
+                      minInput.value = minVal;
+                    } else {
+                      maxVal = minVal + 1;
+                      maxInput.value = maxVal;
+                    }
+                  }
+
+                  const range = max - min;
+                  const left = ((minVal - min) / range) * 100;
+                  const right = ((max - maxVal) / range) * 100;
+
+                  track.style.left = left + '%';
+                  track.style.right = right + '%';
+
+                  minPrice.textContent = `CAD $${minVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+                  maxPrice.textContent = `CAD $${maxVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+                  minHidden.value = minVal * 100;
+                  maxHidden.value = maxVal * 100;
+                }
+
+                minInput.addEventListener('input', updateSlider);
+                maxInput.addEventListener('input', updateSlider);
+
+                updateSlider();
+              });
+            </script>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </form>
+  </div>
+</div>
