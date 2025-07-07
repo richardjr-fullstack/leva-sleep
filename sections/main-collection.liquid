@@ -124,7 +124,36 @@ LIQUID
       {%- else -%}
         {%- if show_filters or section.settings.show_sort_by or section.settings.show_grid_mode_selector or section.settings.show_results_count -%}
           <height-observer variable="collection-toolbar" class="collection-toolbar full-bleed">
-              {%-  render 'collection-filter' -%}
+            <div class="collection-toolbar__button-list">
+              {%- if section.settings.show_sort_by -%}
+                {%- assign selected_sort_by_value = collection.sort_by | default: collection.default_sort_by -%}
+
+                <div class="collection-toolbar__button-container">
+                  <button type="button" aria-controls="sort-by-popover" class="collection-toolbar__button heading text-xxs w-full">
+                    <span class="text-with-icon justify-center">
+                      Featured
+                      {%- render 'icon' with 'chevron-down' -%}
+                    </span>
+                  </button>
+
+                  <facets-sort-popover id="sort-by-popover" section-id="{{ section.id }}" class="popover popover--bottom-end color-scheme color-scheme--dialog" close-on-listbox-select>
+                    <p class="h4" slot="header">{{ 'collection.faceting.sort_by' | t }}</p>
+
+                    <x-listbox class="popover__value-list">
+                      {%- for sort_option in collection.sort_options -%}
+                        {%- if sort_option.name != blank -%}
+                          <button type="button" class="popover__value-option group" role="option" value="{{ sort_option.value }}" {% if sort_option.value == selected_sort_by_value %}aria-selected="true"{% endif %}>
+                            <span class="reversed-link">{{ sort_option.name }}</span>
+                          </button>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </x-listbox>
+                  </facets-sort-popover>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%-  render 'collection-filter' -%}
           </height-observer>
         {%- endif -%}
 

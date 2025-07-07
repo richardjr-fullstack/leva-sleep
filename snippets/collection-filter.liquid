@@ -11,43 +11,63 @@
 
   <div class="variant-filter-panel" data-filter-panel>
     <!-- Optional: Search by title -->
-    <div class="variant-filter-group" style="margin-bottom: 2rem;">
-      <h4 class="text-sm font-bold mb-2">By Title</h4>
+    <div class="variant-filter-group">
+      <h4 class="filter-title">By Title</h4>
       <form method="get" action="/search">
         <input
           type="text"
           name="q"
           placeholder="Search product titles..."
-          style="width: 100%; padding: 0.5rem; border: 1px solid #ccc;"
+          style="width: 100%; padding: 0.5rem; border: 2px solid #222; border-radius: 4px;"
         />
         <button
           type="submit"
-          style="margin-top: 0.5rem; padding: 0.5rem 1rem; border: 1px solid #000;"
-        >Search</button>
+          style="margin-top: 0.5rem; padding: 0.5rem 2rem; border: 1px solid #222;  border-radius: 4px;"
+        >FILTER</button>
       </form>
     </div>
 
-    <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters" style="display: flex; gap: 2rem;">
+    <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters">
       {% for filter in collection.filters %}
         {% assign label_downcase = filter.label | downcase %}
 
         <div class="filter-block">
-          <h4 class="text-sm font-bold mb-2" style="width: 40px; border-bottom: 2px solid #3f2c78; color: #3f2c78;">
-            {{ filter.label }}
+          <h4 class="filter-title">
+            By&nbsp;{{ filter.label }}
           </h4>
 
           {% if filter.type == 'list' %}
             {% for value in filter.values %}
-              <label class="block mb-1">
-                <input
-                  type="checkbox"
-                  name="{{ filter.param_name }}"
-                  value="{{ value.value }}"
-                  {% if value.active %}checked{% endif %}
-                  onchange="this.form.submit()"
-                >
-                {{ value.label }} ({{ value.count }})
-              </label>
+              {% if label_downcase contains 'color' %}
+                <div class="color-swatch-wrapper">
+                  <label class="color-swatch-label" title="{{ value.label }}">
+                    <input
+                      type="checkbox"
+                      name="{{ filter.param_name }}"
+                      value="{{ value.value }}"
+                      class="color-swatch-input"
+                      {% if value.active %}checked{% endif %}
+                      onchange="this.form.submit()"
+                    >
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                      <span class="color-swatch" style="background-color: {{ value.label | downcase }};"></span>
+                      <span>{{ value.label }} </span><span style="color: #999999;">({{ value.count }})</span>
+                    </div>
+                  </label>
+                </div>
+              {% else %}
+                <label class="block mb-1">
+                  <input
+                    type="checkbox"
+                    name="{{ filter.param_name }}"
+                    value="{{ value.value }}"
+                    {% if value.active %}checked{% endif %}
+                    onchange="this.form.submit()"
+                    class="filter-checkbox"
+                  >
+                 <span>{{ value.label }} </span><span style="color: #999999;">({{ value.count }})</span>
+                </label>
+              {% endif %}
             {% endfor %}
 
           {% elsif filter.type == 'price_range' %}
@@ -90,6 +110,7 @@
 
               <button type="submit" class="filter-button">FILTER</button>
             </div>
+
             <script>
               document.addEventListener("DOMContentLoaded", function () {
                 const minInput = document.getElementById('min-range');

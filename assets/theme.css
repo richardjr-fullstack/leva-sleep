@@ -4302,10 +4302,6 @@ product-rerender {
   position: relative;
 }
 
-.collection-toolbar__button-container + .collection-toolbar__button-container {
-  border-inline-start-width: 1px;
-}
-
 .collection-toolbar__layout-switch-list {
   border-inline-start-width: 1px;
   justify-content: flex-end;
@@ -4333,10 +4329,6 @@ product-rerender {
   .collection-toolbar__button-list {
     flex-direction: row-reverse;
     flex: none;
-  }
-
-  .collection-toolbar__button-container {
-    border-inline-start-width: 1px;
   }
 
   .collection-toolbar__button-container > .collection-toolbar__button {
