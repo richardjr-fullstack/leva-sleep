@@ -568,4 +568,15 @@ Supported variables
       <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
     {%- endform -%}
   {%- endunless -%}
+
+  <!-- Fairstone Product Calculator -->
+  <div
+    class="fairstone-product-calculator"
+    data-price="{{ product.selected_or_first_available_variant.price }}"
+    data-variant="{{ product.selected_or_first_available_variant.id }}"
+  ></div>
+
+  <!-- ReelUp App -->
+  <div class="reelUp_productpage_reels_js_widget"></div>
+  <script src="https://cdn-v2.reelup.io/reelup_productReels_js_widget.js" async></script>
 </safe-sticky>
