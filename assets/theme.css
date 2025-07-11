@@ -4280,11 +4280,6 @@ product-rerender {
   inset-inline-end: -1px;
 }
 
-.collection-toolbar__button-list {
-  flex-grow: 1;
-  display: flex;
-}
-
 .collection-toolbar__button {
   padding-block: .75rem;
 }
@@ -4321,21 +4316,6 @@ product-rerender {
 }
 
 @media screen and (min-width: 700px) {
-  .collection-toolbar {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  }
-
-  .collection-toolbar__button-list {
-    flex-direction: row-reverse;
-    flex: none;
-  }
-
-  .collection-toolbar__button-container > .collection-toolbar__button {
-    width: max-content;
-    padding-inline: 2.875rem;
-  }
-
   .collection-toolbar__layout-switch-list {
     border-inline-width: 0 1px;
     padding-inline: 1.875rem;

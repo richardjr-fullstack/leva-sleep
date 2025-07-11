@@ -15,7 +15,8 @@
         "image_iB78nd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/The_Big_One_Sales_Event_Web2_152dd390-445e-43a9-9d00-806d3ec31f1f.jpg",
+            "image": "shopify://shop_images/BLUE_Desktop_Leva_Sleep_-_Black_Friday_Graphics_12.10.23_4.png",
+            "mobile_image": "shopify://shop_images/BLUE_Mobile_Leva_Sleep_1350_-_Black_Friday_Graphics_12.10.23_4.1.png",
             "subheading": "",
             "title": "",
             "mobile_text_position": "place-self-center text-center",

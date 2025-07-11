@@ -17,25 +17,25 @@
         "message-1": {
           "type": "message",
           "settings": {
-            "text": "Save Up To 80% Off New & Demo Discontinued Stock!!"
+            "text": "<a href=\"/pages/promotions\" title=\"Promotions\">Our Black Friday In July Sale Is On Now!</a>"
           }
         },
         "message_Q8fAhL": {
           "type": "message",
           "settings": {
-            "text": "Interest Free Payment Plans Available!"
+            "text": "<a href=\"/collections/bfjuly\" title=\"Black Friday In July Sale Featured Products\">Up To 50% Off Plus Save The Tax!</a>"
           }
         },
         "message_gGyDEA": {
           "type": "message",
           "settings": {
-            "text": "Visit One Of Our 6 Showrooms Located Across Canada!"
+            "text": "<a href=\"/pages/store-locator\" title=\"Showroom Locations\">Visit One Of Our 6 Showrooms Located Across Canada!</a>"
           }
         },
         "message_bNyqCY": {
           "type": "message",
           "settings": {
-            "text": "The Only Made In Canada Adjustable Beds"
+            "text": "<a href=\"/pages/interest-free-financing\" title=\"Interest Free Financing\">No Payments, No Interest Until 2027</a>"
           }
         },
         "message_AmFgwU": {

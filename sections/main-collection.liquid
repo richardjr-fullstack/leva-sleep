@@ -124,62 +124,66 @@ LIQUID
       {%- else -%}
         {%- if show_filters or section.settings.show_sort_by or section.settings.show_grid_mode_selector or section.settings.show_results_count -%}
           <height-observer variable="collection-toolbar" class="collection-toolbar full-bleed">
-            <div class="collection-toolbar__button-list">
-              {%- if section.settings.show_sort_by -%}
-                {%- assign selected_sort_by_value = collection.sort_by | default: collection.default_sort_by -%}
-
-                <div class="collection-toolbar__button-container">
-                  <button type="button" aria-controls="sort-by-popover" class="collection-toolbar__button heading text-xxs w-full">
-                    <span class="text-with-icon justify-center">
-                      Featured
-                      {%- render 'icon' with 'chevron-down' -%}
-                    </span>
-                  </button>
-
-                  <facets-sort-popover id="sort-by-popover" section-id="{{ section.id }}" class="popover popover--bottom-end color-scheme color-scheme--dialog" close-on-listbox-select>
-                    <p class="h4" slot="header">{{ 'collection.faceting.sort_by' | t }}</p>
-
-                    <x-listbox class="popover__value-list">
-                      {%- for sort_option in collection.sort_options -%}
-                        {%- if sort_option.name != blank -%}
-                          <button type="button" class="popover__value-option group" role="option" value="{{ sort_option.value }}" {% if sort_option.value == selected_sort_by_value %}aria-selected="true"{% endif %}>
-                            <span class="reversed-link">{{ sort_option.name }}</span>
-                          </button>
-                        {%- endif -%}
-                      {%- endfor -%}
-                    </x-listbox>
-                  </facets-sort-popover>
-                </div>
-              {%- endif -%}
-            </div>
-
             {%-  render 'collection-filter' -%}
           </height-observer>
         {%- endif -%}
 
         <div class="collection">
           {%- paginate collection.products by section.settings.products_per_page -%}
-            {%- if show_filters -%}
-              <facets-drawer id="facets-drawer" class="facets-drawer drawer drawer--sm color-scheme color-scheme--dialog {% if section.settings.filter_layout == 'sidebar' %}md:hidden{% endif %}">
-                <p class="h4" slot="header">{{ 'collection.faceting.filters' | t }}</p>
+        <div class="collection-sidebar">
+          {% assign menus = 
+            "Catalogue,By Brand,By Size,By Comfort,Shop By Type" 
+            | split: "," %}
 
-                {%- render 'facets', results: collection, show_filters: section.settings.show_filters, open_filters_by_default: section.settings.open_filters_by_default, update_on_change: false, quick_links_menu: section.settings.quick_links_menu, context: 'drawer' -%}
+          {% for menu_title in menus %}
+            {% assign menu_handle = menu_title | handleize %}
+            {% assign linklist = linklists[menu_handle] %}
 
-                <div slot="footer">
-                  {%- assign button_content = 'collection.faceting.apply_filters' | t -%}
+            {% if linklist.links.size > 0 %}
+              <div class="sidebar-filter">
+                <h5 class="filter-heading">{{ menu_title }}</h5>
+                <ul class="filter-list">
+                  {% for link in linklist.links %}
+                    <li>
+                      <label>
+                        <input type="checkbox" onchange="window.location.href='{{ link.url }}'" />
+                        {{ link.title }}
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
 
-                  <dialog-close-button class="contents">
-                    {%- render 'button', type: 'button', content: button_content, stretch: true -%}
-                  </dialog-close-button>
-                </div>
-              </facets-drawer>
-              {%- if section.settings.filter_layout == 'sidebar' -%}
-                <safe-sticky class="facets-sidebar md-max:hidden">
-                  {%- render 'facets', results: collection, show_filters: section.settings.show_filters, open_filters_by_default: section.settings.open_filters_by_default, update_on_change: true, quick_links_menu: section.settings.quick_links_menu, context: 'sidebar' -%}
-                </safe-sticky>
-              {%- endif -%}
-            {%- endif -%}
-
+        <style>
+        .collection-sidebar {
+          font-family: 'Arial', sans-serif;
+          font-size: 14px;
+          color: #333;
+        }
+        .sidebar-filter {
+          margin-bottom: 25px;
+        }
+        .filter-heading {
+          font-weight: 600;
+          color: #2c1f63;
+          margin-bottom: 10px;
+          font-size: 26px;
+        }
+        .filter-list {
+          list-style: none;
+          padding: 0;
+        }
+        .filter-list li {
+          margin-bottom: 6px;
+        }
+        .filter-list input[type="checkbox"] {
+          margin-right: 8px;
+          cursor: pointer;
+        }
+        </style>
             {%- if collection.products_count == 0 -%}
               <div class="empty-state">
                 <div class="v-stack gap-4">
