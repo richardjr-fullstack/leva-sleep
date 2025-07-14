@@ -156,34 +156,6 @@ LIQUID
             {% endif %}
           {% endfor %}
         </div>
-
-        <style>
-        .collection-sidebar {
-          font-family: 'Arial', sans-serif;
-          font-size: 14px;
-          color: #333;
-        }
-        .sidebar-filter {
-          margin-bottom: 25px;
-        }
-        .filter-heading {
-          font-weight: 600;
-          color: #2c1f63;
-          margin-bottom: 10px;
-          font-size: 26px;
-        }
-        .filter-list {
-          list-style: none;
-          padding: 0;
-        }
-        .filter-list li {
-          margin-bottom: 6px;
-        }
-        .filter-list input[type="checkbox"] {
-          margin-right: 8px;
-          cursor: pointer;
-        }
-        </style>
             {%- if collection.products_count == 0 -%}
               <div class="empty-state">
                 <div class="v-stack gap-4">

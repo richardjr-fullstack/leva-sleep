@@ -52,17 +52,11 @@
         "show_filter_values_count": true,
         "open_filters_by_default": false
       }
-    },
-    "collection_nt_filter_QBcacc": {
-      "type": "collection-nt-filter",
-      "name": "Collection NT Filter",
-      "settings": {}
     }
   },
   "order": [
     "collection-banner",
     "dynamic_heading_jCjHFG",
-    "main",
-    "collection_nt_filter_QBcacc"
+    "main"
   ]
 }

@@ -99,7 +99,7 @@ Supported variables
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
               <button type="submit" class="product-card__quick-add-button">
                 <span class="sr-only">{{ 'product.general.add_to_cart_button' | t }}</span>
-                {%- render 'icon' with 'plus' -%}
+                Quick Buy
               </button>
             {%- endform -%}
           </product-form>
@@ -108,7 +108,7 @@ Supported variables
 
           <button type="button" aria-controls="{{ quick_buy_id }}" class="product-card__quick-add-button">
             <span class="sr-only">{{ 'product.general.choose_options' | t }}</span>
-            {%- render 'icon' with 'plus' -%}
+            Quick Buy
           </button>
 
           <quick-buy-modal handle="{{ product.handle }}?variant={{ product.selected_or_first_available_variant.id }}" class="quick-buy-modal modal" id="{{ quick_buy_id }}">
@@ -132,22 +132,22 @@ Supported variables
     {%- endif -%}
 
     {%- if show_title or show_prices or show_vendor and product.vendor != blank -%}
-      <div class="v-stack justify-items-center gap-2">
+      <div class="v-stack gap-2">
         {%- if show_vendor and product.vendor != blank -%}
           {%- capture vendor_class -%}smallcaps {% if settings.product_card_text_font == 'heading' %}heading{% endif %}{% endcapture %}
           {%- render 'vendor' with product.vendor, class: vendor_class -%}
         {%- endif -%}
 
         {%- if show_title or show_prices -%}
-          <div class="v-stack justify-items-center gap-1">
+          <div class="v-stack gap-1">
             {%- if show_title -%}
-              <a href="{{ product.url }}" class="product-title {% if text_class != blank %}{{ text_class }}{% endif %} {% if settings.product_title_max_lines > 0 %}line-clamp{% endif %}" {% if settings.product_title_max_lines > 0 %}style="--line-clamp-count: {{ settings.product_title_max_lines }}"{% endif %} data-instant>
-                {{- product.title -}}
-              </a>
+              <div class="product-card_title">
+               <a href="{{ product.url }}">{{ product.title }}</a>
+              </div>
             {%- endif -%}
             {%- unless is_related_product -%}
               {%- if show_prices -%}
-                {%- render 'price-list', product: product, context: 'card' -%}
+               from {{ product.price | money }}
               {%- endif -%}
             {%- endunless -%}
           </div>

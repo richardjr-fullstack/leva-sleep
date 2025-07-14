@@ -9,10 +9,10 @@
  */
 {
   "current": {
-    "icon_stroke_width": 1.5,
+    "icon_stroke_width": 2,
     "section_vertical_spacing": "md",
     "modal_color_scheme": "scheme-2",
-    "product_rating_color": "#ed8a00",
+    "product_rating_color": "#e2d52c",
     "product_on_sale_accent": "#e32c2b",
     "product_sold_out_badge_background": "#efefef",
     "product_custom_badge_background": "#1c1c1c",
@@ -26,8 +26,14 @@
     "text_font_size_desktop": 14,
     "button_text_font": "body",
     "button_letter_spacing": 18,
+    "product_image_aspect_ratio": "natural",
+    "product_title_max_lines": 0,
+    "product_price_strategy": "from_price",
+    "product_color_display": "hide",
+    "product_rating_mode": "count",
+    "show_sold_out_badge": false,
     "show_discount": true,
-    "discount_mode": "saving",
+    "discount_mode": "percentage",
     "cart_icon": "shopping_bag",
     "content_for_index": [],
     "blocks": {
