@@ -130,32 +130,38 @@ LIQUID
 
         <div class="collection">
           {%- paginate collection.products by section.settings.products_per_page -%}
-        <div class="collection-sidebar">
-          {% assign menus = 
-            "Catalogue,By Brand,By Size,By Comfort,Shop By Type" 
-            | split: "," %}
 
-          {% for menu_title in menus %}
-            {% assign menu_handle = menu_title | handleize %}
-            {% assign linklist = linklists[menu_handle] %}
+          <div class="collection-sidebar">
+            {% assign menus = 
+              "Catalogue,By Brand,By Size,By Comfort,Shop By Type" 
+              | split: "," %}
 
-            {% if linklist.links.size > 0 %}
-              <div class="sidebar-filter">
-                <h5 class="filter-heading">{{ menu_title }}</h5>
-                <ul class="filter-list">
-                  {% for link in linklist.links %}
-                    <li>
-                      <label>
-                        <input type="checkbox" onchange="window.location.href='{{ link.url }}'" />
-                        {{ link.title }}
-                      </label>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
+            {% for menu_title in menus %}
+              {% assign menu_handle = menu_title | handleize %}
+              {% assign linklist = linklists[menu_handle] %}
+
+              {% if linklist.links.size > 0 %}
+                <div class="sidebar-filter">
+                  <h5 class="filter-heading">{{ menu_title }}</h5>
+                    <ul class="filter-list">
+                      {% for link in linklist.links %}
+                        {% assign is_checked = false %}
+                        {% if link.url == request.path or link.url == request.url %}
+                          {% assign is_checked = true %}
+                        {% endif %}
+                        <li>
+                          <label>
+                            <input type="checkbox" onchange="window.location.href='{{ link.url }}'" {% if is_checked %}checked{% endif %} />
+                            {{ link.title }}
+                          </label>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+
             {%- if collection.products_count == 0 -%}
               <div class="empty-state">
                 <div class="v-stack gap-4">

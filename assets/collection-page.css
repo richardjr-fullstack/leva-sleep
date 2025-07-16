@@ -312,3 +312,29 @@
   background: rgba(81, 42, 134, 0.7);
 }
 
+/* Product Card Styles */
+.product-card__figure--fixed-size {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-card__image--fixed-size {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  display: block;
+  padding: 8px;
+  transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.product-card__image--secondary.product-card__image--zoom {
+  transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+.product-card__media:hover .product-card__image--secondary.product-card__image--zoom {
+  transform: scale(1.12);
+}

@@ -59,36 +59,48 @@ Supported variables
         {%- endif -%}
       {%- endunless -%}
 
-      <a href="{{ product.url }}" class="product-card__media" draggable="false" data-instant>
-        {%- capture sizes -%}
-          {%- if stacked -%}
-            (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }}), (max-width: 999px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop | default: 3 }} - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop | default: 3 }} - (24px / {{ section.settings.products_per_row_desktop | default: 3 }} * {{ section.settings.products_per_row_desktop | default: 3 | minus: 1 }}))
-          {%- else -%}
-            (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop | default: 3 }} - (24px / {{ section.settings.products_per_row_desktop | default: 3 }} * {{ section.settings.products_per_row_desktop | default: 3 | minus: 1 }}))
+      <div class="product-card__figure product-card__figure--fixed-size">
+        {%- unless is_related_product -%}
+          {%- if show_badges -%}
+            {%- render 'product-badges', product: product, vertical: true, context: 'card' -%}
           {%- endif -%}
-        {%- endcapture -%}
+        {%- endunless -%}
 
-        {%- liquid
-          assign main_media_loading_strategy = nil
+        <a href="{{ product.url }}" class="product-card__media" draggable="false" data-instant>
+          {%- capture sizes -%}
+            {%- if stacked -%}
+              (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }}), (max-width: 999px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop | default: 3 }} - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop | default: 3 }} - (24px / {{ section.settings.products_per_row_desktop | default: 3 }} * {{ section.settings.products_per_row_desktop | default: 3 | minus: 1 }})
+            {%- else -%}
+              (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop | default: 3 }} - (24px / {{ section.settings.products_per_row_desktop | default: 3 }} * {{ section.settings.products_per_row_desktop | default: 3 | minus: 1 }})
+            {%- endif -%}
+          {%- endcapture -%}
 
-          if section.index > 3 or position > 3
-            assign main_media_loading_strategy = 'lazy'
-          endif
-        -%}
+          {%- liquid
+            assign main_media_loading_strategy = nil
 
-        {%- capture main_image_classes -%}product-card__image product-card__image--primary {% if settings.product_image_aspect_ratio contains 'crop' %}object-cover{% endif %} aspect-{{ settings.product_image_aspect_ratio | split: '_' | first }}{%- endcapture -%}
-        {{- product.featured_media | image_url: width: product.featured_media.width | image_tag: loading: main_media_loading_strategy, sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', draggable: 'false', class: main_image_classes -}}
-
-        {%- liquid
-          if show_secondary_image and product.media.size > 1
-            assign next_media = product.media[product.featured_media.position] | default: product.media[1]
-
-            if next_media != blank
-             echo next_media | image_url: width: next_media.width | image_tag: class: 'product-card__image product-card__image--secondary', loading: 'lazy', fetchpriority: 'low', sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', draggable: 'false'
+            if section.index > 3 or position > 3
+              assign main_media_loading_strategy = 'lazy'
             endif
-          endif
-        -%}
-      </a>
+          -%}
+
+          {%- capture main_image_classes -%}
+            product-card__image product-card__image--primary product-card__image--fixed-size
+            {% if settings.product_image_aspect_ratio contains 'crop' %}object-cover{% endif %}
+            aspect-{{ settings.product_image_aspect_ratio | split: '_' | first }}
+          {%- endcapture -%}
+          {{- product.featured_media | image_url: width: product.featured_media.width | image_tag: loading: main_media_loading_strategy, sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', draggable: 'false', class: main_image_classes -}}
+
+          {%- liquid
+            if show_secondary_image and product.media.size > 1
+              assign next_media = product.media[product.featured_media.position] | default: product.media[1]
+
+              if next_media != blank
+                echo next_media | image_url: width: next_media.width | image_tag: class: 'product-card__image product-card__image--secondary product-card__image--fixed-size product-card__image--zoom', loading: 'lazy', fetchpriority: 'low', sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', draggable: 'false'
+              endif
+            endif
+          -%}
+        </a>
+      </div>
 
       {%- if show_quick_buy and product.available -%}
         {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
