@@ -2420,8 +2420,8 @@ model-media model-viewer, model-media .shopify-model-viewer-ui {
 
 @media screen and (min-width: 1400px) {
   .product-list {
-    --product-list-default-row-gap: 4rem;
-    --product-list-default-column-gap: 3.75rem;
+    --product-list-default-row-gap: 2rem;
+    --product-list-default-column-gap: 1.75rem;
   }
 }
 

@@ -146,12 +146,16 @@ LIQUID
                     <ul class="filter-list">
                       {% for link in linklist.links %}
                         {% assign is_checked = false %}
-                        {% if link.url == request.path or link.url == request.url %}
+                        {% assign tag = link.title | handleize %}
+                        {% if current_tags contains tag %}
                           {% assign is_checked = true %}
                         {% endif %}
                         <li>
                           <label>
-                            <input type="checkbox" onchange="window.location.href='{{ link.url }}'" {% if is_checked %}checked{% endif %} />
+                            <input type="checkbox"
+                              value="{{ tag }}"
+                              {% if is_checked %}checked{% endif %}
+                              onchange="handleSidebarFilterChange(this)">
                             {{ link.title }}
                           </label>
                         </li>
@@ -177,7 +181,6 @@ LIQUID
             {%- else -%}
               <div class="collection__main">
                 {%- render 'active-facets', results: collection -%}
-
                 <product-list id="product-list-{{ section.id }}" class="product-list" collection-mobile-layout="{{ products_mobile_grid_mode }}" collection-desktop-layout="{{ products_desktop_grid_mode }}">
                   {%- for product in collection.products -%}
                     {%- render 'product-card', product: product, reveal: settings.stagger_products_apparition, position: forloop.index, hide_product_information: section.settings.hide_product_information, stacked: true -%}
@@ -377,4 +380,20 @@ LIQUID
 
   // Run on Shopify section reload (dynamic)
   document.addEventListener('shopify:section:load', initVariantFilterToggle);
+</script>
+
+<script>
+function handleSidebarFilterChange(checkbox) {
+  // Get all checked checkboxes in the sidebar
+  const sidebar = checkbox.closest('.collection-sidebar');
+  const checked = sidebar.querySelectorAll('input[type="checkbox"]:checked');
+  const tags = Array.from(checked).map(cb => cb.value);
+
+  // Build the new URL with all selected tags
+  let baseUrl = window.location.pathname.split('/').slice(0,3).join('/');
+  if (tags.length > 0) {
+    baseUrl += '/' + tags.join('+');
+  }
+  window.location.href = baseUrl + window.location.search;
+}
 </script>
