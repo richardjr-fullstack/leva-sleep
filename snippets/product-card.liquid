@@ -55,14 +55,34 @@ Supported variables
     <div class="product-card__figure">
       {%- unless is_related_product -%}
         {%- if show_badges -%}
-          {%- render 'product-badges', product: product, vertical: true, context: 'card' -%}
+          {% if product.compare_at_price > product.price %}
+            {% assign original_price = product.compare_at_price %}
+            {% assign sale_price = product.price %}
+
+            {% assign discount = original_price | minus: sale_price %}
+            {% assign discount_percentage = discount | times: 100 | divided_by: original_price %}
+
+            <div class="product-card__badge">
+              <p class="product-card__discount">-{{ discount_percentage | round }}%</p>
+            </div>
+          {% endif %}
         {%- endif -%}
       {%- endunless -%}
 
       <div class="product-card__figure product-card__figure--fixed-size">
         {%- unless is_related_product -%}
           {%- if show_badges -%}
-            {%- render 'product-badges', product: product, vertical: true, context: 'card' -%}
+            {% if product.compare_at_price > product.price %}
+              {% assign original_price = product.compare_at_price %}
+              {% assign sale_price = product.price %}
+
+              {% assign discount = original_price | minus: sale_price %}
+              {% assign discount_percentage = discount | times: 100 | divided_by: original_price %}
+
+              <div class="product-card__badge">
+                <p class="product-card__discount">-{{ discount_percentage | round }}%</p>
+              </div>
+            {% endif %}
           {%- endif -%}
         {%- endunless -%}
 

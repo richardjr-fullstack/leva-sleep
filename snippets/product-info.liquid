@@ -184,8 +184,16 @@ Supported variables
                 {%- endform -%}
               </payment-terms>
             {%- endif -%}
+            
+            <!-- Fairstone Product Calculator -->
+            <div
+              class="fairstone-product-calculator"
+              data-price="{{ product.selected_or_first_available_variant.price }}"
+              data-variant="{{ product.selected_or_first_available_variant.id }}"
+            ></div>
 
-          {%- when 'rating' -%}
+          
+            {%- when 'rating' -%}
             {%- if product != blank -%}
               {%- render 'product-rating', product: product, show_empty: block.settings.show_empty, display_mode: block.settings.rating_mode, show_placeholder: false -%}
             {%- else -%}
@@ -568,13 +576,6 @@ Supported variables
       <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
     {%- endform -%}
   {%- endunless -%}
-
-  <!-- Fairstone Product Calculator -->
-  <div
-    class="fairstone-product-calculator"
-    data-price="{{ product.selected_or_first_available_variant.price }}"
-    data-variant="{{ product.selected_or_first_available_variant.id }}"
-  ></div>
 
   <!-- ReelUp App -->
   <div class="reelUp_productpage_reels_js_widget"></div>
