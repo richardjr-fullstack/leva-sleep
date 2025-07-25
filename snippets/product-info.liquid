@@ -192,7 +192,6 @@ Supported variables
               data-variant="{{ product.selected_or_first_available_variant.id }}"
             ></div>
 
-          
             {%- when 'rating' -%}
             {%- if product != blank -%}
               {%- render 'product-rating', product: product, show_empty: block.settings.show_empty, display_mode: block.settings.rating_mode, show_placeholder: false -%}

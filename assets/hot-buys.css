@@ -131,20 +131,17 @@
 }
 
 /* Wishlist icon */
-.wishlist-icon {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 6px 10px;
-  border-radius: 50%;
-  font-size: 14px;
-  z-index: 3;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.wishlist-engine {
+    position: absolute;
+    right: 2.5%;
+    top: 3%;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 /* Tooltip styles */
-.wishlist-icon::after {
+.wishlist-engine::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 10%; /* position above the icon */
@@ -162,8 +159,21 @@
   z-index: 10;
 }
 
-.wishlist-icon:hover::after {
+.wishlist-engine:hover::after {
   opacity: 1;
+}
+
+.wishlist-engine>.wishlist-engine-button>.wishlist-icon>svg {
+  width: 15px !important;
+  height: 15px !important;
+}
+
+.wishlist-engine>.wishlist-engine-button>.wishlist-icon>svg>path {
+ fill: #452276 !important;
+}
+
+.wishlist-engine-button {
+  background: transparent !important;
 }
 
 /* Quickview icon */
@@ -231,7 +241,7 @@
 }
 
 /* Show on hover */
-.hot-buy-media-wrapper:hover .wishlist-icon,
+.hot-buy-media-wrapper:hover .wishlist-engine,
 .hot-buy-media-wrapper:hover .quickview-icon,
 .hot-buy-media-wrapper:hover .quick-shop-btn {
   opacity: 1;

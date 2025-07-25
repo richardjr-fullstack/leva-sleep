@@ -910,7 +910,7 @@ shopify-accelerated-checkout, shopify-accelerated-checkout-cart {
 }
 
 .modal::part(content) {
-  width: 100%;
+  width: 500px;
   max-width: var(--modal-body-max-width);
   background-color: rgb(var(--background));
   background-image: var(--background-gradient);
@@ -947,10 +947,7 @@ shopify-accelerated-checkout, shopify-accelerated-checkout-cart {
 }
 
 .modal::part(body) {
-  padding-block-start: var(--modal-body-padding-block);
-  padding-block-end: var(--modal-body-padding-block);
-  padding-inline-start: var(--modal-body-padding-inline);
-  padding-inline-end: var(--modal-body-padding-inline);
+  padding: 20px;
 }
 
 @media screen and (min-width: 700px) {
@@ -3243,7 +3240,7 @@ tr[onclick]:hover {
 }
 
 .badge--on-sale {
-  background: rgb(var(--on-sale-badge-background));
+  background: #452276;
   color: rgb(var(--on-sale-badge-text));
 }
 
@@ -7014,7 +7011,7 @@ product-rerender {
 }
 
 .text-on-sale {
-  color: rgb(var(--on-sale-text));
+  color: #452276;
 }
 
 .text-stroke {

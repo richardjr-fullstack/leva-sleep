@@ -5866,37 +5866,3 @@ export {
   videoLoaded,
   waitForEvent
 };
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.quickview-icon').forEach(function (button) {
-    button.addEventListener('click', function () {
-      const handle = this.getAttribute('data-product-handle');
-      const modal = document.getElementById('quickview-modal');
-      const content = modal.querySelector('.quickview-content');
-      const loader = document.getElementById('quickview-loader');
-
-      loader.style.display = 'block';
-      modal.style.display = 'block';
-
-      fetch(`/products/${handle}?view=quick_view`)
-        .then(res => res.text())
-        .then(html => {
-          content.innerHTML = html;
-          loader.style.display = 'none';
-        })
-        .catch(err => {
-          content.innerHTML = '<p>Error loading product</p>';
-          loader.style.display = 'none';
-        });
-    });
-  });
-
-  // Optional: close modal on click outside
-  document.addEventListener('click', function (e) {
-    const modal = document.getElementById('quickview-modal');
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
-});
