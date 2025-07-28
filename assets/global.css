@@ -34,6 +34,24 @@ h4 {
   margin-right: auto;
   margin-left: auto;
 }
+
+.h-wishlist-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.h-wishlist-icon .wishlist-h-count {
+  padding-left: 1px !important;
+  width: 15px;
+  height: 15px;
+  font-size: 8px;
+  background: #f3f3f3 !important;
+  right: -9px !important;
+  top: -8px !important;
+  color: #452276 !important;
+}
+
+
 @media (min-width: 1230px) {
     .container {
         max-width: 1200px;
