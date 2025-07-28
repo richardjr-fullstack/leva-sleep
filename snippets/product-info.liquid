@@ -175,14 +175,14 @@ Supported variables
 
           {%- when 'payment_terms' -%}
             {%- if product != blank -%}
-            {%- endif -%}
-            
             <!-- Fairstone Product Calculator -->
             <div
               class="fairstone-product-calculator"
               data-price="{{ product.selected_or_first_available_variant.price }}"
               data-variant="{{ product.selected_or_first_available_variant.id }}"
             ></div>
+            {%- endif -%}
+
 
             {%- when 'rating' -%}
             {%- if product != blank -%}
@@ -537,7 +537,7 @@ Supported variables
             {%- endif -%}
           {%- endcase -%}
       {%- endcapture -%}
-      
+
       {%- if allow_block_group and inside_block_group_context == false -%}
         {%- assign inside_block_group_context = true -%}
         <div class="product-info__block-group {{ block_group_class }}" data-group-type="{{ block_group_name }}">
@@ -552,15 +552,6 @@ Supported variables
         </div>
       {%- endif -%}
     {%- endfor -%}
-
-                <payment-terms class="payment-terms">
-            {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
-
-            {%- form 'product', product, id: product_installment_form_id -%}
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-              {{- form | payment_terms -}}
-            {%- endform -%}
-          </payment-terms>
   </div>
 
   {%- comment -%}
@@ -575,9 +566,5 @@ Supported variables
     {%- form 'product', product, id: product_form_id, hidden: true -%}
       <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
     {%- endform -%}
-  {%- endunless -%}
-
-  <!-- ReelUp App -->
-  <div class="reelUp_productpage_reels_js_widget"></div>
-  <script src="https://cdn-v2.reelup.io/reelup_productReels_js_widget.js" async></script>
+    {%- endunless -%}
 </safe-sticky>
