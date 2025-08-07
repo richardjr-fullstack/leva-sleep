@@ -17,6 +17,15 @@
     assign show_filters = false
   endif
 
+  # Extract current tags from URL path
+  assign url_parts = request.path | split: '/'
+  assign current_tags = ''
+  if url_parts.size > 3 and url_parts[3] != blank
+    assign current_tags = url_parts[3] | split: '+'
+  else
+    assign current_tags = empty
+  endif
+
   # First, we retrieve, based on the merchant settings, the user preferences and the available space the most appropriate size
   assign products_mobile_grid_mode = cart.attributes.products_mobile_grid_mode
 
@@ -132,9 +141,7 @@ LIQUID
           {%- paginate collection.products by section.settings.products_per_page -%}
 
           <div class="collection-sidebar">
-            {% assign menus = 
-              "Catalogue,By Brand,By Size,By Comfort,Shop By Type" 
-              | split: "," %}
+            {% assign menus = "Catalogue,By Brand,By Size,By Comfort,Shop By Type" | split: "," %}
 
             {% for menu_title in menus %}
               {% assign menu_handle = menu_title | handleize %}
@@ -143,24 +150,40 @@ LIQUID
               {% if linklist.links.size > 0 %}
                 <div class="sidebar-filter">
                   <h5 class="filter-heading">{{ menu_title }}</h5>
-                    <ul class="filter-list">
-                      {% for link in linklist.links %}
-                        {% assign is_checked = false %}
-                        {% assign tag = link.title | handleize %}
-                        {% if current_tags contains tag %}
+                  <ul class="filter-list {% if menu_title == 'Catalogue' %}catalogue-list{% endif %}">
+                    {% for link in linklist.links %}
+                      {% assign tag = link.title | handleize %}
+                      {% assign is_checked = false %}
+                      {% for current_tag in current_tags %}
+                        {% if current_tag == tag %}
                           {% assign is_checked = true %}
+                          {% break %}
                         {% endif %}
+                      {% endfor %}
+                      {% if menu_title == 'Catalogue' %}
+                        <li class="catalogue-list-item">
+                          <button
+                            type="button"
+                            class="catalogue-link{% if is_checked %} active{% endif %}"
+                            data-tag="{{ tag }}"
+                            onclick="handleCatalogueFilter(this)">
+                            <span class="catalogue-plus" aria-hidden="true">+</span>
+                            <span class="catalogue-text">{{ link.title }}</span>
+                          </button>
+                        </li>
+                      {% else %}
                         <li>
                           <label>
                             <input type="checkbox"
-                              value="{{ tag }}"
+                              data-tag="{{ tag }}"
                               {% if is_checked %}checked{% endif %}
-                              onchange="handleSidebarFilterChange(this)">
+                              onchange="handleMultiFilter(this)">
                             {{ link.title }}
                           </label>
                         </li>
-                      {% endfor %}
-                    </ul>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
                 </div>
               {% endif %}
             {% endfor %}
@@ -376,24 +399,109 @@ LIQUID
   }
 
   // Run on full page load
-  document.addEventListener('DOMContentLoaded', initVariantFilterToggle);
+  document.addEventListener('DOMContentLoaded', function() {
+    initVariantFilterToggle();
+    initializeFilterState();
+  });
 
   // Run on Shopify section reload (dynamic)
-  document.addEventListener('shopify:section:load', initVariantFilterToggle);
-</script>
+  document.addEventListener('shopify:section:load', function() {
+    initVariantFilterToggle();
+    initializeFilterState();
+  });
 
-<script>
-function handleSidebarFilterChange(checkbox) {
-  // Get all checked checkboxes in the sidebar
-  const sidebar = checkbox.closest('.collection-sidebar');
-  const checked = sidebar.querySelectorAll('input[type="checkbox"]:checked');
-  const tags = Array.from(checked).map(cb => cb.value);
-
-  // Build the new URL with all selected tags
-  let baseUrl = window.location.pathname.split('/').slice(0,3).join('/');
-  if (tags.length > 0) {
-    baseUrl += '/' + tags.join('+');
+  function initializeFilterState() {
+    // Get all current tags from URL
+    const urlParams = new URL(window.location.href);
+    const pathSegments = urlParams.pathname.split('/');
+    let currentTags = [];
+    
+    // Check if we have tags in the URL
+    if (pathSegments.length > 3) {
+      const tagSegment = pathSegments[3];
+      if (tagSegment) {
+        currentTags = tagSegment.split('+');
+      }
+    }
+    
+    // Set checkboxes based on URL tags
+    document.querySelectorAll('.collection-sidebar input[type="checkbox"]').forEach(checkbox => {
+      const tag = checkbox.getAttribute('data-tag');
+      checkbox.checked = currentTags.includes(tag);
+    });
+    
+    // Set active state for catalogue links
+    document.querySelectorAll('.catalogue-link').forEach(btn => {
+      const tag = btn.getAttribute('data-tag');
+      if (currentTags.includes(tag)) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
   }
-  window.location.href = baseUrl + window.location.search;
-}
+
+  function handleCatalogueFilter(button) {
+    const tag = button.getAttribute('data-tag');
+    const urlPath = window.location.pathname;
+    const pathSegments = urlPath.split('/');
+    const baseUrl = pathSegments.slice(0, 3).join('/');
+
+    // Get all checked checkboxes (other filters)
+    const sidebar = button.closest('.collection-sidebar');
+    const checkedBoxes = sidebar.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedTags = Array.from(checkedBoxes).map(cb => cb.getAttribute('data-tag'));
+
+    // Remove any existing catalogue tags (only one can be active)
+    const allCatalogueButtons = sidebar.querySelectorAll('.catalogue-link');
+    const catalogueTags = Array.from(allCatalogueButtons).map(btn => btn.getAttribute('data-tag'));
+    let tags = selectedTags.filter(t => !catalogueTags.includes(t));
+
+    // Toggle selection
+    if (!button.classList.contains('active')) {
+      tags.unshift(tag);
+    }
+
+    // Build the new URL
+    let newUrl = baseUrl;
+    if (tags.length > 0) {
+      newUrl += '/' + tags.join('+');
+    }
+    if (window.location.search) {
+      newUrl += window.location.search;
+    }
+    window.location.href = newUrl;
+  }
+
+  function handleMultiFilter(checkbox) {
+    // Get the base collection URL (without tags)
+    const urlPath = window.location.pathname;
+    const pathSegments = urlPath.split('/');
+    const baseUrl = pathSegments.slice(0, 3).join('/');
+    
+    // Get all currently selected tags from checkboxes
+    const sidebar = checkbox.closest('.collection-sidebar');
+    const checkedBoxes = sidebar.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedTags = Array.from(checkedBoxes).map(cb => cb.getAttribute('data-tag'));
+    
+    // Add the active catalogue tag if any
+    const activeCatalogue = sidebar.querySelector('.catalogue-link.active');
+    if (activeCatalogue) {
+      selectedTags.unshift(activeCatalogue.getAttribute('data-tag'));
+    }
+    
+    // Build the new URL
+    let newUrl = baseUrl;
+    if (selectedTags.length > 0) {
+      newUrl += '/' + selectedTags.join('+');
+    }
+    
+    // Preserve any query parameters
+    if (window.location.search) {
+      newUrl += window.location.search;
+    }
+    
+    // Navigate to the new URL
+    window.location.href = newUrl;
+  }
 </script>

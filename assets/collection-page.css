@@ -341,3 +341,87 @@
 .product-card__media:hover .product-card__image--secondary.product-card__image--zoom {
   transform: scale(1.12);
 }
+
+.catalogue-list-item {
+  width: 270px;
+  height: 25px;
+  margin: 0 0 5px 0;
+  padding: 0 0 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.catalogue-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.catalogue-plus {
+  font-size: 1.1em;
+  color: #2c1f63;
+  margin-right: 12px;
+  flex-shrink: 0;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.catalogue-text {
+  font-size: 14px;
+  transition: color 0.2s, text-decoration 0.2s;
+  text-decoration: none;
+}
+
+.catalogue-link:hover .catalogue-text,
+.catalogue-link.active .catalogue-text {
+  color: #5B2B82;
+  text-decoration: underline;
+}
+
+.catalogue-link:hover .catalogue-plus,
+.catalogue-link.active .catalogue-plus {
+  color: #2c1f63;
+  text-decoration: none;
+}
+
+.filter-heading {
+  font-weight: 600;
+  color: #2c1f63;
+  margin-bottom: 10px;
+  font-size: 18px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.filter-heading::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #222;
+  margin-top: 3px;
+  border-radius: 2px;
+}
+
+.catalogue-list .catalogue-link .catalogue-text {
+  transition: color 0.2s;
+  text-decoration: none;
+}
+
+.catalogue-list .catalogue-link:hover .catalogue-text,
+.catalogue-list .catalogue-link.active .catalogue-text {
+  color: #5B2B82;
+  text-decoration: none;
+}
+
+/* Remove underline on hover for catalogue text */
+.catalogue-list .catalogue-link:hover .catalogue-text {
+  text-decoration: none;
+}
