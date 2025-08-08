@@ -275,6 +275,7 @@
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   color: #333;
+  transition: opacity 0.2s ease;
 }
 .sidebar-filter {
   margin-bottom: 25px;
@@ -424,4 +425,72 @@
 /* Remove underline on hover for catalogue text */
 .catalogue-list .catalogue-link:hover .catalogue-text {
   text-decoration: none;
+}
+
+/* Enhanced disabled filter styles */
+.filter-option-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  position: relative;
+}
+
+.filter-option-disabled::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #999;
+  transform: translateY(-50%);
+}
+
+.filter-option-disabled input[type="checkbox"] {
+  cursor: not-allowed;
+}
+
+.filter-option-disabled .catalogue-link {
+  cursor: not-allowed;
+  color: #999 !important;
+}
+
+.filter-option-disabled .catalogue-text {
+  color: #999 !important;
+}
+
+/* Add visual indication for available filters */
+.filter-option-available {
+  position: relative;
+}
+
+.filter-option-available::before {
+  content: "✓";
+  position: absolute;
+  right: -15px;
+  color: green;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Smooth transitions */
+.collection-sidebar li {
+  transition: opacity 0.2s ease;
+}
+
+.catalogue-link,
+.collection-sidebar input[type="checkbox"] {
+  transition: all 0.2s ease;
+}
+
+.collection-sidebar.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.collection-sidebar input[type="checkbox"] {
+  transition: none !important;
+}
+
+.catalogue-link {
+  transition: background-color 0.2s ease;
 }
