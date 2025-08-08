@@ -130,47 +130,49 @@
 
     {{ content_for_header }}
 
+{% comment %} Quick View Modal {% endcomment %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.quickview-icon').forEach(function (el) {
+        el.addEventListener('click', function () {
+          const handle = el.getAttribute('data-product-handle');
+          const url = `/products/${handle}?view=quick_view`;
 
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.quickview-icon').forEach(function (el) {
-    el.addEventListener('click', function () {
-      const handle = el.getAttribute('data-product-handle');
-      const url = `/products/${handle}?view=quick_view`;
+          const modal = document.getElementById('quickview-modal');
+          const content = modal.querySelector('.quickview-content');
+          const loader = document.getElementById('quickview-loader');
 
-      const modal = document.getElementById('quickview-modal');
-      const content = modal.querySelector('.quickview-content');
-      const loader = document.getElementById('quickview-loader');
+          loader.style.display = 'block';
+          modal.style.display = 'flex';
 
-      loader.style.display = 'block';
-      modal.style.display = 'flex';
-
-      fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          content.innerHTML = html;
-          loader.style.display = 'none';
-        })
-        .catch(() => {
-          content.innerHTML = '<p>Failed to load product.</p>';
-          loader.style.display = 'none';
+          fetch(url)
+            .then(res => res.text())
+            .then(html => {
+              content.innerHTML = html;
+              loader.style.display = 'none';
+            })
+            .catch(() => {
+              content.innerHTML = '<p>Failed to load product.</p>';
+              loader.style.display = 'none';
+            });
         });
-    });
-  });
+      });
 
-  // Close modal on background click
-  document.addEventListener('click', function (e) {
-    const modal = document.getElementById('quickview-modal');
-    if (e.target === modal) {
-      modal.style.display = 'none';
-      modal.querySelector('.quickview-content').innerHTML = '';
-    }
-  });
-});
-</script>
+      // Close modal on background click
+      document.addEventListener('click', function (e) {
+        const modal = document.getElementById('quickview-modal');
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          modal.querySelector('.quickview-content').innerHTML = '';
+        }
+      });
+    });
+  </script>
 
     {% comment %} Geolocation redirect {% endcomment %}
     {% render 'redirect-canada-customers' %}
+
+
     <!-- Styling files -->
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'hot-buys.css' | asset_url | stylesheet_tag: preload: true -}}

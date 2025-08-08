@@ -77,6 +77,11 @@
             "collapse_content": false,
             "show_below_gallery": false
           }
+        },
+        "judge_me_reviews_review_snippet_widget_BDK9Ch": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {}
         }
       },
       "block_order": [
@@ -89,7 +94,8 @@
         "complementary_products",
         "quantity_selector",
         "buy_buttons",
-        "description"
+        "description",
+        "judge_me_reviews_review_snippet_widget_BDK9Ch"
       ],
       "settings": {
         "color_scheme": "scheme-1",
@@ -128,9 +134,9 @@
       "type": "custom-image-text",
       "name": "Custom Image Text",
       "settings": {
-        "image": "shopify://shop_images/LevaSleep_NovShoot_QuinnCreative_77_573520ee-781f-4070-a30a-2a4dd6df5db3.jpg",
-        "heading": "The standard Lorem Ipsum passage, used since the 1500s",
-        "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex",
+        "image": "shopify://shop_images/DALL_E_2025-04-19_13.44.33_-_A_realistic_and_elegant_bedroom_with_a_fully_made_bed_featuring_crisp_white_cotton_sheets_and_a_large_cozy_rug_underneath._The_bedding_looks_soft_ma_17c6de69-86a8-418c-8b62-efdf6c3aeddf.webp",
+        "heading": "Personalized Comfort at Every Angle",
+        "text": "No two sleepers are alike. That’s why our adjustable beds let you customize your position for sleeping, reading, or simply relaxing. Whether you want zero gravity for pressure relief or an elevated head to ease snoring, you’re always in control of your comfort. Pair it with our carefully chosen mattresses for the ultimate sleep experience.",
         "image_position": "right"
       }
     },
@@ -138,10 +144,47 @@
       "type": "custom-image-text",
       "name": "Custom Image Text",
       "settings": {
-        "image": "shopify://shop_images/LevaSleep_NovShoot_QuinnCreative_80.jpg",
-        "heading": "1914 translation by H. Rackham",
-        "text": "\"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of",
+        "image": "shopify://shop_images/MidnightBliss3.jpg",
+        "heading": "Canadian-Made Quality You Can Trust",
+        "text": "At Leva Sleep, every adjustable bed package is built with care. From premium materials to expert craftsmanship, our mission is to deliver better sleep without compromise. Backed by industry-leading warranties and trusted by thousands of Canadian families, you can rest easy knowing your comfort is our priority.",
         "image_position": "left"
+      }
+    },
+    "custom_image_text_eNxy93": {
+      "type": "custom-image-text",
+      "disabled": true,
+      "name": "Custom Image Text",
+      "settings": {
+        "image": "shopify://shop_images/DALL_E_2025-04-19_13.44.33_-_A_realistic_and_elegant_bedroom_with_a_fully_made_bed_featuring_crisp_white_cotton_sheets_and_a_large_cozy_rug_underneath._The_bedding_looks_soft_ma_17c6de69-86a8-418c-8b62-efdf6c3aeddf.webp",
+        "heading": "White-Glove Delivery & Setup",
+        "text": "From the moment you order to your first night’s sleep, we handle everything. Our in-house delivery teams provide professional setup in your home, so all you need to do is relax. And if you ever need support, our dedicated sleep experts are just a phone call away.",
+        "image_position": "right"
+      }
+    },
+    "judgeme_carousel_section_kYJbt8": {
+      "type": "judgeme_carousel_section",
+      "disabled": true,
+      "name": "Featured Review Carousel",
+      "settings": {
+        "maxwidth": 1080
+      }
+    },
+    "17545026842e4d63f6": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_gyyyEE": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_gyyyEE"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false
       }
     }
   },
@@ -149,6 +192,9 @@
     "main",
     "related_products_8Jxz6R",
     "custom_image_text_LzTiiA",
-    "custom_image_text_KYjzA6"
+    "custom_image_text_KYjzA6",
+    "custom_image_text_eNxy93",
+    "judgeme_carousel_section_kYJbt8",
+    "17545026842e4d63f6"
   ]
 }

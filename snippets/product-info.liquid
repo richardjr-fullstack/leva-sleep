@@ -175,14 +175,20 @@ Supported variables
 
           {%- when 'payment_terms' -%}
             {%- if product != blank -%}
-            <!-- Fairstone Product Calculator -->
-            <div
-              class="fairstone-product-calculator"
-              data-price="{{ product.selected_or_first_available_variant.price }}"
-              data-variant="{{ product.selected_or_first_available_variant.id }}"
-            ></div>
+              <!-- Fairstone Product Calculator -->
+              <div
+                class="fairstone-product-calculator"
+                data-price="{{ product.selected_or_first_available_variant.price }}"
+                data-variant="{{ product.selected_or_first_available_variant.id }}"
+              ></div>
+              {% comment %} <payment-terms class="payment-terms">
+                {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
+                {%- form 'product', product, id: product_installment_form_id -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  {{- form | payment_terms -}}
+                {%- endform -%}
+              </payment-terms> {% endcomment %}
             {%- endif -%}
-
 
             {%- when 'rating' -%}
             {%- if product != blank -%}
