@@ -1,5 +1,4 @@
-
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const toggleBtn = document.querySelector('[data-toggle-filter]');
     const filterPanel = document.querySelector('[data-filter-panel]');
     if (toggleBtn && filterPanel) {
@@ -16,7 +15,6 @@
     const pathSegments = window.location.pathname.split('/');
     let currentTags = [];
     
-    // Get current vendor from URL
     const currentVendor = urlParams.get('filter.v.vendor');
     
     // Extract tags from URL path
@@ -56,20 +54,17 @@
       currentTags = pathSegments[3].split('+');
     }
     
-    // Toggle tag
     if (isActive) {
       currentTags = currentTags.filter(t => t.toLowerCase() !== tag.toLowerCase());
     } else {
       currentTags.push(tag);
     }
     
-    // Build URL
     let newUrl = baseUrl;
     if (currentTags.length > 0) {
       newUrl += '/' + currentTags.join('+');
     }
     
-    // Keep vendor filter
     if (urlParams.has('filter.v.vendor')) {
       newUrl += '?filter.v.vendor=' + encodeURIComponent(urlParams.get('filter.v.vendor'));
     }
@@ -89,7 +84,6 @@
       currentTags = pathSegments[3].split('+');
     }
     
-    // Toggle tag
     if (checkbox.checked) {
       if (!currentTags.includes(tag)) {
         currentTags.push(tag);
@@ -98,13 +92,11 @@
       currentTags = currentTags.filter(t => t !== tag);
     }
     
-    // Build URL
     let newUrl = baseUrl;
     if (currentTags.length > 0) {
       newUrl += '/' + currentTags.join('+');
     }
     
-    // Keep vendor filter
     if (urlParams.has('filter.v.vendor')) {
       newUrl += '?filter.v.vendor=' + encodeURIComponent(urlParams.get('filter.v.vendor'));
     }
@@ -117,19 +109,15 @@
     const urlParams = new URLSearchParams(window.location.search);
     
     if (checkbox.checked) {
-      // Uncheck other vendor checkboxes
       document.querySelectorAll('input[type="checkbox"][data-vendor]').forEach(cb => {
         if (cb !== checkbox) cb.checked = false;
       });
       
-      // Set vendor filter
       urlParams.set('filter.v.vendor', vendor);
     } else {
-      // Remove vendor filter
       urlParams.delete('filter.v.vendor');
     }
     
-    // Build URL
     let newUrl = window.location.pathname;
     const queryString = urlParams.toString();
     if (queryString) {
@@ -137,4 +125,13 @@
     }
     
     window.location.href = newUrl;
+  }
+
+  function handleUnifiedFilterChange(checkbox) {
+    setTimeout(() => {
+      const form = checkbox.closest('form');
+      if (form) {
+        form.submit();
+      }
+    }, 50);
   }

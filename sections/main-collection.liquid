@@ -163,172 +163,36 @@ LIQUID
           {%- paginate collection.products by section.settings.products_per_page -%}
 
           <div class="collection-sidebar">
-            {% comment %} Filter 1: Catalogue {% endcomment %}
-            {% assign catalogue_menu = linklists['catalogue'] %}
-            {% if catalogue_menu.links.size > 0 %}
-              <div class="sidebar-filter">
-                <h5 class="filter-heading">Catalogue</h5>
-                <ul class="filter-list catalogue-list">
-                  {% for link in catalogue_menu.links %}
-                    {% assign tag = link.title | handleize %}
-                    {% assign is_checked = false %}
-                    {% for current_tag in current_tags %}
-                      {% if current_tag == tag %}
-                        {% assign is_checked = true %}
-                        {% break %}
-                      {% endif %}
-                    {% endfor %}
-                    <li class="catalogue-list-item">
-                      <button
-                        type="button"
-                        class="catalogue-link{% if is_checked %} active{% endif %}"
-                        data-tag="{{ tag }}"
-                        onclick="handleCatalogueFilter(this)">
-                        <span class="catalogue-plus" aria-hidden="true">+</span>
-                        <span class="catalogue-text">{{ link.title }}</span>
-                      </button>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
-
-            {% comment %} Filter 2: By Brand {% endcomment %}
-            {% comment %} {% if vendor_list.size > 0 %}
-              <div class="sidebar-filter">
-                <h5 class="filter-heading">By Brand</h5>
-                <ul class="filter-list">
-                  {% for vendor in vendor_list %}
-                    {% if vendor != blank %}
-                      <li>
-                        <label>
-                          <input type="checkbox"
-                            data-vendor="{{ vendor }}"
-                            {% if current_vendor == vendor %}checked{% endif %}
-                            onchange="handleVendorFilter(this)">
-                          {{ vendor }}
-                        </label>
-                      </li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %} {% endcomment %}
-            
-            <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters">
-              {% for filter in collection.filters %}
-                {% assign filter_label_downcase = filter.label | downcase %}
-                {% comment %} Show only Brand/Vendor filter {% endcomment %}
-                {% unless filter_label_downcase contains 'brand' or filter_label_downcase contains 'vendor' or filter.param_name == 'filter.v.vendor' %}
-                  {% continue %}
-                {% endunless %}
-                
+            <form method="GET" action="{{ collection.url }}" class="unified-sidebar-filters">
+              {% comment %} Filter 1: Catalogue {% endcomment %}
+              {% assign catalogue_menu = linklists['catalogue'] %}
+              {% if catalogue_menu.links.size > 0 %}
                 <div class="sidebar-filter">
-                  <h5 class="filter-heading">By {{ filter.label }}</h5>
-                  
-                  {% if filter.type == 'list' %}
-                    <ul class="filter-list">
-                      {% for value in filter.values %}
-                        <li>
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="{{ filter.param_name }}"
-                              value="{{ value.value }}"
-                              {% if value.active %}checked{% endif %}
-                              onchange="this.form.submit()">
-                            {{ value.label }} <span style="color: #999999;">({{ value.count }})</span>
-                          </label>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                </div>
-              {% endfor %}
-            </form>
-
-            {% comment %} Filters 3 & 4: By Size, By Comfort {% endcomment %}
-            {% comment %} {% assign other_menus = "By Size,By Comfort" | split: "," %}
-            {% for menu_title in other_menus %}
-              {% assign menu_handle = menu_title | handleize %}
-              {% assign linklist = linklists[menu_handle] %}
-
-              {% if linklist.links.size > 0 %}
-                <div class="sidebar-filter">
-                  <h5 class="filter-heading">{{ menu_title }}</h5>
-                  <ul class="filter-list">
-                    {% for link in linklist.links %}
-                      {% assign tag = link.title | handleize %}
-                      {% assign is_checked = false %}
-                      {% for current_tag in current_tags %}
-                        {% if current_tag == tag %}
-                          {% assign is_checked = true %}
-                          {% break %}
-                        {% endif %}
-                      {% endfor %}
-                      <li>
-                        <label>
-                          <input type="checkbox"
-                            data-tag="{{ tag }}"
-                            {% if is_checked %}checked{% endif %}
-                            onchange="handleMultiFilter(this)">
-                          {{ link.title }}
-                        </label>
+                  <h5 class="filter-heading">Catalogue</h5>
+                  <ul class="filter-list catalogue-list">
+                    {% for link in catalogue_menu.links %}
+                      <li class="catalogue-list-item">
+                        <a
+                          href="{{ link.url }}"
+                          class="catalogue-link{% if collection.handle == link.object.handle %} active{% endif %}">
+                          <span class="catalogue-plus" aria-hidden="true">+</span>
+                          <span class="catalogue-text">{{ link.title }}</span>
+                        </a>
                       </li>
                     {% endfor %}
                   </ul>
                 </div>
               {% endif %}
-            {% endfor %} {% endcomment %}
 
-            <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters">
+              {% comment %} Filter 2: By Brand/Vendor {% endcomment %}
               {% for filter in collection.filters %}
                 {% assign filter_label_downcase = filter.label | downcase %}
-                {% comment %} Show only Brand/Vendor filter {% endcomment %}
-                {% unless filter_label_downcase contains 'size' %}
-                  {% continue %}
-                {% endunless %}
-                
-                <div class="sidebar-filter">
-                  <h5 class="filter-heading">By {{ filter.label }}</h5>
-                  
-                  {% if filter.type == 'list' %}
-                    <ul class="filter-list">
-                      {% for value in filter.values %}
-                        <li>
-                          <label>
-                            <input
-                              type="checkbox"
-                              name="{{ filter.param_name }}"
-                              value="{{ value.value }}"
-                              {% if value.active %}checked{% endif %}
-                              onchange="this.form.submit()">
-                            {{ value.label }} <span style="color: #999999;">({{ value.count }})</span>
-                          </label>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                </div>
-              {% endfor %}
-            </form>
-
-            <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters">
-              {% for filter in collection.filters %}
-                {% assign filter_label_downcase = filter.label | downcase %}
-                {% comment %} Show only Comfort filter {% endcomment %}
-                {% unless filter_label_downcase contains 'comfort' %}
-                  {% continue %}
-                {% endunless %}
-                
-                <div class="sidebar-filter">
-                  <h5 class="filter-heading">By Comfort</h5>
-                  
-                  {% if filter.type == 'list' %}
-                    <ul class="filter-list">
-                      {% for value in filter.values %}
-                        {% assign value_label_downcase = value.label | downcase %}
-                        {% if value_label_downcase == 'plush' or value_label_downcase == 'medium' or value_label_downcase == 'firm' %}
+                {% if filter_label_downcase contains 'brand' or filter_label_downcase contains 'vendor' or filter.param_name == 'filter.v.vendor' %}
+                  <div class="sidebar-filter">
+                    <h5 class="filter-heading">By {{ filter.label }}</h5>
+                    {% if filter.type == 'list' %}
+                      <ul class="filter-list">
+                        {% for value in filter.values %}
                           <li>
                             <label>
                               <input
@@ -336,15 +200,75 @@ LIQUID
                                 name="{{ filter.param_name }}"
                                 value="{{ value.value }}"
                                 {% if value.active %}checked{% endif %}
-                                onchange="this.form.submit()">
+                                class="filter-checkbox"
+                                onchange="handleUnifiedFilterChange(this)">
                               {{ value.label }} <span style="color: #999999;">({{ value.count }})</span>
                             </label>
                           </li>
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                </div>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              {% comment %} Filter 3: By Size {% endcomment %}
+              {% for filter in collection.filters %}
+                {% assign filter_label_downcase = filter.label | downcase %}
+                {% if filter_label_downcase contains 'size' %}
+                  <div class="sidebar-filter">
+                    <h5 class="filter-heading">By {{ filter.label }}</h5>
+                    {% if filter.type == 'list' %}
+                      <ul class="filter-list">
+                        {% for value in filter.values %}
+                          <li>
+                            <label>
+                              <input
+                                type="checkbox"
+                                name="{{ filter.param_name }}"
+                                value="{{ value.value }}"
+                                {% if value.active %}checked{% endif %}
+                                class="filter-checkbox"
+                                onchange="handleUnifiedFilterChange(this)">
+                              {{ value.label }} <span style="color: #999999;">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+
+              {% comment %} Filter 4: By Comfort {% endcomment %}
+              {% for filter in collection.filters %}
+                {% assign filter_label_downcase = filter.label | downcase %}
+                {% if filter_label_downcase contains 'comfort' %}
+                  <div class="sidebar-filter">
+                    <h5 class="filter-heading">By Comfort</h5>
+                    {% if filter.type == 'list' %}
+                      <ul class="filter-list">
+                        {% for value in filter.values %}
+                          {% assign value_label_downcase = value.label | downcase %}
+                          {% if value_label_downcase == 'plush' or value_label_downcase == 'medium' or value_label_downcase == 'firm' %}
+                            <li>
+                              <label>
+                                <input
+                                  type="checkbox"
+                                  name="{{ filter.param_name }}"
+                                  value="{{ value.value }}"
+                                  {% if value.active %}checked{% endif %}
+                                  class="filter-checkbox"
+                                  onchange="handleUnifiedFilterChange(this)">
+                                {{ value.label }} <span style="color: #999999;">({{ value.count }})</span>
+                              </label>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endif %}
               {% endfor %}
             </form>
           </div>

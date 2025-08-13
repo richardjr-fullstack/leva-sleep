@@ -4764,6 +4764,7 @@ product-rerender {
   transition: background .2s, color .2s, border .2s, box-shadow .2s, transform .15s ease-in-out;
   display: grid;
   position: relative;
+  z-index: 1000;
 }
 
 .header.is-hidden {

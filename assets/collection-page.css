@@ -88,10 +88,9 @@
 }
 
 .feature--drawer::part(body) {
-  background-color: #fff; /* your desired color */
+  background-color: #fff;
 }
 
-/* Main widget container */
 .price-range-widget {
   text-align: start;
   margin-bottom: 2rem;
@@ -270,7 +269,6 @@
   color: #999999;
 }
 
-/* Sidebar Navigation */
 .collection-sidebar {
   font-family: 'Arial', sans-serif;
   font-size: 14px;
@@ -299,7 +297,6 @@
   cursor: pointer;
 }
 
-/* Product Card */
 .product-card_title a {
   font-size: 16px;
   font-weight: 700;
@@ -313,7 +310,6 @@
   background: rgba(81, 42, 134, 0.7);
 }
 
-/* Product Card Styles */
 .product-card__figure--fixed-size {
   width: 100%;
   height: 300px;
@@ -441,12 +437,10 @@
   text-decoration: none;
 }
 
-/* Remove underline on hover for catalogue text */
 .catalogue-list .catalogue-link:hover .catalogue-text {
   text-decoration: none;
 }
 
-/* Enhanced disabled filter styles */
 .filter-option-disabled {
   opacity: 0.4;
   pointer-events: none;
@@ -477,7 +471,6 @@
   color: #999 !important;
 }
 
-/* Add visual indication for available filters */
 .filter-option-available {
   position: relative;
 }
@@ -491,7 +484,6 @@
   opacity: 0.7;
 }
 
-/* Smooth transitions */
 .collection-sidebar li {
   transition: opacity 0.2s ease;
 }
@@ -512,4 +504,13 @@
 
 .catalogue-link {
   transition: background-color 0.2s ease;
+}
+
+.unified-sidebar-filters {
+  display: block;
+  width: 100%;
+}
+
+.unified-sidebar-filters .sidebar-filter {
+  margin-bottom: 25px;
 }
