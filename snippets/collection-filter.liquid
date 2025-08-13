@@ -2,7 +2,8 @@
 
 {% comment %} Features Filters {% endcomment %}
 <div class="collection-filtering-container">
-  <div class="feature-filter-wrapper">
+  <!-- Desktop Filter Container (hidden on mobile) -->
+  <div class="feature-filter-wrapper collection-filter-wrapper--desktop">
     {%- if section.settings.show_view_as -%}
       <div class="collection-toolbar__button-container">
         <button type="button" aria-controls="view-as-popover" class="collection-toolbar__button heading text-xxs w-full">
@@ -27,6 +28,7 @@
         </facets-view-as-popover>
       </div>
     {%- endif -%}
+    
     {%- if section.settings.show_sort_by -%}
       {%- assign selected_sort_by_value = collection.sort_by | default: collection.default_sort_by -%}
 
@@ -55,8 +57,172 @@
     {%- endif -%}
   </div>
 
-{% comment %} Variant Filters {% endcomment %}
-  <div class="variant-filter-wrapper">
+  <!-- Mobile Collection Filter Drawer (Left Side) - Contains Featured + Extra Filters -->
+  <div class="collection-filter-drawer" id="collectionFilterDrawer">
+    <div class="collection-filter-drawer__overlay" id="collectionFilterDrawerOverlay"></div>
+    <div class="collection-filter-drawer__content">
+      <div class="collection-filter-drawer__header">
+        <h3>Filter & Sort</h3>
+        <button class="collection-filter-drawer__close" id="collectionFilterDrawerClose" aria-label="Close collection filters" type="button">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="collection-filter-drawer__body">
+        <!-- Featured Filter Section (View As) -->
+        {%- if section.settings.show_view_as -%}
+          <div class="sidebar-filter">
+            <h5 class="filter-heading">View As</h5>
+            <div class="filter-list">
+              {%- for view_option in collection.view_options -%}
+                {%- if view_option.name != blank -%}
+                  <div style="margin-bottom: 8px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                      <input
+                        type="radio"
+                        name="view_as"
+                        value="{{ view_option.value }}"
+                        {% if view_option.value == collection.view_as %}checked{% endif %}
+                        style="margin-right: 8px;"
+                        onchange="window.location.href = '{{ collection.url }}?view={{ view_option.value }}'"
+                      >
+                      {{ view_option.name }}
+                    </label>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- Featured Filter Section (Sort By) -->
+        {%- if section.settings.show_sort_by -%}
+          <div class="sidebar-filter">
+            <h5 class="filter-heading">Sort By</h5>
+            <div class="filter-list">
+              {%- for sort_option in collection.sort_options -%}
+                {%- if sort_option.name != blank -%}
+                  <div style="margin-bottom: 8px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                      <input
+                        type="radio"
+                        name="sort_by"
+                        value="{{ sort_option.value }}"
+                        {% if sort_option.value == selected_sort_by_value %}checked{% endif %}
+                        style="margin-right: 8px;"
+                        onchange="window.location.href = '{{ collection.url }}?sort_by={{ sort_option.value }}'"
+                      >
+                      {{ sort_option.name }}
+                    </label>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- Additional Filter Section -->
+        <form method="GET" action="{{ collection.url }}" class="unified-sidebar-filters">
+          
+          <!-- Search by title -->
+          <div class="sidebar-filter">
+            <h5 class="filter-heading">Search by Title</h5>
+            <form method="get" action="/search">
+              <input
+                type="text"
+                name="q"
+                placeholder="Search product titles..."
+                style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 10px;"
+              />
+              <button
+                type="submit"
+                style="padding: 8px 16px; background: #5B2B82; color: white; border: none; border-radius: 4px; cursor: pointer;"
+              >Search</button>
+            </form>
+          </div>
+
+          {% comment %} Additional Filters (excluding brand/vendor and comfort which are in right drawer) {% endcomment %}
+          {% for filter in collection.filters %}
+            {% assign filter_label_downcase = filter.label | downcase %}
+            {% comment %} Skip brand/vendor and comfort as they're in right drawer {% endcomment %}
+            {% if filter_label_downcase contains 'brand' or filter_label_downcase contains 'vendor' or filter.param_name == 'filter.v.vendor' %}
+              {% continue %}
+            {% endif %}
+            {% if filter_label_downcase contains 'comfort' %}
+              {% continue %}
+            {% endif %}
+
+            <div class="sidebar-filter">
+              <h5 class="filter-heading">By {{ filter.label }}</h5>
+              {% if filter.type == 'list' %}
+                <ul class="filter-list">
+                  {% for value in filter.values %}
+                    <li>
+                      <label>
+                        <input
+                          type="checkbox"
+                          name="{{ filter.param_name }}"
+                          value="{{ value.value }}"
+                          {% if value.active %}checked{% endif %}
+                          class="filter-checkbox"
+                          onchange="this.form.submit()">
+                        {{ value.label }} <span style="color: #999999;">({{ value.count }})</span>
+                      </label>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% elsif filter.type == 'price_range' %}
+                {%- assign highest_price = 0 -%}
+                {%- for product in collection.products -%}
+                  {%- if product.price > highest_price -%}
+                    {%- assign highest_price = product.price -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                <div class="mobile-price-range-widget">
+                  <div class="mobile-slider-wrapper">
+                    <div class="mobile-slider-track-bg"></div>
+                    <div id="mobile-range-track" class="mobile-slider-track-fill"></div>
+
+                    <input
+                      type="range"
+                      id="mobile-min-range"
+                      min="0"
+                      step="1"
+                      class="mobile-range-slider"
+                    />
+                    <input
+                      type="range"
+                      id="mobile-max-range"
+                      min="0"
+                      step="1"
+                      class="mobile-range-slider"
+                    />
+                  </div>
+
+                  <div class="mobile-price-range-label">
+                    Price:
+                    <span id="mobile-min-price" class="mobile-price-value"></span> —
+                    <span id="mobile-max-price" class="mobile-price-value"></span>
+                  </div>
+
+                  <input type="hidden" name="{{ filter.min_value.param_name }}" id="mobile-min-hidden">
+                  <input type="hidden" name="{{ filter.max_value.param_name }}" id="mobile-max-hidden">
+
+                  <button type="submit" class="mobile-filter-apply-button">Apply Filter</button>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} Desktop Variant Filters (hidden on mobile) {% endcomment %}
+  <div class="variant-filter-wrapper collection-filter-wrapper--desktop">
     <button type="button" class="filter-toggle-button heading text-xxs w-full" data-toggle-filter>
       <span class="text-with-icon justify-center">
         <span class="icon-default">{%- render 'icon' with 'chevron-up' -%}</span>
@@ -183,7 +349,50 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Price range slider logic
+    // Collection Filter Drawer Logic (Left Side)
+    const collectionFilterDrawerToggle = document.getElementById('collectionFilterDrawerToggle');
+    const collectionFilterDrawer = document.getElementById('collectionFilterDrawer');
+    const collectionFilterDrawerClose = document.getElementById('collectionFilterDrawerClose');
+    const collectionFilterDrawerOverlay = document.getElementById('collectionFilterDrawerOverlay');
+
+    if (collectionFilterDrawerToggle && collectionFilterDrawer) {
+      // Open drawer
+      collectionFilterDrawerToggle.addEventListener('click', function() {
+        collectionFilterDrawer.classList.add('open');
+        document.body.classList.add('collection-filter-drawer-open');
+      });
+
+      // Close drawer
+      function closeCollectionFilterDrawer() {
+        collectionFilterDrawer.classList.remove('open');
+        document.body.classList.remove('collection-filter-drawer-open');
+      }
+
+      if (collectionFilterDrawerClose) {
+        collectionFilterDrawerClose.addEventListener('click', closeCollectionFilterDrawer);
+      }
+
+      if (collectionFilterDrawerOverlay) {
+        collectionFilterDrawerOverlay.addEventListener('click', closeCollectionFilterDrawer);
+      }
+
+      // Close on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && collectionFilterDrawer.classList.contains('open')) {
+          closeCollectionFilterDrawer();
+        }
+      });
+
+      // Prevent drawer content clicks from closing the drawer
+      const drawerContent = document.querySelector('.collection-filter-drawer__content');
+      if (drawerContent) {
+        drawerContent.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+    }
+
+    // Desktop price range slider logic
     const minInput = document.getElementById('min-range');
     const maxInput = document.getElementById('max-range');
     const track = document.getElementById('range-track');
@@ -192,61 +401,115 @@
     const minHidden = document.getElementById('min-hidden');
     const maxHidden = document.getElementById('max-hidden');
 
-    const max = {{ highest_price | divided_by: 100 }};
-    const min = 0;
+    if (minInput && maxInput) {
+      const max = {{ highest_price | divided_by: 100 }};
+      const min = 0;
 
-    minInput.max = max;
-    maxInput.max = max;
-    minInput.value = min;
-    maxInput.value = max;
+      minInput.max = max;
+      maxInput.max = max;
+      minInput.value = min;
+      maxInput.value = max;
 
-    function updateSlider() {
-      let minVal = Math.min(parseInt(minInput.value), parseInt(maxInput.value));
-      let maxVal = Math.max(parseInt(minInput.value), parseInt(maxInput.value));
+      function updateSlider() {
+        let minVal = Math.min(parseInt(minInput.value), parseInt(maxInput.value));
+        let maxVal = Math.max(parseInt(minInput.value), parseInt(maxInput.value));
 
-      if (minVal >= maxVal) {
-        if (document.activeElement === minInput) {
-          minVal = maxVal - 1;
-          minInput.value = minVal;
-        } else {
-          maxVal = minVal + 1;
-          maxInput.value = maxVal;
+        if (minVal >= maxVal) {
+          if (document.activeElement === minInput) {
+            minVal = maxVal - 1;
+            minInput.value = minVal;
+          } else {
+            maxVal = minVal + 1;
+            maxInput.value = maxVal;
+          }
         }
+
+        const range = max - min;
+        const left = ((minVal - min) / range) * 100;
+        const right = ((max - maxVal) / range) * 100;
+
+        track.style.left = left + '%';
+        track.style.right = right + '%';
+
+        minPrice.textContent = `CAD $${minVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+        maxPrice.textContent = `CAD $${maxVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+        minHidden.value = minVal * 100;
+        maxHidden.value = maxVal * 100;
       }
 
-      const range = max - min;
-      const left = ((minVal - min) / range) * 100;
-      const right = ((max - maxVal) / range) * 100;
+      minInput.addEventListener('input', updateSlider);
+      maxInput.addEventListener('input', updateSlider);
 
-      track.style.left = left + '%';
-      track.style.right = right + '%';
-
-      minPrice.textContent = `CAD $${minVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-      maxPrice.textContent = `CAD $${maxVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
-
-      minHidden.value = minVal * 100;
-      maxHidden.value = maxVal * 100;
+      updateSlider();
     }
 
-    minInput.addEventListener('input', updateSlider);
-    maxInput.addEventListener('input', updateSlider);
+    // Mobile price range slider logic
+    const mobileMinInput = document.getElementById('mobile-min-range');
+    const mobileMaxInput = document.getElementById('mobile-max-range');
+    const mobileTrack = document.getElementById('mobile-range-track');
+    const mobileMinPrice = document.getElementById('mobile-min-price');
+    const mobileMaxPrice = document.getElementById('mobile-max-price');
+    const mobileMinHidden = document.getElementById('mobile-min-hidden');
+    const mobileMaxHidden = document.getElementById('mobile-max-hidden');
 
-    updateSlider();
+    if (mobileMinInput && mobileMaxInput) {
+      const mobileMax = {{ highest_price | divided_by: 100 }};
+      const mobileMin = 0;
 
-    // Icon toggle based on class "open"
+      mobileMinInput.max = mobileMax;
+      mobileMaxInput.max = mobileMax;
+      mobileMinInput.value = mobileMin;
+      mobileMaxInput.value = mobileMax;
+
+      function updateMobileSlider() {
+        let minVal = Math.min(parseInt(mobileMinInput.value), parseInt(mobileMaxInput.value));
+        let maxVal = Math.max(parseInt(mobileMinInput.value), parseInt(mobileMaxInput.value));
+
+        if (minVal >= maxVal) {
+          if (document.activeElement === mobileMinInput) {
+            minVal = maxVal - 1;
+            mobileMinInput.value = minVal;
+          } else {
+            maxVal = minVal + 1;
+            mobileMaxInput.value = maxVal;
+          }
+        }
+
+        const range = mobileMax - mobileMin;
+        const left = ((minVal - mobileMin) / range) * 100;
+        const right = ((mobileMax - maxVal) / range) * 100;
+
+        mobileTrack.style.left = left + '%';
+        mobileTrack.style.right = right + '%';
+
+        mobileMinPrice.textContent = `CAD $${minVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+        mobileMaxPrice.textContent = `CAD $${maxVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+        mobileMinHidden.value = minVal * 100;
+        mobileMaxHidden.value = maxVal * 100;
+      }
+
+      mobileMinInput.addEventListener('input', updateMobileSlider);
+      mobileMaxInput.addEventListener('input', updateMobileSlider);
+
+      updateMobileSlider();
+    }
+
     const filterPanel = document.querySelector('[data-filter-panel]');
     const toggleBtn = document.querySelector('[data-toggle-filter]');
-    const iconDefault = toggleBtn.querySelector('.icon-default');
-    const iconClose = toggleBtn.querySelector('.icon-close');
+    
+    if (filterPanel && toggleBtn) {
+      const iconDefault = toggleBtn.querySelector('.icon-default');
+      const iconClose = toggleBtn.querySelector('.icon-close');
 
-    const observer = new MutationObserver(() => {
-      const isOpen = filterPanel.classList.contains('open');
-      iconDefault.classList.toggle('hidden', isOpen);
-      iconClose.classList.toggle('hidden', !isOpen);
-    });
+      const observer = new MutationObserver(() => {
+        const isOpen = filterPanel.classList.contains('open');
+        iconDefault.classList.toggle('hidden', isOpen);
+        iconClose.classList.toggle('hidden', !isOpen);
+      });
 
-    observer.observe(filterPanel, { attributes: true, attributeFilter: ['class'] });
+      observer.observe(filterPanel, { attributes: true, attributeFilter: ['class'] });
+    }
   });
 </script>
-
-

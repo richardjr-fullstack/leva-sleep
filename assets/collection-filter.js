@@ -6,6 +6,129 @@ document.addEventListener('DOMContentLoaded', function() {
         filterPanel.classList.toggle('open');
       });
     }
+    
+    // Left Filter & Sort Drawer Logic
+    const collectionFilterDrawerToggle = document.getElementById('collectionFilterDrawerToggle');
+    const collectionFilterDrawer = document.getElementById('collectionFilterDrawer');
+    const collectionFilterDrawerClose = document.getElementById('collectionFilterDrawerClose');
+    const collectionFilterDrawerOverlay = document.getElementById('collectionFilterDrawerOverlay');
+
+    if (collectionFilterDrawerToggle && collectionFilterDrawer) {
+      // Open left drawer
+      collectionFilterDrawerToggle.addEventListener('click', function() {
+        // Close right drawer if open
+        const rightDrawer = document.getElementById('filterDrawer');
+        if (rightDrawer && rightDrawer.classList.contains('open')) {
+          rightDrawer.classList.remove('open');
+          document.body.classList.remove('filter-drawer-open');
+        }
+        
+        collectionFilterDrawer.classList.add('open');
+        document.body.classList.add('collection-filter-drawer-open');
+      });
+
+      // Close left drawer
+      function closeCollectionFilterDrawer() {
+        collectionFilterDrawer.classList.remove('open');
+        document.body.classList.remove('collection-filter-drawer-open');
+      }
+
+      if (collectionFilterDrawerClose) {
+        collectionFilterDrawerClose.addEventListener('click', closeCollectionFilterDrawer);
+      }
+
+      if (collectionFilterDrawerOverlay) {
+        collectionFilterDrawerOverlay.addEventListener('click', closeCollectionFilterDrawer);
+      }
+
+      // Close on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && collectionFilterDrawer.classList.contains('open')) {
+          closeCollectionFilterDrawer();
+        }
+      });
+
+      // Prevent drawer content clicks from closing the drawer
+      const drawerContent = document.querySelector('.collection-filter-drawer__content');
+      if (drawerContent) {
+        drawerContent.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+    }
+    
+    // Right Filter Drawer Logic
+    const filterDrawerToggle = document.getElementById('filterDrawerToggle');
+    const filterDrawer = document.getElementById('filterDrawer');
+    const filterDrawerClose = document.getElementById('filterDrawerClose');
+    const filterDrawerOverlay = document.getElementById('filterDrawerOverlay');
+
+    if (filterDrawerToggle && filterDrawer) {
+      // Open right drawer
+      filterDrawerToggle.addEventListener('click', function() {
+        // Close left drawer if open
+        const leftDrawer = document.getElementById('collectionFilterDrawer');
+        if (leftDrawer && leftDrawer.classList.contains('open')) {
+          leftDrawer.classList.remove('open');
+          document.body.classList.remove('collection-filter-drawer-open');
+        }
+        
+        filterDrawer.classList.add('open');
+        document.body.classList.add('filter-drawer-open');
+      });
+
+      // Close right drawer
+      function closeFilterDrawer() {
+        filterDrawer.classList.remove('open');
+        document.body.classList.remove('filter-drawer-open');
+      }
+
+      if (filterDrawerClose) {
+        filterDrawerClose.addEventListener('click', closeFilterDrawer);
+      }
+
+      if (filterDrawerOverlay) {
+        filterDrawerOverlay.addEventListener('click', closeFilterDrawer);
+      }
+
+      // Close on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && filterDrawer.classList.contains('open')) {
+          closeFilterDrawer();
+        }
+      });
+
+      // Prevent drawer content clicks from closing the drawer
+      const rightDrawerContent = document.querySelector('.filter-drawer__content');
+      if (rightDrawerContent) {
+        rightDrawerContent.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+    }
+
+    // Mobile filter options functionality (for left drawer)
+    document.querySelectorAll('.mobile-filter-option').forEach(button => {
+      button.addEventListener('click', function() {
+        const sortBy = this.dataset.sortBy;
+        const viewAs = this.dataset.viewAs;
+        
+        if (sortBy) {
+          // Handle sort by change
+          const url = new URL(window.location);
+          url.searchParams.set('sort_by', sortBy);
+          window.location.href = url.toString();
+        }
+        
+        if (viewAs) {
+          // Handle view as change
+          const url = new URL(window.location);
+          url.searchParams.set('view', viewAs);
+          window.location.href = url.toString();
+        }
+      });
+    });
+
     const minInput = document.getElementById('min-range');
     initializeFilterState();
   });
