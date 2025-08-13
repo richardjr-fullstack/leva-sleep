@@ -22,7 +22,7 @@
   Array.from(block.children).forEach(el => {
     const tag = el.tagName.toLowerCase();
 
-    if (tag === 'h4' || tag === 'h2' || tag === 'h5' || tag === 'h6') {
+    if (tag === 'h4') {
       if (currentSection) accordionContainer.appendChild(currentSection);
 
       currentSection = document.createElement('div');
@@ -58,11 +58,20 @@
       const content = currentSection.querySelector('.accordion-content');
       if (tag === 'p' && el.textContent.trim() === '') return;
       content.appendChild(el.cloneNode(true));
+    } else if (!descriptionInserted) {
+      // Avoid grabbing the same block we're looping through
+      const productDescEl = document.querySelector('.product-single__description');
+      if (productDescEl && productDescEl !== block) {
+        const descHTML = productDescEl.innerHTML;
+        if (descHTML.trim()) {
+          content.innerHTML += descHTML;
+          descriptionInserted = true;
+        }
+      }
     }
   });
 
   if (currentSection) accordionContainer.appendChild(currentSection);
-
   // Insert the h3 title before the accordion, if it exists
     if (h3Title) {
       h3Title.classList.add('accordion-title'); // <-- Add this line
@@ -83,7 +92,7 @@ style.textContent = `
   .accordion-header {
     cursor: pointer;
     padding: 16px 16px 10px 0;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     position: relative;
   }

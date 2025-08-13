@@ -4146,6 +4146,11 @@ product-rerender {
 .cart-drawer__button-price {
   align-items: center;
   display: flex;
+  color: #fff;
+}
+
+.button-group:hover .cart-drawer__button-price {
+  color: #333;
 }
 
 .cart-drawer__button-price:before {

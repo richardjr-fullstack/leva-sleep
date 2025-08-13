@@ -275,7 +275,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.1); /* #0000001a */
+  background: rgba(0, 0, 0, 0.1); 
   transition: background 0.3s ease;
   z-index: 1;
   pointer-events: none;
