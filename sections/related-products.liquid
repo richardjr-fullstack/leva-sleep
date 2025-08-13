@@ -45,7 +45,7 @@
             {%- assign carousel_id = 'carousel-' | append: section.id -%}
 
             <product-list class="floating-controls-container floating-controls-container--inside floating-controls-container--on-hover">
-              <carousel-prev-button class="floating-controls-container__control" aria-controls="{{ carousel_id }}">
+              <carousel-prev-button class="floating-controls-container__control" aria-controls="{{ carousel_id }}" style="display: none;">
                 <button type="button" class="prev-next-button prev-next-button--prev circle-button hover:animate-icon-inline" disabled>
                   <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
                   {%- render 'icon' with 'arrow-left', direction_aware: true -%}
@@ -56,19 +56,155 @@
                 {{- product_list -}}
               </scroll-carousel>
 
-              <carousel-next-button class="floating-controls-container__control" aria-controls="{{ carousel_id }}">
+              <carousel-next-button class="floating-controls-container__control" aria-controls="{{ carousel_id }}" style="display: none;">
                 <button type="button" class="prev-next-button prev-next-button--next circle-button hover:animate-icon-inline">
                   <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
                   {%- render 'icon' with 'arrow-right', direction_aware: true -%}
                 </button>
               </carousel-next-button>
+
+              <div class="carousel-progress-container">
+                <div class="carousel-progress-line" id="progress-{{ carousel_id }}"></div>
+                
+                <div class="carousel-controls-bottom">
+                  <button type="button" class="prev-next-button prev-next-button--prev" 
+                          data-carousel="{{ carousel_id }}" data-direction="prev"
+                          id="prev-{{ carousel_id }}" disabled>
+                    <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
+                    {%- render 'icon' with 'arrow-left', direction_aware: true -%}
+                  </button>
+                  
+                  <button type="button" class="prev-next-button prev-next-button--next" 
+                          data-carousel="{{ carousel_id }}" data-direction="next"
+                          id="next-{{ carousel_id }}">
+                    <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
+                    {%- render 'icon' with 'arrow-right', direction_aware: true -%}
+                  </button>
+                </div>
+              </div>
             </product-list>
           {%- endif -%}
         </div>
       </div>
-    </div>
+      
+      </div>
   {%- endif -%}
 </product-recommendations>
+
+<script>
+(function() {
+  'use strict';
+
+  const DEBUG = true;
+  let isInitialized = false;
+
+  /** Find the scrollable child of a carousel */
+  function findScrollable(el) {
+    if (!el) return null;
+
+    const testNode = node => {
+      try { return node.scrollWidth > node.clientWidth ? node : null; }
+      catch { return null; }
+    };
+
+    if (testNode(el)) return el;
+
+    if (el.shadowRoot) {
+      for (const node of el.shadowRoot.querySelectorAll('*')) {
+        const candidate = testNode(node);
+        if (candidate) return candidate;
+      }
+    }
+
+    for (const node of el.querySelectorAll('*')) {
+      const candidate = testNode(node);
+      if (candidate) return candidate;
+    }
+
+    return el;
+  }
+
+  function initCarouselProgress() {
+    if (isInitialized) return;
+
+    const carousels = document.querySelectorAll('scroll-carousel[id^="carousel-"]');
+    if (!carousels.length) return setTimeout(initCarouselProgress, 100);
+
+    carousels.forEach(carousel => {
+      const id = carousel.id;
+      const progressLine = document.getElementById(`progress-${id}`);
+      const prevBtn = document.getElementById(`prev-${id}`);
+      const nextBtn = document.getElementById(`next-${id}`);
+      if (!progressLine || !prevBtn || !nextBtn) {
+        if (DEBUG) console.warn(`Missing elements for carousel ${id}`);
+        return;
+      }
+
+      const scroller = findScrollable(carousel) || carousel;
+      if (DEBUG) console.log(`Scroller found for ${id}:`, scroller);
+
+      const updateProgress = () => {
+        const { scrollLeft, scrollWidth, clientWidth } = scroller;
+        const maxScroll = scrollWidth - clientWidth;
+        let pos = "0px";
+
+        const indicatorWidth = window.innerWidth <= 425 ? 100 : 300;
+
+        if (scrollLeft <= 5) pos = "0px";
+        else if (scrollLeft >= maxScroll - 5) pos = `calc(100% - ${indicatorWidth}px)`;
+        else pos = `calc(50% - ${indicatorWidth / 2}px)`;
+
+        progressLine.style.setProperty("--indicator-left", pos);
+        prevBtn.disabled = scrollLeft <= 5;
+        nextBtn.disabled = scrollLeft >= maxScroll - 5;
+      };
+
+      const scrollCarousel = dir => {
+        const step = scroller.clientWidth * 0.7;
+        scroller.scrollTo({
+          left: dir === 'prev'
+            ? Math.max(0, scroller.scrollLeft - step)
+            : Math.min(scroller.scrollLeft + step, scroller.scrollWidth - scroller.clientWidth),
+          behavior: 'smooth'
+        });
+      };
+
+      prevBtn.addEventListener('click', () => scrollCarousel('prev'));
+      nextBtn.addEventListener('click', () => scrollCarousel('next'));
+
+      // Scroll + resize updates
+      let rafId;
+      scroller.addEventListener('scroll', () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => { updateProgress(); rafId = null; });
+      });
+      window.addEventListener('resize', () => setTimeout(updateProgress, 100));
+
+      // Image load updates
+      const imgs = scroller.querySelectorAll('img');
+      if (imgs.length) {
+        let loaded = 0;
+        const checkDone = () => { if (++loaded === imgs.length) setTimeout(updateProgress, 50); };
+        imgs.forEach(img => img.complete ? checkDone() : img.addEventListener('load', checkDone) || img.addEventListener('error', checkDone));
+      }
+
+      setTimeout(updateProgress, 50);
+    });
+
+    isInitialized = true;
+  }
+
+  // Init triggers
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCarouselProgress);
+  else initCarouselProgress();
+
+  // Shopify editor events
+  ['shopify:section:load', 'shopify:section:select'].forEach(evt =>
+    document.addEventListener(evt, () => { isInitialized = false; setTimeout(initCarouselProgress, 100); })
+  );
+
+})();
+</script>
 
 {% schema %}
 {
