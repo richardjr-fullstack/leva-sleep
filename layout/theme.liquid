@@ -131,19 +131,20 @@
     {{ content_for_header }}
 
 
-    <script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.quickview-icon').forEach(function (el) {
-    el.addEventListener('click', function () {
-      const handle = el.getAttribute('data-product-handle');
-      const url = `/products/${handle}?view=quick_view`;
+  const modal = document.getElementById('quickview-modal');
+  const content = modal.querySelector('.quickview-content');
+  const loader = document.getElementById('quickview-loader');
 
-      const modal = document.getElementById('quickview-modal');
-      const content = modal.querySelector('.quickview-content');
-      const loader = document.getElementById('quickview-loader');
+  document.addEventListener('click', function (e) {
+    const icon = e.target.closest('.quickview-icon');
+    if (icon) {
+      const handle = icon.getAttribute('data-product-handle');
+      const url = `/products/${handle}?section_id=product-quick-view`;
 
       loader.style.display = 'block';
-      modal.style.display = 'flex';
+      modal.style.display = 'flex'; // make sure CSS supports flex
 
       fetch(url)
         .then(res => res.text())
@@ -155,19 +156,17 @@ document.addEventListener('DOMContentLoaded', function () {
           content.innerHTML = '<p>Failed to load product.</p>';
           loader.style.display = 'none';
         });
-    });
-  });
+    }
 
-  // Close modal on background click
-  document.addEventListener('click', function (e) {
-    const modal = document.getElementById('quickview-modal');
+    // Close modal if clicking outside content
     if (e.target === modal) {
       modal.style.display = 'none';
-      modal.querySelector('.quickview-content').innerHTML = '';
+      content.innerHTML = '';
     }
   });
 });
 </script>
+
 
     {% comment %} Geolocation redirect {% endcomment %}
     {% render 'redirect-canada-customers' %}
@@ -178,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {{- 'global.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'explore-products.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'product.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'quick-view.css' | asset_url | stylesheet_tag: preload: true -}}
 
     <!-- Judge Testimonial -->
     {% render 'judgeme_core' %}

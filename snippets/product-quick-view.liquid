@@ -1,0 +1,96 @@
+{%- liquid
+  if hide_product_information
+    assign show_rating = false
+  else
+    assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true
+  endif
+
+  assign quickview_form_id = 'quickview-form-' | append: product.id
+-%}
+
+<div class="quickview-product"
+     data-section-id="quickview-{{ product.id }}"
+     data-product="{{ product | json | escape }}">
+  
+  <button type="button" class="quickview-close">&times;</button>
+
+  <!-- Gallery -->
+  <div class="quickview-gallery" style="width: 50%;">
+    {% render 'product-gallery',
+      product: product,
+      product_form_id: quickview_form_id,
+      desktop_layout: 'carousel_dots',
+      mobile_controls: 'dots',
+      enable_media_autoplay: false,
+      enable_video_looping: false,
+      enable_image_zoom: true,
+      max_image_zoom_level: 2,
+      show_desktop_arrows: true
+    %}
+  </div>
+
+  <!-- Product details -->
+  <div class="quickview-details" style="width: 50%;">
+    
+    <!-- Title -->
+    <h2 class="product-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h2>
+
+    <!-- Price -->
+    <p class="price">
+      <span data-product-price>
+        {{ product.selected_or_first_available_variant.price | money }}
+      </span>
+      {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+        <span class="compare-price" data-compare-price>
+          {{ product.selected_or_first_available_variant.compare_at_price | money }}
+        </span>
+      {% endif %}
+    </p>
+
+    <!-- Rating -->
+    {%- if show_rating -%}
+      {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
+    {%- endif -%}
+
+    <!-- Short description -->
+    <p class="description">
+      {{ product.description | strip_html | truncatewords: 31 }}
+    </p>
+
+    <!-- Add to cart form -->
+    {%- form 'product', product, id: quickview_form_id, class: 'quickview-form' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+      <!-- Variant picker -->
+      {%- unless product.has_only_default_variant -%}
+        {% render 'variant-picker',
+          product: product,
+          form_id: quickview_form_id,
+          context: 'quick_buy',
+          hide_sold_out_variants: false,
+          selector_style: 'dropdown',
+          swatch_selector_style: 'swatch',
+          variant_image_options: 'color'
+        %}
+      {%- endunless -%}
+
+      <button type="submit"
+              class="quickview-add-to-cart"
+              {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+        {% if product.selected_or_first_available_variant.available %}
+          {{ 'product.general.add_to_cart' | t }}
+        {% else %}
+          {{ 'product.general.sold_out' | t }}
+        {% endif %}
+      </button>
+    {%- endform -%}
+
+    <!-- View full product page link -->
+    <a href="{{ product.url }}" class="quick-buy-modal__view-more link">
+      {{ 'product.general.view_details' | t }}
+    </a>
+
+  </div>
+</div>
