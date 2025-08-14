@@ -133,10 +133,21 @@
     },
     "hot_buys_nw9niL": {
       "type": "hot-buys",
+      "blocks": {
+        "heading_Fd8yWz": {
+          "type": "heading",
+          "settings": {
+            "text": "Summer Boxing Week Blowout Hot Buys",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Fd8yWz"
+      ],
       "name": "Hot Buys",
       "settings": {
         "color_scheme": "scheme-1",
-        "heading": "Summer Boxing Week Blowout Hot Buys",
         "collection": "weekend-deals-feature"
       }
     },

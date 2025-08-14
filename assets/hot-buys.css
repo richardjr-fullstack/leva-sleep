@@ -62,12 +62,14 @@
   padding-bottom: 30px;
 }
 .section-heading {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 10px;
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  font-style: var(--heading-font-style);
+  letter-spacing: var(--heading-letter-spacing);
+  text-transform: var(--heading-text-transform);
+  overflow-wrap: anywhere;
   position: relative;
   display: inline-block;
-  padding: 0 20px;
 }
 .section-heading::before,
 .section-heading::after {
