@@ -1075,3 +1075,52 @@ body.collection-filter-drawer-open {
     display: none !important;
   }
 }
+
+.column-selector-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.column-selector {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.column-option {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 3px 3px;
+  cursor: pointer;
+  background: white;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.column-option:hover {
+  border-color: #999;
+}
+
+.column-option.active {
+  border-color: #000;
+  border-width: 2px;
+}
+
+.column-block {
+  width: 10px;
+  height: 18px;
+  background: #000;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.column-option.active .column-block {
+  background: #000;
+}
+
+.column-option:not(.active) .column-block {
+  background: #666;
+}

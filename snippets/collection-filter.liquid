@@ -220,6 +220,35 @@
       </div>
     </div>
   </div>
+  
+  <!-- Three Column Selector Component -->
+<div class="column-selector-wrapper">
+  <div class="column-selector">
+    <!-- Two Column Option -->
+    <div class="column-option" data-columns="2">
+      <div class="column-block"></div>
+      <div class="column-block"></div>
+    </div>
+    
+    <!-- Three Column Option -->
+    <div class="column-option active" data-columns="3">
+      <div class="column-block"></div>
+      <div class="column-block"></div>
+      <div class="column-block"></div>
+    </div>
+    
+    <!-- Four Column Option -->
+    <div class="column-option" data-columns="4">
+      <div class="column-block"></div>
+      <div class="column-block"></div>
+      <div class="column-block"></div>
+      <div class="column-block"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden input to store selected value -->
+<input type="hidden" id="column-count" name="column_count" value="3">
 
   {% comment %} Desktop Variant Filters (hidden on mobile) {% endcomment %}
   <div class="variant-filter-wrapper collection-filter-wrapper--desktop">
