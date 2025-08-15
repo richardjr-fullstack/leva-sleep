@@ -1,0 +1,58 @@
+<div class="custom-product-gallery">
+  <div id="splide-product-gallery" class="splide">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for media in product.media %}
+          {% if media.media_type == 'image' %}
+            <li class="splide__slide sample101">
+              <img
+                src="{{ media | image_url: width: 1600 }}"
+                alt="{{ media.alt | escape }}"
+                loading="lazy"
+              >
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom arrows -->
+  <div class="bottom-arrows">
+    <button id="bottom-prev" aria-label="Previous">&#8592;</button>
+    <button id="bottom-next" aria-label="Next">&#8594;</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var splide = new Splide('#splide-product-gallery', {
+      type: 'loop',
+      perPage: 1,
+      focus: 'center',
+      arrows: true, // Side arrows (B)
+      pagination: true,
+      speed: 600,
+      breakpoints: {
+        768: {
+          arrows: true,
+          perPage: 1,
+        },
+      },
+    });
+
+    splide.mount();
+
+    // Bottom arrows events
+    document.getElementById('bottom-prev').addEventListener('click', function () {
+      splide.go('<');
+    });
+    document.getElementById('bottom-next').addEventListener('click', function () {
+      splide.go('>');
+    });
+  });
+</script>
+
+<style>
+
+</style>
