@@ -17,19 +17,48 @@
         "message-1": {
           "type": "message",
           "settings": {
-            "text": "Announce something here"
+            "text": "<a href=\"/pages/promotions\" title=\"Promotions\">Our Summer Boxing Week Blowout Is On Now!</a>"
+          }
+        },
+        "message_Q8fAhL": {
+          "type": "message",
+          "settings": {
+            "text": "<a href=\"/collections/bfjuly\" title=\"Black Friday In July Sale Featured Products\">Up To 50% Off Storewide Plus Save An Additional 10% Using Code BOXING</a>"
+          }
+        },
+        "message_gGyDEA": {
+          "type": "message",
+          "settings": {
+            "text": "<a href=\"/pages/store-locator\" title=\"Showroom Locations\">Visit One Of Our 6 Showrooms Located Across Canada!</a>"
+          }
+        },
+        "message_bNyqCY": {
+          "type": "message",
+          "settings": {
+            "text": "<a href=\"/pages/interest-free-financing\" title=\"Interest Free Financing\">No Payments, No Interest Until 2027</a>"
+          }
+        },
+        "message_AmFgwU": {
+          "type": "message",
+          "settings": {
+            "text": "Free Delivery & In-Home Set Up"
           }
         }
       },
       "block_order": [
-        "message-1"
+        "message-1",
+        "message_Q8fAhL",
+        "message_gGyDEA",
+        "message_bNyqCY",
+        "message_AmFgwU"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
+        "content": "<p><a href=\"tel:6476465382\">(647) 646 5382 (LEVA)</a></p>",
         "enable_sticky": false,
         "autoplay": true,
-        "cycle_speed": 5,
-        "desktop_font_size": 11,
+        "cycle_speed": 3,
+        "desktop_font_size": 12,
         "mobile_font_size": 10
       }
     },
@@ -55,9 +84,9 @@
         "sidebar_open_second_level_menus": false,
         "layout": "logo_left_navigation_center",
         "show_icons": true,
-        "show_country_selector": true,
+        "show_country_selector": false,
         "show_country_name": false,
-        "show_country_flag": true,
+        "show_country_flag": false,
         "show_locale_selector": false,
         "transparent_header_text_color": "#ffffff",
         "transparent_logo": "shopify://shop_images/leva-logo_website_320x132px.png"

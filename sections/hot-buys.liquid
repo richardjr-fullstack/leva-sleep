@@ -1,0 +1,227 @@
+{%- liquid
+  if hide_product_information
+    assign show_rating = false
+    assign show_vendor = false
+    assign show_title = false
+    assign show_prices = false
+    assign show_quick_buy = show_quick_buy | default: settings.show_quick_buy, allow_false: true
+  else
+    assign show_quick_buy = show_quick_buy | default: settings.show_quick_buy, allow_false: true
+    assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true
+    assign show_vendor = show_vendor | default: settings.show_vendor, allow_false: true
+    assign show_title = true
+    assign show_prices = true
+  endif
+-%}
+
+{% comment %}
+  Demo Days Mega Sale Hot Buys - Custom Section
+{% endcomment %}
+<section class="color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
+  <div class="page-width container">
+      <div class="hotbuy-title">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              {%- if block.settings.text != blank -%}
+                <p class="section-heading {{ block.settings.heading_tag }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    <div class="hot-buys-products">
+      {% assign collection_handle = section.settings.collection %}
+      {% assign collection = collections[collection_handle] %}
+
+      {% if collection and collection.products.size > 0 %}
+        {% for product in collection.products limit: 6 %}
+          <div class="hot-buy-card">
+            <div class="hot-buy-media-wrapper">
+              <a href="{{ product.url }}" class="hot-buy-media-link">
+                <img
+                  src="{{ product.featured_image | img_url: '600x600' }}"
+                  alt="{{ product.title }}"
+                  class="primary-image"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+                {% if product.images.size > 1 %}
+                  <img
+                    src="{{ product.images[1] | img_url: '600x600' }}"
+                    alt="{{ product.title }} second image"
+                    class="secondary-image"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {% endif %}
+              </a>
+
+              <!-- Size -->
+              {% assign size_option = product.options_with_values | where: "name", "Size" | first %}
+
+              {% if size_option %}
+                {% assign size_index = size_option.position | minus: 1 %}
+                {% assign sizes = '' %}
+                {% assign default_size = product.variants.first.options[size_index] %}
+
+                {% for variant in product.variants %}
+                  {% assign size_value = variant.options[size_index] %}
+                  {% unless sizes contains size_value %}
+                    {% assign sizes = sizes | append: size_value | append: ',' %}
+                  {% endunless %}
+                {% endfor %}
+
+                {% assign size_array = sizes | split: ',' | uniq %}
+                <div class="product-sizes">
+                  {% for size in size_array %}
+                    <span class="size-label{% if size == default_size %} selected{% endif %}">
+                      {{ size }}
+                    </span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              
+              <!-- Wishlist icon -->
+              <div class="wishlist-engine" 
+                data-tooltip="Add to Wishlist"
+                data-product_id="{{  product.id }}" 
+                data-variant_id="{{ product.selected_or_first_available_variant.id }}" 
+                data-full_button="false" 
+                data-css="true">
+              </div>
+
+              <!-- QuickView icon -->
+              <div 
+                class="quickview-icon" 
+                data-tooltip="Quick View" 
+                data-product-handle="{{ product.handle }}">
+                <i class="fa fa-eye"></i>
+              </div>
+
+              <!-- QuickView modal (once, typically in theme.liquid) -->
+              <div id="quickview-modal" class="quickview-modal" style="display: none;">
+                <div class="quickview-content"></div>
+              </div>
+              <div id="quickview-loader" class="quickview-loader" style="display: none;">
+                Loading...
+              </div>
+
+              <!-- Quick shop -->
+      {%- if show_quick_buy and product.available -%}
+        {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
+          <product-form>
+            {%- form 'product', product -%}
+              <input type="hidden" name="on_success" value="force_open_drawer">
+              <input type="hidden" name="quantity" value="1">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="product-card__quick-add-button">
+                <span class="sr-only">{{ 'product.general.add_to_cart_button' | t }}</span>
+                Quick Buy
+              </button>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          {%- capture quick_buy_id -%}product-quick-buy-{{ section.id }}-{{ block.id }}-{{ quick_buy_context }}-{{ product.id }}{%- endcapture -%}
+
+          <button type="button" aria-controls="{{ quick_buy_id }}" class="product-card__quick-add-button quick-shop-btn">
+            <span class="sr-only">{{ 'product.general.choose_options' | t }}</span>
+            Quick Buy
+          </button>
+
+          <quick-buy-modal handle="{{ product.handle }}?variant={{ product.selected_or_first_available_variant.id }}" class="quick-buy-modal modal" id="{{ quick_buy_id }}">
+          </quick-buy-modal>
+        {%- endif -%}
+      {%- endif -%}
+
+              {% if product.compare_at_price > product.price %}
+                {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+                <span class="discount-badge">-{{ discount | round }}%</span>
+              {% endif %}
+            </div>
+
+            <div class="hot-buy-info">
+              <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+              <p class="price">from {{ product.price | money }}</p>
+              {%- if show_rating -%}
+                {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
+              {%- endif -%}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No products found in this collection.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hot Buys",
+  "settings": [
+        {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:global.colors.scheme"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Choose Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.image_with_text.blocks.heading.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:global.text.text",
+          "default": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:global.text.style",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ],
+          "default": "h1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hot Buys"
+    }
+  ]
+}
+{% endschema %}

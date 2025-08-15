@@ -1,0 +1,95 @@
+/* Headings: Poppins */
+h1, h2, h3, h4, h5, h6,
+.section__title, .heading, .title, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+span, .content {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.content-spacing {
+  margin: 0 30%;  
+  width: 100%;
+}
+
+.h4 {
+  font-weight: 600;
+  line-height: 21px;
+  font-size: 15px;
+}
+
+h4 {       
+  line-height: 35px;
+  font-size: 28px;
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.h-wishlist-icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.h-wishlist-icon .wishlist-h-count {
+  padding-left: 1px !important;
+  width: 15px;
+  height: 15px;
+  font-size: 8px;
+  background: #f3f3f3 !important;
+  right: -9px !important;
+  top: -8px !important;
+  color: #452276 !important;
+}
+
+
+@media (min-width: 1230px) {
+    .container {
+        max-width: 1200px;
+        padding: 50px 0;
+    }
+}
+@media (max-width: 1024px) {
+    .h4 {
+      font-weight: 600;
+      line-height: 41px;
+      font-size: 35.5px;
+    }
+
+    h4 {       
+      line-height: 35px;
+      font-size: 23px;
+    }
+    .content-spacing {
+      margin: 0 20%;
+      width: 80%;
+    }
+}
+@media (max-width: 600px) {
+    .container {
+        max-width: 100%;
+        padding: 30px 0;
+    }
+    .content-spacing {
+      margin: 20% 0 0 0;
+      width: 100%;
+    }
+}
+
+.splide {
+  margin: 0 auto;
+}
+.splide--stack .splide__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

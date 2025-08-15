@@ -1,3 +1,5 @@
+{{- 'related-products.css' | asset_url | stylesheet_tag: preload: true -}}
+
 <product-recommendations class="block" product="{{ product.id }}" limit="{{ section.settings.recommendations_count }}" intent="related">
   {%- if recommendations.performed and recommendations.products_count > 0 -%}
     <style>
@@ -17,13 +19,21 @@
     {%- assign color_scheme_hash = section.settings.color_scheme.settings.background_gradient | default: section.settings.color_scheme.settings.background | md5 -%}
 
     <div class="section-spacing color-scheme color-scheme--{{ section.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }} {% if section.settings.separate_section_with_border %}bordered-section{% endif %}">
-      <div class="container">
+      <div class="related-container">
         <div class="section-stack">
           {%- render 'section-header', subheading: section.settings.subheading, heading: section.settings.title, content: section.settings.content -%}
 
           {%- capture product_list -%}
             {%- for product in recommendations.products -%}
-              {%- render 'product-card', product: product, reveal: settings.stagger_products_apparition, position: forloop.index, hide_product_information: section.settings.hide_product_information -%}
+              {%- if product.featured_image -%}
+                {%- render 'product-card',
+                    product: product,
+                    reveal: settings.stagger_products_apparition,
+                    position: forloop.index,
+                    hide_product_information: section.settings.hide_product_information,
+                    is_related_product: true
+                -%}
+              {%- endif -%}
             {%- endfor -%}
           {%- endcapture -%}
 

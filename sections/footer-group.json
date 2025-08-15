@@ -77,7 +77,7 @@
         "links": {
           "type": "links",
           "settings": {
-            "menu": "adjustable-bed-bedding",
+            "menu": "catalogue",
             "show_menu_title": true,
             "menu_title": ""
           }
@@ -90,39 +90,44 @@
             "menu_title": ""
           }
         },
-        "links_93aXn9": {
-          "type": "links",
+        "get_in_touch_yDfC6M": {
+          "type": "get_in_touch",
           "settings": {
-            "menu": "customer-support",
-            "show_menu_title": true,
-            "menu_title": ""
+            "logo_width": 100,
+            "title": "Get in touch",
+            "content": "<div class=\"contact-inline\">\n  <div class=\"contact-item\">\n    <i class=\"fa-solid fa-location-dot\"></i>\n    <a href=\"https://www.levasleep.com/pages/store-locator\" target=\"_blank\">Locate Nearest Showroom</a>\n  </div>\n  <div class=\"contact-item\">\n    <i class=\"fa-solid fa-envelope\"></i>\n    <a href=\"mailto:info@levasleep.com\">info@levasleep.com</a>\n  </div>\n  <div class=\"contact-item\">\n    <i class=\"fa-solid fa-phone\"></i>\n    <a href=\"tel:6476465382\">(647) 646-5382</a>\n  </div>\n</div>\n\n  <style>\n  .contact-inline {\n    display: flex;\n    gap: 30px;\n    align-items: center;\n    flex-wrap: wrap;\n    font-size: 16px;\n  }\n\n  .contact-item {\n    display: flex;\n    align-items: center;\n  }\n\n  .contact-item i {\n    font-size: 20px;\n    margin-right: 8px;\n  }\n\n  .contact-item a {\n    text-decoration: none;\n    transition: color 0.3s ease;\n  }\n@media screen and (max-width: 600px) {\n  .contact-inline {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start \n!important;\n  }\n}\n</style>",
+            "social_mode": "3",
+            "order": "1",
+            "cl": "3",
+            "cl_tb": "6",
+            "cl_mb": "12"
           }
         },
         "newsletter": {
           "type": "newsletter",
           "settings": {
-            "title": "Newsletter",
-            "content": "<p>Sign up to our newsletter to receive exclusive offers.</p>",
-            "button_background": "",
-            "button_text_color": ""
+            "title": "<strong>Signup Today!</strong>",
+            "content": "<p>Never miss out on the latest products and promotions coming to store.<br/><br/></p>",
+            "button_background": "#452276",
+            "button_text_color": "#ffffff"
           }
         }
       },
       "block_order": [
         "links",
         "links_jzzTzz",
-        "links_93aXn9",
+        "get_in_touch_yDfC6M",
         "newsletter"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "separate_section_with_border": false,
         "show_social_media": true,
-        "show_payment_icons": true,
-        "show_country_selector": true,
-        "show_country_name": true,
-        "show_country_flag": true,
-        "show_locale_selector": true
+        "show_payment_icons": false,
+        "show_country_selector": false,
+        "show_country_name": false,
+        "show_country_flag": false,
+        "show_locale_selector": false
       }
     }
   },

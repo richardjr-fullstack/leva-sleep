@@ -1,0 +1,17 @@
+.collection-heading-wrapper {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.collection-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.collection-description {
+  font-size: 1rem;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+}

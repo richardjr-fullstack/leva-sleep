@@ -12,33 +12,49 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "vendor",
+        "badges_bL4D9y": {
+          "type": "badges",
           "settings": {}
         },
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+            "heading_tag": "h3"
+          }
         },
         "price": {
           "type": "price",
-          "settings": {}
+          "settings": {
+            "show_taxes_notice": false
+          }
         },
         "payment_terms": {
           "type": "payment_terms",
           "settings": {}
         },
-        "separator": {
+        "separator_6fJjp7": {
           "type": "separator",
-          "settings": {}
-        },
-        "description": {
-          "type": "description",
           "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {}
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "complementary_products": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "Pairs well with",
+            "products_count": 2,
+            "show_below_gallery": true,
+            "stack_products": false,
+            "show_quick_buy": true
+          }
         },
         "quantity_selector": {
           "type": "quantity_selector",
@@ -46,38 +62,139 @@
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "settings": {}
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
         },
-        "pickup_availability": {
-          "type": "pickup_availability",
-          "settings": {}
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "show_below_gallery": false
+          }
         },
-        "complementary_products": {
-          "type": "complementary_products",
+        "judge_me_reviews_review_snippet_widget_BDK9Ch": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {}
         }
       },
       "block_order": [
-        "vendor",
+        "badges_bL4D9y",
         "title",
         "price",
         "payment_terms",
-        "separator",
-        "description",
+        "separator_6fJjp7",
         "variant_picker",
+        "complementary_products",
         "quantity_selector",
         "buy_buttons",
-        "complementary_products"
+        "description",
+        "judge_me_reviews_review_snippet_widget_BDK9Ch"
       ],
-      "settings": {}
+      "settings": {
+        "color_scheme": "scheme-1",
+        "container_size": "lg",
+        "product_info_size": 35,
+        "show_sticky_add_to_cart": false,
+        "center_basic_info": false,
+        "desktop_media_layout": "carousel_dots",
+        "desktop_media_grid_gap": 30,
+        "mobile_controls": "dots",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
     },
-    "related-products": {
+    "related_products_8Jxz6R": {
       "type": "related-products",
-      "settings": {}
+      "name": "t:sections.related_products.presets.related_products.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "hide_product_information": false,
+        "stack_products": false,
+        "recommendations_count": 10,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 5,
+        "horizontal_spacing_factor": 0.2,
+        "vertical_spacing_factor": 0.2,
+        "subheading": "",
+        "title": "You May Also Like",
+        "content": ""
+      }
+    },
+    "custom_image_text_LzTiiA": {
+      "type": "custom-image-text",
+      "name": "Custom Image Text",
+      "settings": {
+        "image": "shopify://shop_images/DALL_E_2025-04-19_13.44.33_-_A_realistic_and_elegant_bedroom_with_a_fully_made_bed_featuring_crisp_white_cotton_sheets_and_a_large_cozy_rug_underneath._The_bedding_looks_soft_ma_17c6de69-86a8-418c-8b62-efdf6c3aeddf.webp",
+        "heading": "Personalized Comfort at Every Angle",
+        "text": "No two sleepers are alike. That’s why our adjustable beds let you customize your position for sleeping, reading, or simply relaxing. Whether you want zero gravity for pressure relief or an elevated head to ease snoring, you’re always in control of your comfort. Pair it with our carefully chosen mattresses for the ultimate sleep experience.",
+        "image_position": "right"
+      }
+    },
+    "custom_image_text_KYjzA6": {
+      "type": "custom-image-text",
+      "name": "Custom Image Text",
+      "settings": {
+        "image": "shopify://shop_images/MidnightBliss3.jpg",
+        "heading": "Canadian-Made Quality You Can Trust",
+        "text": "At Leva Sleep, every adjustable bed package is built with care. From premium materials to expert craftsmanship, our mission is to deliver better sleep without compromise. Backed by industry-leading warranties and trusted by thousands of Canadian families, you can rest easy knowing your comfort is our priority.",
+        "image_position": "left"
+      }
+    },
+    "custom_image_text_eNxy93": {
+      "type": "custom-image-text",
+      "disabled": true,
+      "name": "Custom Image Text",
+      "settings": {
+        "image": "shopify://shop_images/DALL_E_2025-04-19_13.44.33_-_A_realistic_and_elegant_bedroom_with_a_fully_made_bed_featuring_crisp_white_cotton_sheets_and_a_large_cozy_rug_underneath._The_bedding_looks_soft_ma_17c6de69-86a8-418c-8b62-efdf6c3aeddf.webp",
+        "heading": "White-Glove Delivery & Setup",
+        "text": "From the moment you order to your first night’s sleep, we handle everything. Our in-house delivery teams provide professional setup in your home, so all you need to do is relax. And if you ever need support, our dedicated sleep experts are just a phone call away.",
+        "image_position": "right"
+      }
+    },
+    "judgeme_carousel_section_kYJbt8": {
+      "type": "judgeme_carousel_section",
+      "disabled": true,
+      "name": "Featured Review Carousel",
+      "settings": {
+        "maxwidth": 1080
+      }
+    },
+    "17545026842e4d63f6": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_gyyyEE": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_gyyyEE"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false
+      }
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related_products_8Jxz6R",
+    "custom_image_text_LzTiiA",
+    "custom_image_text_KYjzA6",
+    "custom_image_text_eNxy93",
+    "judgeme_carousel_section_kYJbt8",
+    "17545026842e4d63f6"
   ]
 }

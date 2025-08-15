@@ -1,0 +1,245 @@
+{{- 'collection-page.css' | asset_url | stylesheet_tag: preload: true -}}
+
+{% comment %} Features Filters {% endcomment %}
+<div class="collection-filtering-container">
+  <div class="feature-filter-wrapper">
+    {%- if section.settings.show_view_as -%}
+      <div class="collection-toolbar__button-container">
+        <button type="button" aria-controls="view-as-popover" class="collection-toolbar__button heading text-xxs w-full">
+          <span class="featured-icon-container">
+            View as
+            {%- render 'icon' with 'chevron-down' -%}
+          </span>
+        </button>
+
+        <facets-view-as-popover id="view-as-popover" section-id="{{ section.id }}" class="popover popover--bottom-end color-scheme color-scheme--dialog" close-on-listbox-select>
+          <p class="h4" slot="header">{{ 'collection.faceting.view_as' | t }}</p>
+
+          <x-listbox class="popover__value-list">
+            {%- for view_option in collection.view_options -%}
+              {%- if view_option.name != blank -%}
+                <button type="button" class="popover__value-option group" role="option" value="{{ view_option.value }}" {% if view_option.value == collection.view_as %}aria-selected="true"{% endif %}>
+                  <span class="reversed-link">{{ view_option.name }}</span>
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </x-listbox>
+        </facets-view-as-popover>
+      </div>
+    {%- endif -%}
+    {%- if section.settings.show_sort_by -%}
+      {%- assign selected_sort_by_value = collection.sort_by | default: collection.default_sort_by -%}
+
+      <div class="collection-toolbar__button-container">
+        <button type="button" aria-controls="sort-by-popover" class="collection-toolbar__button heading text-xxs w-full">
+          <span class="featured-icon-container">
+            Featured
+            {%- render 'icon' with 'chevron-down' -%}
+          </span>
+        </button>
+
+        <facets-sort-popover id="sort-by-popover" section-id="{{ section.id }}" class="popover popover--bottom-end color-scheme feature--drawer" close-on-listbox-select>
+          <p class="h4" slot="header">{{ 'collection.faceting.sort_by' | t }}</p>
+
+          <x-listbox class="popover__value-list">
+            {%- for sort_option in collection.sort_options -%}
+              {%- if sort_option.name != blank -%}
+                <button type="button" class="popover__value-option group" role="option" value="{{ sort_option.value }}" {% if sort_option.value == selected_sort_by_value %}aria-selected="true"{% endif %}>
+                  <span class="reversed-link">{{ sort_option.name }}</span>
+                </button>
+              {%- endif -%}
+            {%- endfor -%}
+          </x-listbox>
+        </facets-sort-popover>
+      </div>
+    {%- endif -%}
+  </div>
+
+{% comment %} Variant Filters {% endcomment %}
+  <div class="variant-filter-wrapper">
+    <button type="button" class="filter-toggle-button heading text-xxs w-full" data-toggle-filter>
+      <span class="text-with-icon justify-center">
+        <span class="icon-default">{%- render 'icon' with 'chevron-up' -%}</span>
+        <span class="icon-close hidden">{%- render 'icon' with 'chevron-down' -%}</span>
+        Filter
+      </span>
+    </button>
+
+    <div class="variant-filter-panel" data-filter-panel>
+      <!-- Optional: Search by title -->
+      <div class="variant-filter-group">
+        <h4 class="filter-title">By Title</h4>
+        <form method="get" action="/search">
+          <input
+            type="text"
+            name="q"
+            placeholder="Search product titles..."
+            style="width: 100%; padding: 0.5rem; border: 2px solid #222; border-radius: 4px;"
+          />
+          <button
+            type="submit"
+            style="margin-top: 0.5rem; padding: 0.5rem 2rem; border: 1px solid #222;  border-radius: 4px;"
+          >FILTER</button>
+        </form>
+      </div>
+
+      <form method="GET" action="{{ collection.url }}" class="custom-discovery-filters">
+        {% for filter in collection.filters %}
+          {% assign label_downcase = filter.label | downcase %}
+
+          <div class="filter-block">
+            <h4 class="filter-title">
+              By&nbsp;{{ filter.label }}
+            </h4>
+
+            {% if filter.type == 'list' %}
+              {% for value in filter.values %}
+                {% if label_downcase contains 'color' %}
+                  <div class="color-swatch-wrapper">
+                    <label class="color-swatch-label" title="{{ value.label }}">
+                      <input
+                        type="checkbox"
+                        name="{{ filter.param_name }}"
+                        value="{{ value.value }}"
+                        class="color-swatch-input"
+                        {% if value.active %}checked{% endif %}
+                        onchange="this.form.submit()"
+                      >
+                      <div style="display: flex; align-items: center; gap: 5px;">
+                        <span class="color-swatch" style="background-color: {{ value.label | downcase }};"></span>
+                        <span>{{ value.label }} </span><span style="color: #999999;">({{ value.count }})</span>
+                      </div>
+                    </label>
+                  </div>
+                {% else %}
+                  <label class="block mb-1">
+                    <input
+                      type="checkbox"
+                      name="{{ filter.param_name }}"
+                      value="{{ value.value }}"
+                      {% if value.active %}checked{% endif %}
+                      onchange="this.form.submit()"
+                      class="filter-checkbox"
+                    >
+                  <span>{{ value.label }} </span><span style="color: #999999;">({{ value.count }})</span>
+                  </label>
+                {% endif %}
+              {% endfor %}
+
+            {% elsif filter.type == 'price_range' %}
+              {%- assign highest_price = 0 -%}
+              {%- for product in collection.products -%}
+                {%- if product.price > highest_price -%}
+                  {%- assign highest_price = product.price -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              <div class="price-range-widget">
+                <div class="slider-wrapper">
+                  <div class="slider-track-bg"></div>
+                  <div id="range-track" class="slider-track-fill"></div>
+
+                  <input
+                    type="range"
+                    id="min-range"
+                    min="0"
+                    step="1"
+                    class="range-slider"
+                  />
+                  <input
+                    type="range"
+                    id="max-range"
+                    min="0"
+                    step="1"
+                    class="range-slider"
+                  />
+                </div>
+
+                <div class="price-range-label">
+                  Price:
+                  <span id="min-price" class="price-value"></span> —
+                  <span id="max-price" class="price-value"></span>
+                </div>
+
+                <input type="hidden" name="{{ filter.min_value.param_name }}" id="min-hidden">
+                <input type="hidden" name="{{ filter.max_value.param_name }}" id="max-hidden">
+
+                <button type="submit" class="filter-button">FILTER</button>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Price range slider logic
+    const minInput = document.getElementById('min-range');
+    const maxInput = document.getElementById('max-range');
+    const track = document.getElementById('range-track');
+    const minPrice = document.getElementById('min-price');
+    const maxPrice = document.getElementById('max-price');
+    const minHidden = document.getElementById('min-hidden');
+    const maxHidden = document.getElementById('max-hidden');
+
+    const max = {{ highest_price | divided_by: 100 }};
+    const min = 0;
+
+    minInput.max = max;
+    maxInput.max = max;
+    minInput.value = min;
+    maxInput.value = max;
+
+    function updateSlider() {
+      let minVal = Math.min(parseInt(minInput.value), parseInt(maxInput.value));
+      let maxVal = Math.max(parseInt(minInput.value), parseInt(maxInput.value));
+
+      if (minVal >= maxVal) {
+        if (document.activeElement === minInput) {
+          minVal = maxVal - 1;
+          minInput.value = minVal;
+        } else {
+          maxVal = minVal + 1;
+          maxInput.value = maxVal;
+        }
+      }
+
+      const range = max - min;
+      const left = ((minVal - min) / range) * 100;
+      const right = ((max - maxVal) / range) * 100;
+
+      track.style.left = left + '%';
+      track.style.right = right + '%';
+
+      minPrice.textContent = `CAD $${minVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+      maxPrice.textContent = `CAD $${maxVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
+
+      minHidden.value = minVal * 100;
+      maxHidden.value = maxVal * 100;
+    }
+
+    minInput.addEventListener('input', updateSlider);
+    maxInput.addEventListener('input', updateSlider);
+
+    updateSlider();
+
+    // Icon toggle based on class "open"
+    const filterPanel = document.querySelector('[data-filter-panel]');
+    const toggleBtn = document.querySelector('[data-toggle-filter]');
+    const iconDefault = toggleBtn.querySelector('.icon-default');
+    const iconClose = toggleBtn.querySelector('.icon-close');
+
+    const observer = new MutationObserver(() => {
+      const isOpen = filterPanel.classList.contains('open');
+      iconDefault.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
+    });
+
+    observer.observe(filterPanel, { attributes: true, attributeFilter: ['class'] });
+  });
+</script>
+
+

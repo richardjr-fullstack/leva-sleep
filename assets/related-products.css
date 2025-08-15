@@ -1,0 +1,40 @@
+.related-container {
+    padding: 20px 30px;
+}
+.product-card {
+    background: #a1a1a11a;
+    color: #fff;
+    height: auto;
+    padding: 20px;
+}
+
+.product-card__image {
+    object-fit: fill;
+    object-position: center;
+    margin-inline: auto;
+    transition: opacity .1s ease-in-out;
+}
+
+.product-card__figure img {
+    color: #0000;
+    max-width: 100%;
+    height: auto;
+}
+
+.product-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+@media screen and (max-width: 600px) {
+    .product-card__figure img {
+        color: #0000;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .product-card {
+        height: auto;
+    }
+}

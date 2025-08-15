@@ -1,0 +1,343 @@
+.featured-collection {
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  padding: 7px 7px 7px 15px;
+  min-width: 190px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.variant-filter-panel {
+  display: none;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 1px 1px 12px 0px rgba(221, 221, 221, 0.70);
+  -webkit-box-shadow: 1px 1px 12px 0px rgba(221, 221, 221, 0.70);
+  -moz-box-shadow: 1px 1px 12px 0px rgba(221, 221, 221, 0.70);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.collection-filtering-container {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+.featured-icon-container {
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.variant-filter-panel.open {
+  display: flex;
+  gap: 40px;
+}
+
+.variant-filter-group {
+  margin-bottom: 2rem;
+}
+
+.variant-filter-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+
+.variant-filter-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.variant-filter-price input[type="range"] {
+  width: 100%;
+}
+
+.filter-toggle-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 30px 0 0 0;
+}
+
+.collection-filtering-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.variant-filter-wrapper {
+    width: 96%;
+}
+
+.feature-filter-wrapper {
+  width: 10%;
+  position: absolute;
+}
+
+.feature--drawer::part(body) {
+  background-color: #fff; /* your desired color */
+}
+
+/* Main widget container */
+.price-range-widget {
+  text-align: start;
+  margin-bottom: 2rem;
+}
+
+
+.price-range-title {
+  color: #5B2B82;
+  font-weight: 600;
+  border-bottom: 2px solid #000;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 0.5rem;
+  height: 40px;
+  margin-bottom: 0.5rem;
+}
+
+.slider-track-bg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #E5E7EB; 
+  border-radius: 0;
+  transform: translateY(0%);
+  z-index: 0;
+}
+
+.slider-track-fill {
+  position: absolute;
+  top: 50%;
+  height: 3px;
+  background-color: #5B2B82; 
+  transform: translateY(100%);
+  z-index: 1;
+  border-radius: 0;
+  top: 18px;
+}
+
+
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  pointer-events: none;
+  z-index: 2;
+  left: 0;
+  top: 6px;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 4px;
+  background: #5B2B82;
+  pointer-events: auto;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  margin-top: -6px;
+}
+
+.range-slider::-moz-range-thumb {
+  height: 16px;
+  width: 4px;
+  background: #5B2B82;
+  border: none;
+  border-radius: 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+
+.price-range-label {
+  font-size: 0.9rem;
+  color: #9CA3AF;
+}
+
+.price-value {
+  color: #000;
+  font-weight: 600;
+}
+
+.filter-button {
+  margin-top: 1rem;
+  border: 1px solid #000;
+  padding: 0.5rem 1.5rem;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease-in-out;
+  background: white;
+  color: black;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-button:hover {
+  background: black;
+  color: white;
+}
+
+.color-swatch-wrapper {
+  display: inline-block;
+  margin: 4px;
+  width: 150px;
+}
+
+.color-swatch-label {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.color-swatch-input {
+  display: none;
+}
+
+.color-swatch {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  transition: 0.2s ease;
+}
+
+.color-swatch-label:hover .color-swatch {
+  border-color: #3f2c78;
+  transform: scale(1.1);
+}
+
+.color-swatch-input:checked + .color-swatch {
+  border: 3px solid #3f2c78;
+}
+
+.filter-block {
+  width: 250px;
+}
+
+.custom-discovery-filters {
+  display: flex; 
+  gap: 3rem; 
+  width: 100%; 
+}
+
+.variant-filter-group {
+  margin-bottom: 2rem;
+  width: 350px;
+}
+
+.filter-title {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 500;
+  width: 25%; 
+  border-bottom: 2px solid #222222; 
+  color: #3f2c78;
+}
+
+.filter-checkbox {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  color: #999999;
+}
+
+/* Sidebar Navigation */
+.collection-sidebar {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+.sidebar-filter {
+  margin-bottom: 25px;
+}
+.filter-heading {
+  font-weight: 600;
+  color: #2c1f63;
+  margin-bottom: 10px;
+  font-size: 26px;
+}
+.filter-list {
+  list-style: none;
+  padding: 0;
+  margin-inline-start: unset;
+}
+.filter-list li {
+  margin-bottom: 3px;
+}
+.filter-list input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* Product Card */
+.product-card_title a {
+  font-size: 16px;
+  font-weight: 700;
+  color: #452276;
+}
+
+.product-card__quick-add-button {
+  width: 100%;
+  background-color: red;
+  color: #fff;
+  background: rgba(81, 42, 134, 0.7);
+}
+
+/* Product Card Styles */
+.product-card__figure--fixed-size {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-card__image--fixed-size {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  padding: 8px;
+  transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.product-card__image--secondary.product-card__image--zoom {
+  transition: transform 2s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+
+.product-card__media:hover .product-card__image--secondary.product-card__image--zoom {
+  transform: scale(1.12);
+}

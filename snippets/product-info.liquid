@@ -175,17 +175,15 @@ Supported variables
 
           {%- when 'payment_terms' -%}
             {%- if product != blank -%}
-              <payment-terms class="payment-terms">
-                {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
-
-                {%- form 'product', product, id: product_installment_form_id -%}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  {{- form | payment_terms -}}
-                {%- endform -%}
-              </payment-terms>
+              <!-- Fairstone Product Calculator -->
+              <div
+                class="fairstone-product-calculator"
+                data-price="{{ product.selected_or_first_available_variant.price }}"
+                data-variant="{{ product.selected_or_first_available_variant.id }}"
+              ></div>
             {%- endif -%}
 
-          {%- when 'rating' -%}
+            {%- when 'rating' -%}
             {%- if product != blank -%}
               {%- render 'product-rating', product: product, show_empty: block.settings.show_empty, display_mode: block.settings.rating_mode, show_placeholder: false -%}
             {%- else -%}
@@ -353,16 +351,27 @@ Supported variables
             -%}
 
           {%- when 'buy_buttons' -%}
-            {%- render 'buy-buttons',
-                product: product,
-                form_id: product_form_id,
-                show_payment_button: block.settings.show_payment_button,
-                show_gift_card_recipient: block.settings.show_gift_card_recipient,
-                atc_button_background: block.settings.atc_button_background,
-                atc_button_text_color: block.settings.atc_button_text_color,
-                payment_button_background: block.settings.payment_button_background,
-                payment_button_text_color: block.settings.payment_button_text_color
-            -%}
+            {% comment %} <div style="margin-bottom: 1rem;">
+              <payment-terms class="payment-terms">
+                {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
+                {%- form 'product', product, id: product_installment_form_id -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  {{- form | payment_terms -}}
+                {%- endform -%}
+              </payment-terms> 
+            </div> {% endcomment %}
+            <div class="product-form" data-product-form>
+              {%- render 'buy-buttons',
+                  product: product,
+                  form_id: product_form_id,
+                  show_payment_button: block.settings.show_payment_button,
+                  show_gift_card_recipient: block.settings.show_gift_card_recipient,
+                  atc_button_background: block.settings.atc_button_background,
+                  atc_button_text_color: block.settings.atc_button_text_color,
+                  payment_button_background: block.settings.payment_button_background,
+                  payment_button_text_color: block.settings.payment_button_text_color
+              -%}
+            </div>
 
           {%- when 'pickup_availability' -%}
             {%- if product != blank -%}
@@ -536,9 +545,9 @@ Supported variables
                 {%- render 'icon' with 'chevron-right' -%}
               </a>
             {%- endif -%}
-        {%- endcase -%}
+          {%- endcase -%}
       {%- endcapture -%}
-      
+
       {%- if allow_block_group and inside_block_group_context == false -%}
         {%- assign inside_block_group_context = true -%}
         <div class="product-info__block-group {{ block_group_class }}" data-group-type="{{ block_group_name }}">

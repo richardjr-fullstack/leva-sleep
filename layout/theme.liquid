@@ -38,6 +38,82 @@
       <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
     {%- endif -%}
 
+    <!-- Splide Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css" />
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.splide').forEach(el => {
+          new Splide(el, {
+            type: 'slide',
+            perPage: 5,
+            perMove: 1,
+            gap: '20px',
+            pagination: false,
+            breakpoints: {
+              768: {
+                perPage: 2,
+                gap: '10px',
+                focus: 'center'
+              },
+              480: {
+                perPage: 1,
+                gap: '10px',
+                focus: 'center'
+               }
+            }
+          }).mount();
+        });
+
+        // Tab switching
+        const buttons = document.querySelectorAll(".tab-button");
+        const tabs = document.querySelectorAll(".product-slider-wrapper");
+
+        // Add active to first button
+        if (buttons.length) {
+          buttons[0].classList.add("active");
+        }
+
+        // Add click event to each tab button
+        buttons.forEach(button => {
+          button.addEventListener("click", () => {
+            const target = button.dataset.tab;
+
+            // Remove active from all buttons, then add to clicked
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            // Show the clicked tab, hide the others
+            tabs.forEach(tab => {
+              tab.style.display = tab.dataset.tab === target ? 'block' : 'none';
+            });
+          });
+        });
+      });
+    </script>
+
+    <!-- Hot buys -->
+    <script>
+      document.querySelectorAll('.quick-shop-button').forEach(button => {
+        button.addEventListener('click', function () {
+          const handle = this.getAttribute('data-product-handle');
+          // Trigger Prestige's modal or a custom quick shop modal
+          console.log('Open quick shop for', handle);
+        });
+      });
+    </script>
+
+    <!-- Wishlist -->
+    <script>
+      document.querySelectorAll('.hot-buy-wishlist').forEach(el => {
+        el.addEventListener('click', () => {
+          alert('Added to wishlist! (mock)');
+          // You can integrate your actual wishlist app logic here
+        });
+      });
+    </script>
+
     <script type="importmap">
       {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
       {
@@ -54,16 +130,75 @@
 
     {{ content_for_header }}
 
+  {% comment %} Quick View Modal {% endcomment %}
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.quickview-icon').forEach(function (el) {
+          el.addEventListener('click', function () {
+            const handle = el.getAttribute('data-product-handle');
+            const url = `/products/${handle}?view=quick_view`;
+
+            const modal = document.getElementById('quickview-modal');
+            const content = modal.querySelector('.quickview-content');
+            const loader = document.getElementById('quickview-loader');
+
+            loader.style.display = 'block';
+            modal.style.display = 'flex';
+
+            fetch(url)
+              .then(res => res.text())
+              .then(html => {
+                content.innerHTML = html;
+                loader.style.display = 'none';
+              })
+              .catch(() => {
+                content.innerHTML = '<p>Failed to load product.</p>';
+                loader.style.display = 'none';
+              });
+          });
+        });
+
+        // Close modal on background click
+        document.addEventListener('click', function (e) {
+          const modal = document.getElementById('quickview-modal');
+          if (e.target === modal) {
+            modal.style.display = 'none';
+            modal.querySelector('.quickview-content').innerHTML = '';
+          }
+        });
+      });
+    </script> 
+
+
+    {% comment %} Geolocation redirect {% endcomment %}
+    {% render 'redirect-canada-customers' %}
+
+
+    <!-- Styling files -->
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'hot-buys.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'slider-collection.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'global.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'explore-products.css' | asset_url | stylesheet_tag: preload: true -}}
+    {{- 'product.css' | asset_url | stylesheet_tag: preload: true -}}
+
+    <!-- Judge Testimonial -->
+    {% render 'judgeme_core' %}
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Google Fonts: Poppins and Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
 
   {% liquid
     assign features_class = ''
-  
+
     if settings.show_button_transition
       assign features_class = features_class | append: 'features--button-transition '
     endif
-  
+
     if settings.show_image_zoom_on_hover
       assign features_class = features_class | append: 'features--zoom-image '
     endif

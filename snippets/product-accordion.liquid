@@ -1,0 +1,136 @@
+<script>
+(() => {
+  const block = document.querySelector('[data-block-id="description"] .prose');
+  if (!block) {
+    console.warn("Target block not found");
+    return;
+  }
+
+  // Check for h3 as the first child and use it as the title
+  let h3Title = null;
+  if (block.firstElementChild && block.firstElementChild.tagName.toLowerCase() === 'h3') {
+    h3Title = block.firstElementChild.cloneNode(true);
+    block.removeChild(block.firstElementChild);
+  }
+
+  const accordionContainer = document.createElement('div');
+  accordionContainer.classList.add('accordion');
+
+  let currentSection = null;
+  let sectionCount = 0;
+
+  Array.from(block.children).forEach(el => {
+    const tag = el.tagName.toLowerCase();
+
+    if (tag === 'h4') {
+      if (currentSection) accordionContainer.appendChild(currentSection);
+
+      currentSection = document.createElement('div');
+      currentSection.classList.add('accordion-section');
+
+      const header = document.createElement('div');
+      header.classList.add('accordion-header');
+      header.innerHTML = el.innerHTML;
+
+      const content = document.createElement('div');
+      content.classList.add('accordion-content');
+
+      // Open first section by default
+      if (sectionCount === 0) {
+        content.classList.add('open');
+        currentSection.classList.add('open');
+      }
+
+      header.addEventListener('click', () => {
+        const section = header.parentElement;
+        const content = section.querySelector('.accordion-content');
+        const isOpen = section.classList.contains('open');
+
+        content.classList.toggle('open', !isOpen);
+        section.classList.toggle('open', !isOpen);
+      });
+
+      currentSection.appendChild(header);
+      currentSection.appendChild(content);
+      sectionCount++;
+    } else if (tag === 'p' || tag === 'ul') {
+      if (!currentSection) return;
+      const content = currentSection.querySelector('.accordion-content');
+      if (tag === 'p' && el.textContent.trim() === '') return;
+      content.appendChild(el.cloneNode(true));
+    } else if (!descriptionInserted) {
+      // Avoid grabbing the same block we're looping through
+      const productDescEl = document.querySelector('.product-single__description');
+      if (productDescEl && productDescEl !== block) {
+        const descHTML = productDescEl.innerHTML;
+        if (descHTML.trim()) {
+          content.innerHTML += descHTML;
+          descriptionInserted = true;
+        }
+      }
+    }
+  });
+
+  if (currentSection) accordionContainer.appendChild(currentSection);
+  // Insert the h3 title before the accordion, if it exists
+    if (h3Title) {
+      h3Title.classList.add('accordion-title'); // <-- Add this line
+      block.parentNode.insertBefore(h3Title, block);
+    }
+    block.replaceWith(accordionContainer);
+  })();
+
+const style = document.createElement('style');
+style.textContent = `
+  .accordion {
+    border-top: 1px solid #e0e0e0;
+    font-family: sans-serif;
+  }
+  .accordion-section {
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .accordion-header {
+    cursor: pointer;
+    padding: 16px 16px 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+  }
+  .accordion-header::after {
+    content: "+";
+    font-size: 20px;
+    line-height: 1;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.2s ease;
+  }
+  .accordion-section.open .accordion-header::after {
+    content: "–";
+  }
+  .accordion-content {
+    display: none;
+    padding: 0 0 16px 0;
+    font-size: 14px;
+    color: #333;
+  }
+  .accordion-content ul {
+    margin: 0 0 12px 16px;
+    padding-left: 0;
+  }
+  .accordion-content p {
+    margin: 0 0 12px;
+  }
+  .accordion-section.open .accordion-content {
+    display: block;
+  }
+  .accordion-title {
+    font-size: 1rem;
+    font-weight: 500; 
+    margin-bottom: 18px;
+    color: #452276;
+  }
+`;
+document.head.appendChild(style);
+</script>

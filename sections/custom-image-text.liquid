@@ -1,0 +1,61 @@
+{{- 'custom-image-text.css' | asset_url | stylesheet_tag: preload: true -}}
+{% assign image_position = section.settings.image_position %}
+
+<div class="custom-image-text custom-image-text--image-{{ image_position }}">
+  <div class="custom-image-text__image">
+    {% if section.settings.image %}
+      <img src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.heading }}" width="100%" height="auto">
+    {% endif %}
+  </div>
+  <div class="custom-image-text__text">
+    <h2 class="custom-image-text__heading">{{ section.settings.heading }}</h2>
+    <div class="custom-image-text__body">{{ section.settings.text }}</div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Image Text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Style Inspiration"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "This versatile layer is the ultimate essential for every season..."
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Image Text",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
