@@ -15,15 +15,15 @@
         "image_iB78nd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/BLUE_Desktop_Leva_Sleep_-_Black_Friday_Graphics_12.10.23_4.png",
-            "mobile_image": "shopify://shop_images/BLUE_Mobile_Leva_Sleep_1350_-_Black_Friday_Graphics_12.10.23_4.1.png",
+            "image": "shopify://shop_images/Your_paragraph_text_4.png",
+            "mobile_image": "shopify://shop_images/Your_paragraph_text_5.png",
             "subheading": "",
             "title": "",
             "mobile_text_position": "place-self-center text-center",
             "desktop_text_position": "sm:place-self-center sm:text-center",
             "content_max_width": 780,
             "button_1_text": "",
-            "button_1_link": "",
+            "button_1_link": "shopify://collections/event",
             "button_1_style": "solid",
             "button_1_background": "#ffffff",
             "button_1_text_color": "#000000",
@@ -41,6 +41,7 @@
         },
         "image_7jcNmW": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Leva_Website_Banner_Images-05.jpg",
             "subheading": "Save Up To 80% On New And Demo Discontinued Model!Only While Stock available*",
@@ -132,10 +133,21 @@
     },
     "hot_buys_nw9niL": {
       "type": "hot-buys",
+      "blocks": {
+        "heading_Fd8yWz": {
+          "type": "heading",
+          "settings": {
+            "text": "Summer Boxing Week Blowout Hot Buys",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Fd8yWz"
+      ],
       "name": "Hot Buys",
       "settings": {
         "color_scheme": "scheme-1",
-        "heading": "The Big One Hot Buys",
         "collection": "weekend-deals-feature"
       }
     },
@@ -316,6 +328,25 @@
         "heading": "The Last Bed You Will Ever Buy",
         "subheading": "Your sleep needs change as you age, which is why replacing your bed every 10 years is recommendedUnless you buy a Leva Sleep adjustable bed that is! We offer an industry leading 25 Year Warranty and our adjustable bed framesallow you to change your sleep surface as your sleep needs change. Making this the last bed you will ever buy!"
       }
+    },
+    "175450266303e7b2dc": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_ugc_media_grid_D6qG78": {
+          "type": "shopify://apps/judge-me-reviews/blocks/ugc_media_grid/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_ugc_media_grid_D6qG78"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false
+      }
     }
   },
   "order": [
@@ -326,6 +357,7 @@
     "explore_products_8m4TFR",
     "judgeme_carousel_section_xJpHGd",
     "image_with_text_overlay_hCHUCQ",
-    "slider_collection_NpTt8F"
+    "slider_collection_NpTt8F",
+    "175450266303e7b2dc"
   ]
 }
