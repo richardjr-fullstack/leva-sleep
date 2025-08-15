@@ -175,14 +175,13 @@ Supported variables
 
           {%- when 'payment_terms' -%}
             {%- if product != blank -%}
-            <!-- Fairstone Product Calculator -->
-            <div
-              class="fairstone-product-calculator"
-              data-price="{{ product.selected_or_first_available_variant.price }}"
-              data-variant="{{ product.selected_or_first_available_variant.id }}"
-            ></div>
+              <!-- Fairstone Product Calculator -->
+              <div
+                class="fairstone-product-calculator"
+                data-price="{{ product.selected_or_first_available_variant.price }}"
+                data-variant="{{ product.selected_or_first_available_variant.id }}"
+              ></div>
             {%- endif -%}
-
 
             {%- when 'rating' -%}
             {%- if product != blank -%}
@@ -352,16 +351,27 @@ Supported variables
             -%}
 
           {%- when 'buy_buttons' -%}
-            {%- render 'buy-buttons',
-                product: product,
-                form_id: product_form_id,
-                show_payment_button: block.settings.show_payment_button,
-                show_gift_card_recipient: block.settings.show_gift_card_recipient,
-                atc_button_background: block.settings.atc_button_background,
-                atc_button_text_color: block.settings.atc_button_text_color,
-                payment_button_background: block.settings.payment_button_background,
-                payment_button_text_color: block.settings.payment_button_text_color
-            -%}
+            {% comment %} <div style="margin-bottom: 1rem;">
+              <payment-terms class="payment-terms">
+                {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
+                {%- form 'product', product, id: product_installment_form_id -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  {{- form | payment_terms -}}
+                {%- endform -%}
+              </payment-terms> 
+            </div> {% endcomment %}
+            <div class="product-form" data-product-form>
+              {%- render 'buy-buttons',
+                  product: product,
+                  form_id: product_form_id,
+                  show_payment_button: block.settings.show_payment_button,
+                  show_gift_card_recipient: block.settings.show_gift_card_recipient,
+                  atc_button_background: block.settings.atc_button_background,
+                  atc_button_text_color: block.settings.atc_button_text_color,
+                  payment_button_background: block.settings.payment_button_background,
+                  payment_button_text_color: block.settings.payment_button_text_color
+              -%}
+            </div>
 
           {%- when 'pickup_availability' -%}
             {%- if product != blank -%}
@@ -566,5 +576,5 @@ Supported variables
     {%- form 'product', product, id: product_form_id, hidden: true -%}
       <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
     {%- endform -%}
-    {%- endunless -%}
+  {%- endunless -%}
 </safe-sticky>

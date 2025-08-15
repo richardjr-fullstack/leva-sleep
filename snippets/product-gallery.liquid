@@ -118,11 +118,11 @@ only way to do it on Shopify right now.
         </carousel-prev-button>
       {%- endif -%}
 
-      <scroll-carousel adaptive-height id="{{ product_gallery_carousel_id }}" class="product-gallery__carousel scroll-area {% unless mobile_controls == 'arrows' %}full-bleed md:unbleed{% endunless %}" role="region">
+      <scroll-carousel adaptive-height id="{{ product_gallery_carousel_id }}" class="product-gallery__carousel scroll-area {% unless mobile_controls == 'arrows' %} full-bleed md:unbleed{% endunless %}" role="region">
         {%- if product != blank -%}
           {%- liquid
             capture sizes
-              echo '(max-width: 699px) calc(100vw - 40px), (max-width: 999px) calc(100vw - 64px), '
+              echo '(max-width: 699px) calc(100vw - 40px), (max-width: 999px) calc(100vw - 64px),'
 
               assign media_ratio = 100 | minus: section.settings.product_info_size
 

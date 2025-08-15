@@ -4,12 +4,12 @@
 }
 
 .section-heading {
-  font-size: 32px;
-  color: #3e2172;
-  font-weight: bold;
-  position: relative;
-  display: inline-block;
-  margin-bottom: 40px;
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  font-style: var(--heading-font-style);
+  letter-spacing: var(--heading-letter-spacing);
+  text-transform: var(--heading-text-transform);
+  overflow-wrap: anywhere;
 }
 
 .section-heading::before,
@@ -79,6 +79,7 @@
   .section-heading {
     font-size: 22px;
     margin-bottom: unset;
+    width: 77%;
   }
   .product-cards {
     flex-direction: column;
@@ -93,6 +94,6 @@
     width: 10px;
   }
   .section-heading::after {
-      right: -3px;
+    right: -3px;
   }
 }
