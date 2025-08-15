@@ -2,10 +2,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleBtn = document.querySelector('[data-toggle-filter]');
     const filterPanel = document.querySelector('[data-filter-panel]');
     if (toggleBtn && filterPanel) {
-      toggleBtn.addEventListener('click', function() {
-        filterPanel.classList.toggle('open');
-      });
+  toggleBtn.addEventListener('click', function() {
+    filterPanel.classList.toggle('open');
+    
+    // Toggle chevron icons
+    const iconDefault = toggleBtn.querySelector('.icon-default');
+    const iconClose = toggleBtn.querySelector('.icon-close');
+    
+    if (filterPanel.classList.contains('open')) {
+      // Panel is open - show chevron-down (close icon)
+      iconDefault.classList.add('hidden');
+      iconClose.classList.remove('hidden');
+    } else {
+      // Panel is closed - show chevron-up (default icon)
+      iconDefault.classList.remove('hidden');
+      iconClose.classList.add('hidden');
     }
+  });
+}
     
     // Left Filter & Sort Drawer Logic
     const collectionFilterDrawerToggle = document.getElementById('collectionFilterDrawerToggle');

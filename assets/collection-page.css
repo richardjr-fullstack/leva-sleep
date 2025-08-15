@@ -2,44 +2,62 @@
   border: 1px solid #ddd;
   border-radius: 40px;
   padding: 7px 7px 7px 15px;
-  min-width: 190px;
+  min-width: 160px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .featured-icon-container {
   border: 1px solid #ddd;
-  padding: 10px 20px;
-  border-radius: 50px;
+  padding: 8px 16px;
+  border-radius: 25px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.collection-toolbar__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.collection-toolbar__button:hover .featured-icon-container {
+  border-color: #5B2B82;
+  background-color: #f8f8f8;
 }
 
 .variant-filter-panel {
   display: none;
-  padding: 1.5rem;
-  margin-top: 1rem;
+  padding: 30px;
+  margin: 20px auto 0;
   background-color: #fff;
   border: 1px solid #ddd;
-  box-shadow: 1px 1px 12px 0px rgba(221, 221, 221, 0.70);
-  -webkit-box-shadow: 1px 1px 12px 0px rgba(221, 221, 221, 0.70);
-  -moz-box-shadow: 1px 1px 12px 0px rgba(221, 221, 221, 0.70);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   transition: all 0.3s ease;
+  max-width: 1200px;
 }
 
 .variant-filter-panel.open {
   display: flex;
   gap: 40px;
+  position: absolute;
+  top: 435px;
 }
 
 .variant-filter-wrapper {
-  width: 96%;
+  width: 100%;
 }
 
 .feature-filter-wrapper {
-  width: 10%;
-  position: absolute;
+  position: relative;
 }
 
 .feature--drawer::part(body) {
@@ -67,17 +85,69 @@
   width: 100%;
 }
 
+.main-filter-container {
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-controls-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Left Section - Filter Toggle */
+.filter-control-left {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Center Section - Column Selector */
+.filter-control-center {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Right Section - Featured Filters */
+.filter-control-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Filter Toggle Button Styling */
 .filter-toggle-button {
   cursor: pointer;
   background: none;
-  border: none;
+  border-radius: 40px;
+  padding: 10px 20px;
   font-weight: 600;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 30px 0 0 0;
+  gap: 8px;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  justify-content: center;
 }
+
+.filter-toggle-button:hover span{
+  color: #5B2B82;
+}
+.filter-toggle-button:hover .icon-default svg,
+.filter-toggle-button:hover .icon-close svg {
+  color: #5B2B82;
+}
+
 
 .price-range-widget {
   text-align: start;
@@ -961,6 +1031,10 @@ body.collection-filter-drawer-open {
 }
 
 @media (max-width: 699px) {
+  .column-option-3,
+  .column-option-4 {
+    display: none !important;
+  }
   .collection-filtering-container {
     padding: 0 0.5rem; 
   }
@@ -1016,7 +1090,19 @@ body.collection-filter-drawer-open {
   }
 }
 
+@media (min-width: 700px) {
+  .column-option-1 {
+    display: none !important;
+  }
+  .column-option-2,
+  .column-option-3,
+  .column-option-4 {
+    display: flex !important;
+  }
+}
+
 @media (min-width: 700px) and (max-width: 999px) {
+  
   .collection .product-list {
     padding: 0 1rem;
   }
@@ -1027,6 +1113,14 @@ body.collection-filter-drawer-open {
   
   .filter-drawer-toggle {
     right: 1rem;
+  }
+
+  .main-filter-container {
+    display: none !important;
+  }
+  
+  .variant-filter-panel {
+    display: none !important;
   }
 }
 
@@ -1079,19 +1173,22 @@ body.collection-filter-drawer-open {
 .column-selector-wrapper {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 0;
 }
 
 .column-selector {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
+  padding: 8px 12px;
+  border-radius: 25px;
+  background: white;
 }
 
 .column-option {
   border: 1px solid #ccc;
-  border-radius: 2px;
-  padding: 3px 3px;
+  border-radius: 3px;
+  padding: 4px;
   cursor: pointer;
   background: white;
   display: flex;
@@ -1105,22 +1202,18 @@ body.collection-filter-drawer-open {
 }
 
 .column-option.active {
-  border-color: #000;
+  border-color: #5B2B82;
   border-width: 2px;
 }
 
 .column-block {
-  width: 10px;
-  height: 18px;
-  background: #000;
-  border-radius: 0;
+  width: 8px;
+  height: 16px;
+  background: #666;
+  border-radius: 1px;
   transition: all 0.2s ease;
 }
 
 .column-option.active .column-block {
-  background: #000;
-}
-
-.column-option:not(.active) .column-block {
-  background: #666;
+  background: #5B2B82;
 }
