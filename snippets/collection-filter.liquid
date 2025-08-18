@@ -382,7 +382,6 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Desktop Price range slider logic
     const minInput = document.getElementById('min-range');
     const maxInput = document.getElementById('max-range');
     const track = document.getElementById('range-track');
@@ -434,7 +433,6 @@
       updateSlider();
     }
 
-    // Mobile Price range slider logic
     const mobileMinInput = document.getElementById('mobile-min-range');
     const mobileMaxInput = document.getElementById('mobile-max-range');
     const mobileTrack = document.getElementById('mobile-range-track');
@@ -483,7 +481,6 @@
       updateMobileSlider();
     }
 
-    // Icon toggle based on class "open"
     const filterPanel = document.querySelector('[data-filter-panel]');
     const toggleBtn = document.querySelector('[data-toggle-filter]');
     const iconDefault = toggleBtn.querySelector('.icon-default');
@@ -497,4 +494,44 @@
 
     observer.observe(filterPanel, { attributes: true, attributeFilter: ['class'] });
   });
+
+  const columnSelector = document.querySelector('.column-selector');
+  if (columnSelector) {
+    const savedColumns = localStorage.getItem('collection_columns');
+    let activeOption = columnSelector.querySelector('.column-option.active');
+    if (savedColumns) {
+      if (activeOption) activeOption.classList.remove('active');
+      const newActive = columnSelector.querySelector(`.column-option[data-columns="${savedColumns}"]`);
+      if (newActive) newActive.classList.add('active');
+    }
+    columnSelector.querySelectorAll('.column-option').forEach(option => {
+      option.addEventListener('click', function() {
+        const columns = this.getAttribute('data-columns');
+        columnSelector.querySelectorAll('.column-option').forEach(opt => opt.classList.remove('active'));
+        this.classList.add('active');
+        localStorage.setItem('collection_columns', columns);
+        if (window.innerWidth >= 700) {
+          window.dispatchEvent(new CustomEvent('collection:columnsChanged', { detail: { columns } }));
+        }
+      });
+    });
+    function triggerColumnsChanged() {
+      let columns;
+      if (window.innerWidth >= 700) {
+        columns = savedColumns || columnSelector.querySelector('.column-option.active').getAttribute('data-columns');
+      } else {
+        columns = '2';
+      }
+      columnSelector.querySelectorAll('.column-option').forEach(opt => {
+        if (opt.getAttribute('data-columns') === columns) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
+        }
+      });
+      window.dispatchEvent(new CustomEvent('collection:columnsChanged', { detail: { columns } }));
+    }
+    window.addEventListener('resize', triggerColumnsChanged);
+    triggerColumnsChanged();
+  }
 </script>

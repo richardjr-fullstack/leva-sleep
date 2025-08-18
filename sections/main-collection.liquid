@@ -620,3 +620,37 @@ LIQUID
   ]
 }
 {% endschema %}
+
+<script>
+  window.addEventListener('collection:columnsChanged', function(e) {
+  var columns = e.detail.columns || '2';
+  if (window.innerWidth < 700) columns = '2';
+  var section = document.getElementById('shopify-section-{{ section.id }}');
+  if (section) {
+    section.style.setProperty('--collection-items-per-row-medium', columns);
+    section.style.setProperty('--collection-items-per-row-large', columns);
+  }
+  var productList = document.getElementById('product-list-{{ section.id }}');
+  if (productList) {
+    productList.setAttribute('data-columns', columns);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var columns = localStorage.getItem('collection_columns');
+  if (!columns) {
+    var active = document.querySelector('.column-selector .column-option.active');
+    columns = active ? active.getAttribute('data-columns') : '2';
+  }
+  if (window.innerWidth < 700) columns = '2';
+  var section = document.getElementById('shopify-section-{{ section.id }}');
+  if (section) {
+    section.style.setProperty('--collection-items-per-row-medium', columns);
+    section.style.setProperty('--collection-items-per-row-large', columns);
+  }
+  var productList = document.getElementById('product-list-{{ section.id }}');
+  if (productList) {
+    productList.setAttribute('data-columns', columns);
+  }
+});
+</script>
