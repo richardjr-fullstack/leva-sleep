@@ -310,46 +310,6 @@
   color: #fff;
 }
 
-.quickview-modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.quickview-content {
-  background: white;
-  padding: 20px;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
-  border-radius: 8px;
-}
-.quickview-loader {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 10px 20px;
-  z-index: 1001;
-}
-
-.quickview-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-
 @media screen and (max-width: 600px) {
   .hot-buys-products {
     display: block;
