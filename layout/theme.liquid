@@ -170,6 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     {% comment %} Geolocation redirect {% endcomment %}
     {% render 'redirect-canada-customers' %}
+
+
     <!-- Styling files -->
     {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
     {{- 'hot-buys.css' | asset_url | stylesheet_tag: preload: true -}}

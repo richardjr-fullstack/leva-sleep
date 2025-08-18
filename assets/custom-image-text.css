@@ -1,6 +1,7 @@
 .custom-image-text {
   display: flex;
   align-items: center;
+  flex-direction: row-reverse;
 }
 
 .custom-image-text--image-left .custom-image-text__image {
@@ -44,7 +45,8 @@
   line-height: 1.6;
 }
 
-.custom-image-text__heading, .custom-image-text__body {
+.custom-image-text__heading,
+.custom-image-text__body {
   width: 60%;
   margin: 0 auto;
 }
@@ -71,7 +73,8 @@
 }
 
 @media screen and (max-width: 600px) {
-  .custom-image-text__heading, .custom-image-text__body {
+  .custom-image-text__heading,
+  .custom-image-text__body {
     width: 100%;
   }
 }

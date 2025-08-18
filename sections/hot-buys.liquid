@@ -16,12 +16,16 @@
 
 <section class="color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
   <div class="page-width container">
-    <div class="hotbuy-title">
-      {% if section.settings.heading != blank %}
-        <h2 class="section-heading">{{ section.settings.heading }}</h2>
-      {% endif %}
-    </div>
-
+      <div class="hotbuy-title">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              {%- if block.settings.text != blank -%}
+                <p class="section-heading {{ block.settings.heading_tag }}" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
     <div class="hot-buys-products">
       {% assign collection_handle = section.settings.collection %}
       {% assign collection = collections[collection_handle] %}
@@ -158,15 +162,55 @@
       "label": "t:global.colors.scheme"
     },
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Explore Our Collections"
-    },
-    {
       "type": "collection",
       "id": "collection",
       "label": "Choose Collection"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.image_with_text.blocks.heading.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "t:global.text.text",
+          "default": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:global.text.style",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
+          ],
+          "default": "h1"
+        }
+      ]
     }
   ],
   "presets": [
