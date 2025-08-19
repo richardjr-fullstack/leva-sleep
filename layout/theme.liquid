@@ -130,159 +130,6 @@
 
     {{ content_for_header }}
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const modal = document.getElementById('quickview-modal');
-  const content = modal.querySelector('.quickview-content');
-  const loader = document.getElementById('quickview-loader');
-
-  document.addEventListener('click', function (e) {
-    const icon = e.target.closest('.quickview-icon');
-    if (icon) {
-      const handle = icon.getAttribute('data-product-handle');
-      const url = `/products/${handle}?section_id=product-quick-view`;
-
-      loader.style.display = 'block';
-      modal.style.display = 'flex';
-
-      fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          content.innerHTML = html;
-          loader.style.display = 'none';
-
-          // Execute scripts in the loaded content
-          const scripts = content.querySelectorAll('script');
-          scripts.forEach(script => {
-            if (script.innerHTML.trim()) {
-              try {
-                const newScript = document.createElement('script');
-                newScript.innerHTML = script.innerHTML;
-                document.head.appendChild(newScript);
-                document.head.removeChild(newScript);
-              } catch (error) {
-                // Silent error handling
-              }
-            }
-          });
-
-          // Reinitialize Splide after injecting HTML
-          const splideEl = content.querySelector('.splide');
-          if (splideEl) {
-            new Splide(splideEl, {
-              type: 'loop',
-              perPage: 1,
-              pagination: true,
-              arrows: true,
-            }).mount();
-          }
-
-          // Initialize variant picker after content is loaded
-          const productContainer = content.querySelector('.quick-view__container');
-          if (productContainer) {
-            const form = content.querySelector('[data-product-form]');
-            const splideElement = content.querySelector('[id^="quickview-splide-"]');
-            
-            if (form && splideElement) {
-              const productId = splideElement.id.replace('quickview-splide-', '');
-              let formId;
-              
-              if (typeof form.id === 'string' && form.id) {
-                formId = form.id;
-              } else {
-                formId = 'quick-view-form-' + productId;
-                form.id = formId;
-              }
-              
-              // Initialize variant picker
-              const initQuickViewInline = function(productId, productFormId) {
-                const form = document.querySelector('#' + productFormId);
-                if (!form) return;
-
-                const selects = form.querySelectorAll('.variant-select');
-                const priceEl = form.querySelector('.price-wrapper .price');
-                const variants = window['variants_' + productId];
-
-                if (!variants || selects.length === 0) return;
-
-                function updateVariant() {
-                const selectedOptions = Array.from(selects).map(s => s.value);
-
-                const variant = variants.find(v =>
-                  v.options.every((opt, i) => opt.trim() === selectedOptions[i].trim())
-                );
-
-                if (variant) {
-                  // Update hidden input
-                  const hiddenInput = form.querySelector('input[name="id"]');
-                  if (hiddenInput) hiddenInput.value = variant.id;
-
-                  // Update price
-                  const priceEl = form.querySelector('.price-wrapper .price');
-                  if (priceEl) priceEl.innerHTML = variant.price_formatted;
-
-                  // Update compare price
-                  const compareEl = form.querySelector('.compare-price');
-                  if (compareEl) {
-                    if (variant.compare_at_price > variant.price) {
-                      compareEl.innerHTML = variant.compare_at_price_formatted;
-                      compareEl.style.display = 'inline';
-                    } else {
-                      compareEl.style.display = 'none';
-                    }
-                  }
-
-                  // ✅ Update discount badge
-                  const discountBadge = document.querySelector('.discount-badge');
-                  if (discountBadge) {
-                    if (variant.compare_at_price > variant.price) {
-                      const discount = Math.round(
-                        ((variant.compare_at_price - variant.price) * 100) / variant.compare_at_price
-                      );
-                      discountBadge.textContent = `-${discount}%`;
-                      discountBadge.style.display = 'inline-block';
-                    } else {
-                      discountBadge.style.display = 'none';
-                    }
-                  }
-
-                  // Update selected labels
-                  selects.forEach((select) => {
-                    const variantOption = select.closest('.variant-option');
-                    const selectedValueSpan = variantOption.querySelector('.selected-value');
-                    if (selectedValueSpan) {
-                      selectedValueSpan.textContent = select.value;
-                    }
-                  });
-                }
-              }
-                // Add event listeners
-                selects.forEach(select => select.addEventListener('change', updateVariant));
-                
-                // Initialize with first variant
-                updateVariant();
-              };
-              
-              initQuickViewInline(productId, formId);
-            }
-          }
-        })
-        .catch(() => {
-          content.innerHTML = '<p>Failed to load product.</p>';
-          loader.style.display = 'none';
-        });
-    }
-
-    // Close modal if clicking outside content
-    if (e.target === modal) {
-      modal.style.display = 'none';
-      content.innerHTML = '';
-    }
-  });
-});
-</script>
-
     {% comment %} Geolocation redirect {% endcomment %}
     {% render 'redirect-canada-customers' %}
 
@@ -304,6 +151,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <!-- Google Fonts: Poppins and Quicksand -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Quick View Modal Script -->
+    {{ 'quickview-modal.js' | asset_url | script_tag }}
   </head>
 
   {% liquid

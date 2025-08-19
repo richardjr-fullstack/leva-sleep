@@ -1,0 +1,168 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+QUICK VIEW BUY BUTTONS WITH QUANTITY SELECTOR
+----------------------------------------------------------------------------------------------------------------------
+
+This component is specifically designed for quick view modals with custom layout
+Includes quantity selector, add to cart, wishlist, and payment options
+
+********************************************
+Supported variables
+********************************************
+
+* product: the product from which to show the buttons (required)
+* form_id: the form ID linked to this input (required)
+* show_quantity_selector: show/hide quantity selector (default: true)
+* show_payment_button: if we show or not the dynamic checkout button (default: true)
+* show_gift_card_recipient: for gift card products, optional message/email (default: true)
+* show_wishlist: show wishlist button (default: true)
+* atc_button_background: the background of the ATC button
+* atc_button_text_color: the color of the ATC button
+* payment_button_background: the background of the dynamic payment button
+* payment_button_text_color: the color of the dynamic payment button
+{%- endcomment -%}
+
+{%- liquid
+  assign show_quantity_selector = show_quantity_selector | default: true
+  assign show_payment_button = show_payment_button | default: true
+  assign show_gift_card_recipient = show_gift_card_recipient | default: true
+  assign show_wishlist = show_wishlist | default: true
+-%}
+
+{%- if product != blank -%}
+  {%- liquid
+    assign recipient_feature_active = false
+
+    if product.gift_card? and show_gift_card_recipient
+      assign recipient_feature_active = true
+      assign show_payment_button = false
+    endif
+
+    assign button_disabled = false
+
+    if product.selected_or_first_available_variant == nil
+      assign button_disabled = true
+      assign button_content = 'product.general.unavailable_button' | t
+    elsif product.selected_or_first_available_variant.available == false
+      assign button_disabled = true
+      assign button_content = 'product.general.sold_out_button' | t
+    else
+      if product.template_suffix contains 'pre-order'
+        assign button_content = 'product.general.pre_order_button' | t
+      else
+        assign button_content = 'product.general.add_to_cart_button' | t
+      endif
+    endif
+  -%}
+
+  <product-form class="quickview-product-form">
+    {%- form 'product', product, id: form_id -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+      <div class="quickview-buttons-container">
+        {%- comment -%} Gift Card Recipient Section {%- endcomment -%}
+        {%- if recipient_feature_active -%}
+          <div class="quickview-gift-recipient">
+            <gift-card-recipient class="gift-card-recipient v-stack gap-3">
+              {%- assign checkbox_label = 'gift_card.recipient.checkbox' | t -%}
+              {%- render 'checkbox', label: checkbox_label, name: 'properties[__shopify_send_gift_card_to_recipient]' -%}
+
+              <div class="gift-card-recipient__fields" hidden>
+                <div class="fieldset">
+                  {%- liquid
+                    assign recipient_email_label = 'gift_card.recipient.email_label' | t
+                    render 'input', type: 'email', label: recipient_email_label, name: 'properties[Recipient email]', value: form.email, required: true, maxlength: 138
+
+                    assign recipient_name_label = 'gift_card.recipient.name_label' | t
+                    render 'input', label: recipient_name_label, name: 'properties[Recipient name]', value: form.name
+
+                    assign send_on_label = 'gift_card.recipient.send_on_label' | t
+                    render 'input', type: 'date', label: send_on_label, name: 'properties[Send on]', value: form.send_on, pattern: '\d{4}-\d{2}-\d{2}'
+                    render 'input', type: 'hidden', name: 'properties[__shopify_offset]'
+
+                    assign message_label = 'gift_card.recipient.message_label' | t
+                    render 'input', label: message_label, name: 'properties[Message]', value: form.message, multiline: 3, maxlength: 200, show_max_characters_count: true
+                  -%}
+                </div>
+              </div>
+            </gift-card-recipient>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Quantity + Add to Cart + Wishlist Row {%- endcomment -%}
+				<buy-buttons class="buy-buttons {% if show_payment_button %}buy-buttons--has-dynamic{% endif %}" form="{{ form_id }}">
+					<div class="quickview-cart-quantity-wishlist-row">
+					{%- if show_quantity_selector and product.available -%}
+            <div class="quickview-quantity-inline">
+              {%- liquid
+                assign variant = product.selected_or_first_available_variant
+                render 'quantity-selector', variant: variant, form: form_id
+              -%}
+            </div>
+          {%- endif -%}
+
+          {%- render 'button', content: button_content, type: 'submit', disabled: button_disabled, style: atc_button_style, background: atc_button_background, text_color: atc_button_text_color, stretch: false -%}
+
+          {%- if show_wishlist -%}
+						<div class="wishlist-engine wishlist-button-styled"
+							data-tooltip="Add to Wishlist"
+							data-product_id="{{ product.id }}"
+							data-variant_id="{{ product.selected_or_first_available_variant.id }}"
+							data-full_button="false"
+							data-css="true">
+						</div>
+					{%- endif -%}
+					</div>
+					
+					{%- if show_payment_button -%}
+            {{- form | payment_button -}}
+
+            <style>
+              #{{ form_id }} .shopify-payment-button {
+                {%- if payment_button_background != blank and payment_button_background != 'rgba(0,0,0,0)' -%}
+                  --button-background: {{ payment_button_background.rgb }};
+                {%- endif -%}
+
+                {%- if payment_button_text_color != blank and payment_button_text_color != 'rgba(0,0,0,0)' -%}
+                  --button-text-color: {{ payment_button_text_color.rgb }};
+                {%- endif -%}
+
+                {%- unless product.selected_or_first_available_variant.available -%}
+                  display: none;
+                {%- endunless -%}
+              }
+            </style>
+          {%- endif -%}
+        </buy-buttons>
+
+        {%- comment -%} View Full Details {%- endcomment -%}
+        <div class="quickview-full-details">
+          <a href="{{ product.url }}" class="quickview-details-button">
+            <span>View full details</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    {%- endform -%}
+  </product-form>
+{%- else -%}
+  {%- comment -%} Placeholder when no product {%- endcomment -%}
+  <div class="quickview-buttons-container">
+    <div class="quickview-cart-wishlist-row">
+      <div class="quickview-cart-section">
+        <buy-buttons class="buy-buttons quickview-cart-button" form="{{ form_id }}">
+          {%- assign button_content = 'product.general.add_to_cart_button' | t -%}
+          {%- render 'button', content: button_content, type: 'submit', stretch: true -%}
+        </buy-buttons>
+      </div>
+      <button type="button" class="quickview-wishlist-button" disabled>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span>Wishlist</span>
+      </button>
+    </div>
+  </div>
+{%- endif -%}

@@ -30,7 +30,7 @@
 .quick-view__container {
   display: flex;
   overflow: hidden;
-	height: 60vh;
+	height: auto;
 }
 
 .quick-view__info {
@@ -46,19 +46,44 @@
 	line-height: 24.5px;
 }
 
+.product-info__block-item.description {
+    margin: 0 !important;
+  }
+
+.quickview-splide button.splide__arrow {
+  margin-left: -10px;
+}
+
+.quickview-splide button.splide__arrow.splide__arrow--next {
+    margin-right: 10px;
+}
+  
+  .product-info__block-item.custom-variant-picker {
+  margin: 15px 0 0 0 !important;
+}
+
 .quick-view__info .product-info__block-list {
 	padding: 0;
 }
 
+.quick-view__info .compare {
+  padding-bottom: 0;
+  margin: 0 !important;
+}
+
 .quick-view__info .pricing {
+  padding-bottom: 10px;
   margin: 15px 0 20px 0;
-	padding-bottom: 10px;
 	border-bottom: 1px solid #e5e5e5;
+}
+
+.product-info__block-list .rating-badge {
+  margin: 0 0 20px 0 !important;
 }
 
 .quick-view__info .product-title {
 	font-size: 30px;
-  margin-bottom: 23px;
+  margin-bottom: 2px;
   margin-top: 0;
 	color: #222;
 	font-weight: 600;
@@ -86,15 +111,10 @@
   margin: 1rem 0;
 }
 
-.quick-view__info .buy-buttons {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
-}
-
 .quick-view__info .price,
 .quick-view__info .static-price,
 .quick-view__info .price span,
+.quick-view__info .compare-price,
 .quick-view__info .pricing span {
 	font-size: 22px;
 	font-weight: 500;
@@ -171,24 +191,216 @@ button.splide__pagination__page {
   scrollbar-color: #888 #f1f1f1;
 }
 
-.custom-variant-picker .variant-option {
-  margin-bottom: 1rem;
-}
-
-.custom-variant-picker label {
-  font-weight: 500;
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
 .custom-variant-picker .selected-value {
-  font-weight: bold;
   margin-left: 5px;
+  font-weight: 700;
+  color: #452276;
 }
 
+.custom-variant-picker .variant-option {
+  margin-bottom: 1.5rem;
+}
+
+.custom-variant-picker .variant-label {
+  font-weight: 700;
+  display: block;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.variant-buttons-grid {
+  display: block;
+  margin: 10px -3px;
+}
+
+.variant-button {
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 5px;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  color: #222;
+  transition: .25s;
+  display: inline-block;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.variant-button:hover .variant-value,
+.variant-button.selected .variant-value {
+  color: #fff;
+}
+
+.variant-button:hover {
+  border-color: #212b36e6;
+  background-color: #212b36e6;
+}
+
+.variant-button.selected {
+  border-color: #212b36e6;
+  background-color: #212b36e6;
+  color: #fff;
+}
+
+.variant-button:disabled,
+.variant-button:disabled:hover .variant-value,
+.variant-button:disabled .variant-value {
+  background: #eaeaea;
+  border-color: #e5e5e5;
+  color: #c0c0c0;
+  cursor: not-allowed !important;
+  position: relative;
+}
+
+.compare-price {
+  text-decoration: line-through;
+  color: #9b9b9b;
+  margin-left: 8px;
+}
+
+.price-wrapper .price {
+  color: #ec0101;
+  margin-left: 6px;
+}
+
+.variant-value {
+  padding: 5px;
+  display: inline-block;
+  text-align: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: .76471em;
+}
+
+/* Cart and Wishlist Row */
+.cart-wishlist-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-to-cart-section {
+  flex: 1;
+}
+
+.wishlist-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e5e5;
+  background: #fff;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.wishlist-button:hover {
+  border-color: #000;
+  background: #f9f9f9;
+}
+
+.wishlist-button.active {
+  background: #ff4757;
+  border-color: #ff4757;
+  color: #fff;
+}
+
+.wishlist-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Shop Pay Section */
+.shop-pay-wrapper {
+  width: 100%;
+}
+
+.shop-pay-wrapper .shopify-payment-button {
+  margin-bottom: 0;
+}
+
+/* More Payment Options */
+.more-payment-wrapper {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+.more-payment-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+}
+
+.more-payment-button:hover {
+  color: #333;
+}
+
+.more-payment-button svg {
+  transition: transform 0.2s ease;
+}
+
+.more-payment-button:hover svg {
+  transform: translateY(2px);
+}
+
+/* View Details */
+.view-details-wrapper {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e5e5;
+}
+
+.view-details-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.view-details-button:hover {
+  color: #000;
+}
+
+.view-details-button svg {
+  transition: transform 0.2s ease;
+}
+
+.view-details-button:hover svg {
+  transform: translate(2px, -2px);
+}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .variant-buttons-grid {
+    gap: 0.375rem;
+  }
+  
+  .variant-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
   .quick-view__container {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -204,4 +416,436 @@ button.splide__pagination__page {
   .quick-view__info .product-title {
     font-size: 1.25rem;
   }
+
+  .cart-wishlist-wrapper {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .wishlist-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .add-to-cart-section {
+    width: 100%;
+  }
+}
+
+/* Quick View Buy Buttons Styles */
+
+.quickview-buttons-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.quickview-buttons-container .buy-buttons {
+    gap: 0;
+}
+
+/* Gift Card Recipient */
+.quickview-gift-recipient {
+  margin-bottom: 1rem;
+}
+
+/* Quantity Selector */
+.quickview-quantity-section {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.quickview-quantity-inline .quantity-selector {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #222;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+}
+
+.quickview-cart-quantity-wishlist-row .button {
+  width: 100%;
+  padding: 5px 25px;
+  border-radius: 5px;
+}
+
+.quickview-quantity-inline button.quantity-selector__button {
+    top: 0;
+    width: 30px;
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+    background: 0 0;
+}
+
+.quickview-quantity-section .v-stack {
+  align-items: flex-start;
+}
+
+/* Cart and Wishlist Row */
+.quickview-cart-wishlist-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.quickview-cart-section {
+  flex: 1;
+}
+
+.quickview-cart-section .buy-buttons {
+  margin: 0;
+}
+
+.quickview-wishlist-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e5e5;
+  background: #fff;
+  color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  min-width: 120px;
+  height: 48px;
+  font-family: inherit;
+}
+
+.quickview-wishlist-button:hover:not(:disabled) {
+  border-color: #000;
+  background: #f9f9f9;
+}
+
+.quickview-wishlist-button.active {
+  background: #ff4757;
+  border-color: #ff4757;
+  color: #fff;
+}
+
+.quickview-wishlist-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quickview-wishlist-button svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Shop Pay Section */
+.quickview-shop-pay-section {
+  width: 100%;
+}
+
+.quickview-shop-pay-section .buy-buttons {
+  margin: 0;
+}
+
+.quickview-shop-pay-section .shopify-payment-button {
+  margin: 0;
+}
+
+/* More Payment Options */
+.quickview-more-payment {
+  text-align: center;
+  width: 100%;
+}
+
+.quickview-more-payment-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  transition: color 0.2s ease;
+  font-family: inherit;
+}
+
+.quickview-more-payment-button:hover {
+  color: #333;
+}
+
+.quickview-more-payment-button svg {
+  transition: transform 0.2s ease;
+}
+
+.quickview-more-payment-button.expanded svg {
+  transform: rotate(180deg);
+}
+
+.quickview-additional-payment-methods {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  background: #f9f9f9;
+  text-align: left;
+}
+
+.payment-method-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 0.9rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.payment-method-item:hover {
+  color: #333;
+}
+
+.payment-method-item:last-child {
+  border-bottom: none;
+}
+
+/* View Details Section */
+.quickview-full-details {
+  text-align: left;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.quickview-full-details a {
+  padding: 0;
+}
+
+.quickview-details-button span {
+  color: #222;
+  font-weight: 700;
+  font-size: 14px;
+}
+.quickview-details-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.quickview-details-button:hover {
+  color: #000;
+}
+
+.quickview-details-button svg {
+  transition: transform 0.2s ease;
+}
+
+.quickview-details-button:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* Ensure clean styling */
+.quickview-cart-button,
+.quickview-payment-button {
+  margin: 0 !important;
+}
+
+.quickview-product-form .buy-buttons {
+  margin: 0;
+}
+
+.quickview-quantity-inline {
+  flex-shrink: 0;
+}
+
+.quickview-cart-section {
+  flex: 1;
+  min-width: 0; /* Allows flex item to shrink */
+}
+
+/* Responsive for inline layout */
+@media (max-width: 768px) {
+  
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quickview-cart-wishlist-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .quickview-wishlist-button {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .quickview-cart-section {
+    width: 100%;
+  }
+  
+  .quickview-buttons-container {
+    gap: 1.25rem;
+  }
+  
+  .quickview-quantity-section .quantity-selector {
+    max-width: 120px;
+  }
+
+  .quickview-cart-quantity-wishlist-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .quickview-quantity-inline {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+/* Style the wishlist-engine to look like a button */
+.wishlist-engine.wishlist-button-styled {
+  position: relative;
+  border: 1px solid #222;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.wishlist-engine.wishlist-button-styled>.wishlist-engine-button>.wishlist-icon>svg>path {
+  fill: #fff !important;
+  stroke: #452276;
+}
+
+.wishlist-engine.wishlist-button-styled:hover>.wishlist-engine-button>.wishlist-icon>svg>path {
+  fill: #452276 !important;
+}
+
+.wishlist-engine.wishlist-button-styled[data-added="true"] .wishlist-icon svg path {
+  fill: #452276 !important;
+  stroke: #452276 !important;
+}
+
+.wishlist-engine.wishlist-button-styled svg {
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.wishlist-engine.wishlist-button-styled .wishlist-text {
+  display: inline;
+  transition: all 0.3s ease;
+}
+
+/* Loading state (if your app adds a loading class) */
+.wishlist-engine.wishlist-button-styled.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.wishlist-engine.wishlist-button-styled.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: wishlist-spin 1s linear infinite;
+}
+
+.wishlist-engine.wishlist-button-styled.loading svg,
+.wishlist-engine.wishlist-button-styled.loading .wishlist-text {
+  opacity: 0.3;
+}
+
+@keyframes wishlist-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Layout for cart + wishlist row */
+.quickview-cart-quantity-wishlist-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+
+.quickview-quantity-inline {
+  flex-shrink: 0;
+}
+
+.quickview-cart-section {
+  flex: 1;
+}
+
+.quickview-cart-section .buy-buttons {
+  height: 100%;
+}
+
+.quickview-cart-section .buy-buttons button {
+  height: 100%;
+  min-height: 48px;
+}
+
+/* Override any default wishlist-engine styles that might be hiding it */
+.wishlist-engine.wishlist-button-styled {
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .quickview-cart-quantity-wishlist-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  .quickview-quantity-inline {
+    order: 1;
+    width: 100%;
+  }
+  
+  .quickview-cart-section {
+    order: 2;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .wishlist-engine.wishlist-button-styled {
+    order: 3;
+    flex-shrink: 0;
+    min-width: 100px;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .wishlist-engine.wishlist-button-styled .wishlist-text {
+    display: none;
+  }
+  
+  .wishlist-engine.wishlist-button-styled svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.wishlist-engine.wishlist-button-styled * {
+  pointer-events: none;
+}
+
+.wishlist-engine.wishlist-button-styled {
+  pointer-events: all !important;
 }
