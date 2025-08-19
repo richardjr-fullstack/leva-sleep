@@ -78,7 +78,7 @@
         "menu_open_trigger": "hover",
         "menu_text_font": "heading",
         "enable_search": true,
-        "sidebar_color_scheme": "",
+        "sidebar_color_scheme": "scheme-1",
         "sidebar_text_font": "heading",
         "sidebar_show_dividers": true,
         "sidebar_open_second_level_menus": false,

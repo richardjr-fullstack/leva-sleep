@@ -5191,6 +5191,7 @@ product-rerender {
     transform 0.15s ease-in-out;
   display: grid;
   position: relative;
+  z-index: 1000;
 }
 
 .header.is-hidden {
@@ -8565,4 +8566,21 @@ ul {
   .section-stack {
     padding-inline: 15px;
   }
+}
+
+
+.text-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-toggle-button .text-with-icon svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.filter-toggle-button .hidden {
+  display: none;
 }
