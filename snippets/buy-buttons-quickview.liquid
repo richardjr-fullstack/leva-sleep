@@ -101,8 +101,6 @@ Supported variables
             </div>
           {%- endif -%}
 
-          {%- render 'button', content: button_content, type: 'submit', disabled: button_disabled, style: atc_button_style, background: atc_button_background, text_color: atc_button_text_color, stretch: false -%}
-
           {%- if show_wishlist -%}
 						<div class="wishlist-engine wishlist-button-styled"
 							data-tooltip="Add to Wishlist"
@@ -112,6 +110,8 @@ Supported variables
 							data-css="true">
 						</div>
 					{%- endif -%}
+
+          {%- render 'button', content: button_content, type: 'submit', disabled: button_disabled, style: atc_button_style, background: atc_button_background, text_color: atc_button_text_color, stretch: false -%}
 					</div>
 					
 					{%- if show_payment_button -%}

@@ -5,39 +5,61 @@
     assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true
   endif
   assign product_form_id = 'quick-view-form-' | append: product.id
+  assign image_count = 0
 -%}
 
 <div class="quick-view__container">
+  <button type="button" class="quickview-close" aria-label="Close">&times;</button>
+
   <!-- Gallery -->
   <div class="quick-view__gallery">
+  {% assign image_count = 0 %}
+
+  {% for media in product.media %}
+    {% if media.media_type == 'image' %}
+      {% assign image_count = image_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% if image_count > 1 %}
+    <!-- Multiple images → show Splide -->
     <div id="quickview-splide-{{ product.id }}" class="splide quickview-splide">
       <span class="discount-badge" style="display:none;"></span>
       <div class="splide__track">
         <ul class="splide__list">
-          {% if product.media.size > 0 %}
-            {% for media in product.media %}
-              {% if media.media_type == 'image' %}
-                <li class="splide__slide">
-                  <img 
-                    src="{{ media | img_url: '600x' }}" 
-                    alt="{{ media.alt | escape }}" 
-                    loading="lazy"
-                  >
-                </li>
-              {% endif %}
-            {% endfor %}
-          {% else %}
-            <li class="splide__slide">
-              <img 
-                src="{{ 'placeholder.png' | asset_url }}" 
-                alt="Placeholder"
-              >
-            </li>
-          {% endif %}
+          {% for media in product.media %}
+            {% if media.media_type == 'image' %}
+              <li class="splide__slide">
+                <img 
+                  src="{{ media | img_url: '600x' }}" 
+                  alt="{{ media.alt | escape }}" 
+                  loading="lazy"
+                >
+              </li>
+            {% endif %}
+          {% endfor %}
         </ul>
       </div>
     </div>
-  </div>
+  {% elsif image_count == 1 %}
+    <!-- Only one image → no slider -->
+    {% for media in product.media %}
+      {% if media.media_type == 'image' %}
+        <img 
+          src="{{ media | img_url: '600x' }}" 
+          alt="{{ media.alt | escape }}" 
+          loading="lazy"
+        >
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <!-- No images → fallback placeholder -->
+    <img 
+      src="{{ 'placeholder.png' | asset_url }}" 
+      alt="Placeholder"
+    >
+  {% endif %}
+</div>
 
   <!-- Product Info -->
   <div class="quick-view__info">
@@ -158,96 +180,3 @@
     }
   });
 </script>
-
-<style>
-        .quick-view__container {
-            position: relative;
-            display: flex;
-        }
-        
-        .quick-view__gallery {
-            flex: 1;
-        }
-        
-        .quick-view__info {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            background: white;
-            box-sizing: border-box;
-            z-index: 10;
-            padding: 15px 15px 15px 0;
-        }
-        
-        .quick-view__info safe-sticky {
-            position: sticky;
-            top: 0;
-        }
-        
-        .quick-view__gallery {
-            margin-right: 422px;
-        }
-        
-        @media (max-width: 1024px) {
-            .quick-view__container {
-                flex-direction: column;
-            }
-            
-            .quick-view__info {
-                position: static;
-                width: 100%;
-                height: auto;
-                border-left: none;
-                border-top: 1px solid #e0e0e0;
-                overflow-y: visible;
-            }
-            
-            .quick-view__gallery {
-                margin-right: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .quick-view__info {
-                padding: 15px;
-            }
-        }
-        
-        .quickview-splide {
-          width: 100%;
-        }
-        
-        .quickview-splide .splide__slide {
-            margin-left: -4px;
-            margin-right: 4px;
-        }
-        .splide__slide img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .discount-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 5;
-        }
-        
-        .product-info__block-list {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-title a {
-            color: inherit;
-            text-decoration: none;
-        }
-        
-        .product-title a:hover {
-            text-decoration: underline;
-        }
-    </style>
