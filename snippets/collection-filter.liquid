@@ -513,6 +513,10 @@ if (columnSelector) {
       if (saved === '1') return '1';
       return '2';
     }
+    if (window.innerWidth > 700) {
+      if (saved === '2') return '2';
+      return '4';
+    }
     return saved || columnSelector.querySelector('.column-option.active').getAttribute('data-columns') || '2';
   }
 
