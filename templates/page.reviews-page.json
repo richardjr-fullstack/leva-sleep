@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "show_title": true,
@@ -22,9 +23,8 @@
       "blocks": {
         "heading_nX3JkD": {
           "type": "heading",
-          "disabled": true,
           "settings": {
-            "text": "ABOUT US",
+            "text": "REVIEWS",
             "heading_tag": "h1"
           }
         },
@@ -40,14 +40,13 @@
         "heading_nX3JkD",
         "richtext_rAtngF"
       ],
-      "disabled": true,
       "name": "t:sections.rich_text.presets.rich_text.name",
       "settings": {
         "color_scheme": "",
         "separate_section_with_border": false,
         "content_width": "xs",
         "text_position": "center",
-        "remove_vertical_spacing": false
+        "remove_vertical_spacing": true
       }
     },
     "image_with_text_aXg4ya": {
@@ -82,11 +81,30 @@
         "content_width": "sm",
         "remove_vertical_spacing": true
       }
+    },
+    "175572540288c9821c": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_all_reviews_page_b9VCUB": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_page/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_all_reviews_page_b9VCUB"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": false,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": false
+      }
     }
   },
   "order": [
     "main",
     "rich_text_mjNXiE",
-    "image_with_text_aXg4ya"
+    "image_with_text_aXg4ya",
+    "175572540288c9821c"
   ]
 }

@@ -17,13 +17,13 @@
         "message-1": {
           "type": "message",
           "settings": {
-            "text": "<a href=\"/pages/promotions\" title=\"Promotions\">Our Summer Boxing Week Blowout Is On Now!</a>"
+            "text": "<a href=\"/pages/promotions\" title=\"Promotions\">Our Annual Labour Day Sale Is On Now!</a>"
           }
         },
         "message_Q8fAhL": {
           "type": "message",
           "settings": {
-            "text": "<a href=\"/collections/bfjuly\" title=\"Black Friday In July Sale Featured Products\">Up To 50% Off Storewide Plus Save An Additional 10% Using Code BOXING</a>"
+            "text": "<a href=\"/collections/bfjuly\" title=\"Black Friday In July Sale Featured Products\">Up To 65% Off Storewide!</a>"
           }
         },
         "message_gGyDEA": {

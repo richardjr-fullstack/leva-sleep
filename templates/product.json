@@ -65,10 +65,10 @@
           "settings": {
             "show_payment_button": true,
             "show_gift_card_recipient": true,
-            "atc_button_background": "#452276",
-            "atc_button_text_color": "#ffffff",
-            "payment_button_background": "#452276",
-            "payment_button_text_color": "#ffffff"
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
           }
         },
         "description": {
@@ -173,7 +173,10 @@
       "blocks": {
         "judge_me_reviews_review_widget_gyyyEE": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200
+          }
         }
       },
       "block_order": [
@@ -185,6 +188,26 @@
         "remove_vertical_spacing": false,
         "remove_horizontal_spacing": false
       }
+    },
+    "blog_posts_UdKg4n": {
+      "type": "blog-posts",
+      "name": "t:sections.blog_posts.presets.blog_posts.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "blog": "news",
+        "posts_count": 3,
+        "stack_on_mobile": false,
+        "show_category": true,
+        "show_date": false,
+        "show_excerpt": true,
+        "show_read_more": true,
+        "subheading": "",
+        "title": "Sleep Guide by Leva Sleep",
+        "content": "",
+        "button_link": "",
+        "button_text": "View all"
+      }
     }
   },
   "order": [
@@ -194,6 +217,7 @@
     "custom_image_text_KYjzA6",
     "custom_image_text_eNxy93",
     "judgeme_carousel_section_kYJbt8",
-    "17545026842e4d63f6"
+    "17545026842e4d63f6",
+    "blog_posts_UdKg4n"
   ]
 }

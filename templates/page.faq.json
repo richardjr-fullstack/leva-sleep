@@ -14,29 +14,60 @@
       "blocks": {
         "category": {
           "type": "category",
+          "disabled": true,
           "settings": {
-            "title": "Order"
+            "title": "Order",
+            "icon": "none",
+            "icon_width": 16
           }
         },
         "question-1": {
           "type": "question",
           "settings": {
-            "question": "Do you ship overseas?",
-            "answer": "<p>Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.</p>"
+            "question": "Do you offer shipping to the United States?",
+            "answer": "<p>We sure do! Please visit www.levasleepusa.com to see our lineup available that includes free delivery across North America.</p>"
           }
         },
         "question-2": {
           "type": "question",
           "settings": {
-            "question": "How long will it take to get my orders?",
-            "answer": "<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.</p>"
+            "question": "I've never heard of Leva Sleep, who are you?",
+            "answer": "<p>Nice to meet you :)</p><p></p><p>We are a Canadian retailer entering our 5th year of business and we've been growing exponentially year over year. We do this by treating our customers well and offering prices way below the big box stores. Don't believe us? Check out our awesome customer reviews both on our website and google!</p>"
           }
         },
         "question-3": {
           "type": "question",
           "settings": {
-            "question": "Any question?",
-            "answer": "<p>You can contact us through our contact page! We will be happy to assist you.</p>"
+            "question": "How do you offer such low prices?",
+            "answer": "<p>We never like to say anything bad about our competition. Those big box retailers are great at what they do. Leva Sleep is a manufacturer of adjustable bases as well as a retailer. This allows us to offer our customers adjustable beds 30-50% less while still offering great customer service and in home hassle free delivery.</p>"
+          }
+        },
+        "question_jc9H8i": {
+          "type": "question",
+          "settings": {
+            "question": "What are the dimensions of a Split Queen or Split King adjustable bed?",
+            "answer": "<p>We make our split queen and split king beds the exact dimensions of a standard queen or king bed! This allows 95% of customers to use their existing bed frame if they wish while gaining all the awesome benefits of owning an adjustable bed. A Split Queen is 60\" W X 79.5\" L and a Split King is 76\" W X 79.5\" L. The beds come with adjustable leg height to make sure it sits exactly how you want it in the bedroom.</p>"
+          }
+        },
+        "question_V3Fb7Y": {
+          "type": "question",
+          "settings": {
+            "question": "How quick is delivery?",
+            "answer": "<p>If your bed is in stock we can offer delivery within 7-10 days and sometimes as quickly as 24 hours! If an item needs to be ordered or shipping is outside of our general delivery range then additional time may be required</p>"
+          }
+        },
+        "question_B9YxV9": {
+          "type": "question",
+          "settings": {
+            "question": "What if I don't like the mattress? 60-Night Comfort Trial",
+            "answer": "<p>We want you to love your sleep. If your new mattress doesn’t feel like the right fit, you have the option to exchange it within 60 nights of delivery. Since it can take some time to adjust to a new mattress, we do not accept exchanges under our comfort guarantee earlier than 21 nights after you get your mattress. To get started, just contact our customer experience team. One comfort exchange per new mattress purchase is available with a $149 fee plus any difference in mattress price.</p>"
+          }
+        },
+        "question_BQNfBH": {
+          "type": "question",
+          "settings": {
+            "question": "Where are your showrooms if I want to try out your beds before purchasing?",
+            "answer": "<p>Currently we have showrooms in Ontario and Alberta. In Alberta we have our Calgary showroom and in Ontario we have 5 additional locations (Mississauga, Toronto, Barrie, London and Ottawa) Please see the showroom locator by following the link below:</p><p>https://www.levasleep.com/pages/store-locator</p>"
           }
         }
       },
@@ -44,9 +75,20 @@
         "category",
         "question-1",
         "question-2",
-        "question-3"
+        "question-3",
+        "question_jc9H8i",
+        "question_V3Fb7Y",
+        "question_B9YxV9",
+        "question_BQNfBH"
       ],
-      "settings": {}
+      "settings": {
+        "color_scheme": "scheme-1",
+        "separate_section_with_border": true,
+        "show_categories": false,
+        "subheading": "Need help?",
+        "title": "Frequently Asked Questions",
+        "content": ""
+      }
     }
   },
   "order": [

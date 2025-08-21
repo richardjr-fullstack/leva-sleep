@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "show_title": true,
@@ -22,7 +23,6 @@
       "blocks": {
         "heading_nX3JkD": {
           "type": "heading",
-          "disabled": true,
           "settings": {
             "text": "ABOUT US",
             "heading_tag": "h1"
@@ -40,14 +40,13 @@
         "heading_nX3JkD",
         "richtext_rAtngF"
       ],
-      "disabled": true,
       "name": "t:sections.rich_text.presets.rich_text.name",
       "settings": {
         "color_scheme": "",
         "separate_section_with_border": false,
         "content_width": "xs",
         "text_position": "center",
-        "remove_vertical_spacing": false
+        "remove_vertical_spacing": true
       }
     },
     "image_with_text_aXg4ya": {
@@ -56,14 +55,14 @@
         "heading_nTNr6X": {
           "type": "heading",
           "settings": {
-            "text": "The Makers Of The Worlds Most Durable Bed!",
+            "text": "Elevate yourself. Elevate your sleep.",
             "heading_tag": "h3"
           }
         },
         "richtext_qUKtF3": {
           "type": "richtext",
           "settings": {
-            "content": "<p>Did you know that before Leva Sleep, 100% of adjustable beds were imported and over 98% came directly Asia? Those beds are made to last 5-10 years which is why a replacement is always needed. Leva Sleep builds our heritage collection in Canada and cuts out the middle man to offer our customers unparalleled value for money. Instead of paying for freight costs, tariffs and middleman markups, our customers get the best quality adjustable beds on the market delivered and setup in their bedroom!</p><p>If you read the fine print on our competitors adjustable beds you will find that the warranty on the motors are only 1-5 years. Leva Sleep builds our products to be the last bed you'll ever own! That's why we offer a warranty DOUBLE our closest competitor. That's 10 Years on the motors and an amazing 25 years on all structural components</p><p>We're Canadian owned and operated with over 25 years of industry experience in the mattress industry. Our selection of mattresses has been curated based on years of customer feedback and built by Canada's largest and most trusted brands such as Tempurpedic, Kingsdown, Serta and Simmons. When these mattresses are paired with the worlds best adjustable bed frame, the combination is an unparalleled sleep set that suits your needs now as well as in the future. If you have any further questions, please drop us a line on our live chat, give us a call or stop by one of our three showrooms in the GTA, Barrie or London and experience the Leva Sleep difference!</p><p></p>"
+            "content": "<p>At Leva Sleep, we’re all about one thing: helping you sleep better with the <em>perfect</em> adjustable bed.</p><p>We started in 2018 with a simple mission—make shopping for an adjustable bed less confusing and a whole lot more rewarding. Fast forward to today, and we’re proud to be Canada’s largest adjustable bed retailer. This isn’t a side hustle for us—it’s the <em>main event</em>. While most stores treat adjustable bases like a fancy add-on, it’s all we do. And we do it really, really well.</p><p>Because we specialize in adjustable beds, every product we carry—from our mattresses to our accessories—is designed to work <em>with</em> your base, not against it. We even manufacture many of our own products, which means you get premium quality without the middleman markup—often 30–50% less than the other guys.</p><p>Our team? Total sleep nerds. Not pushy salespeople. They’re trained to match you with the right features, not just the most expensive option.</p><p>We run a tight ship, keep our costs low, and focus on delivering an awesome experience from start to snore. If you’re ready to upgrade your sleep (and maybe brag about it a little), we’ve got you.</p>"
           }
         }
       },
@@ -71,12 +70,11 @@
         "heading_nTNr6X",
         "richtext_qUKtF3"
       ],
-      "disabled": true,
       "name": "t:sections.image_with_text.presets.image_with_text.name",
       "settings": {
         "color_scheme": "",
         "separate_section_with_border": false,
-        "image": "shopify://shop_images/About-Us.webp",
+        "image": "shopify://shop_images/About_Us_Image.png",
         "reveal_on_scroll": false,
         "image_position": "end",
         "content_width": "sm",

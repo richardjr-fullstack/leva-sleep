@@ -1,0 +1,304 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-banner": {
+      "type": "collection-banner",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "image_size": "auto",
+        "allow_transparent_header": true,
+        "reveal": true,
+        "enable_parallax": true,
+        "show_image": true,
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "show_breadcrumb": true,
+        "content_width": "xs",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      }
+    },
+    "dynamic_heading_jCjHFG": {
+      "type": "dynamic-heading",
+      "name": "Dynamic Heading",
+      "settings": {}
+    },
+    "featured_collections_JYWi97": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_QYQD6P": {
+          "type": "collection",
+          "settings": {
+            "collection": "weekend-deals-feature",
+            "products_count": 8,
+            "title": "Labour Day Sale Hot Buys!",
+            "link_url": "shopify://collections/weekend-deals-feature",
+            "link_text": "View all"
+          }
+        }
+      },
+      "block_order": [
+        "collection_QYQD6P"
+      ],
+      "name": "t:sections.featured_collections.presets.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "hide_product_information": false,
+        "stack_products": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "horizontal_spacing_factor": 1,
+        "vertical_spacing_factor": 1,
+        "subheading": "Featured collection"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "color_scheme": "",
+        "hide_product_information": false,
+        "products_per_page": 48,
+        "products_per_row_mobile": "2",
+        "products_size_desktop": "medium",
+        "show_grid_mode_selector": true,
+        "horizontal_spacing_factor": 1,
+        "vertical_spacing_factor": 1,
+        "filter_layout": "sidebar",
+        "quick_links_menu": "",
+        "show_sort_by": true,
+        "show_filters": true,
+        "show_results_count": true,
+        "show_filter_group_name": false,
+        "show_filter_values_count": true,
+        "open_filters_by_default": false
+      }
+    },
+    "blog_posts_QJjq39": {
+      "type": "blog-posts",
+      "name": "t:sections.blog_posts.presets.blog_posts.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "blog": "news",
+        "posts_count": 3,
+        "stack_on_mobile": false,
+        "show_category": true,
+        "show_date": false,
+        "show_excerpt": true,
+        "show_read_more": true,
+        "subheading": "",
+        "title": "Blog posts",
+        "content": "",
+        "button_link": "",
+        "button_text": "View all"
+      }
+    },
+    "judgeme_carousel_section_RnMRcw": {
+      "type": "judgeme_carousel_section",
+      "name": "Featured Review Carousel",
+      "settings": {
+        "maxwidth": 1080
+      }
+    },
+    "image_with_text_overlay_WrLJ7G": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_Yyze8N": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "text": "Image with text overlay",
+            "heading_tag": "h4"
+          }
+        },
+        "richtext_yttAf8": {
+          "type": "richtext",
+          "disabled": true,
+          "settings": {
+            "content": "<p>Add your own custom content to give more information about your store, availability details...</p>"
+          }
+        },
+        "button_zhBUKh": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "style": "solid",
+            "text": "Button",
+            "url": "",
+            "background": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_Yyze8N",
+        "richtext_yttAf8",
+        "button_zhBUKh"
+      ],
+      "disabled": true,
+      "name": "t:sections.image_with_text_overlay.presets.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "",
+        "image_size": "auto",
+        "image": "shopify://shop_images/2023.11.27_The_Leva_Sleep_Difference_w._disclaimer.png",
+        "allow_transparent_header": false,
+        "reveal_on_scroll": true,
+        "remove_vertical_spacing": true,
+        "content_width": "md",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "image_with_text_JVxTXT": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_ryPBfr": {
+          "type": "heading",
+          "settings": {
+            "text": "We are Canada's Adjustable Bed Experts.",
+            "heading_tag": "h3"
+          }
+        },
+        "richtext_X6p3VV": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p>Adjustable beds, made right here in Canada. Delivered directly to you and setup in your home, so all you have to think about is how much better you will sleep.<br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ryPBfr",
+        "richtext_X6p3VV"
+      ],
+      "custom_css": [
+        ".image-with-text {background-color: #e3e6f2;}",
+        ".bordered-section {background-color: #e3e6f2;}"
+      ],
+      "name": "t:sections.image_with_text.presets.image_with_text.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "image": "shopify://shop_images/2023.11.27_The_Leva_Sleep_Difference_w._disclaimer.png",
+        "reveal_on_scroll": true,
+        "image_position": "end",
+        "content_width": "lg",
+        "remove_vertical_spacing": true
+      }
+    },
+    "collection_list_XEkWjG": {
+      "type": "collection-list",
+      "blocks": {
+        "collection_BR4qEP": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "adjustable-bed-packages",
+            "image": "shopify://shop_images/StearnsEstate-2.jpg",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "",
+            "button_text": "Shop Adjustable Beds",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "collection_Gc7Keg": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "adjustable-bases",
+            "image": "shopify://shop_images/Bed_Frame_3.jpg",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "",
+            "button_text": "Shop Adjustable Bases",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 10
+          }
+        },
+        "collection_VPrEbj": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "",
+            "collection": "mattresses",
+            "image": "shopify://shop_images/TempurPedicAlignMedium2_0Mattress_png.webp",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "",
+            "button_text": "Shop Mattresses",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 10
+          }
+        },
+        "collection_3hrVPJ": {
+          "type": "collection",
+          "settings": {
+            "color_scheme": "scheme-4",
+            "collection": "pillows-accessories",
+            "expand_collection": false,
+            "content_position": "place-self-end-start text-start",
+            "subheading": "",
+            "title": "",
+            "button_text": "Shop Accessories",
+            "button_link": "",
+            "button_style": "solid",
+            "overlay_color": "#000000",
+            "overlay_opacity": 10
+          }
+        }
+      },
+      "block_order": [
+        "collection_BR4qEP",
+        "collection_Gc7Keg",
+        "collection_VPrEbj",
+        "collection_3hrVPJ"
+      ],
+      "name": "t:sections.collection_list.presets.collection_list.name",
+      "settings": {
+        "color_scheme": "",
+        "separate_section_with_border": true,
+        "image_size": "auto",
+        "show_text_outside": false,
+        "space_items": true,
+        "stack_collections": true,
+        "collections_per_row_mobile": "1",
+        "collections_per_row_desktop": 4,
+        "subheading": "",
+        "title": "<strong>Shop By Collection</strong>",
+        "content": ""
+      }
+    }
+  },
+  "order": [
+    "collection-banner",
+    "dynamic_heading_jCjHFG",
+    "featured_collections_JYWi97",
+    "main",
+    "blog_posts_QJjq39",
+    "judgeme_carousel_section_RnMRcw",
+    "image_with_text_overlay_WrLJ7G",
+    "image_with_text_JVxTXT",
+    "collection_list_XEkWjG"
+  ]
+}
