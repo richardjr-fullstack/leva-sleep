@@ -1038,6 +1038,10 @@ body.collection-filter-drawer-open {
   .collection-filtering-container {
     padding: 0 0.5rem; 
   }
+
+  .product-card__image--secondary {
+    display: none !important;
+  }
   
   .collection-filter-drawer-toggle {
     left: 0.5rem;
