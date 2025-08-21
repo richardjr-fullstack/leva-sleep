@@ -1,0 +1,182 @@
+{%- liquid
+  if hide_product_information
+    assign show_rating = false
+  else
+    assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true
+  endif
+  assign product_form_id = 'quick-view-form-' | append: product.id
+  assign image_count = 0
+-%}
+
+<div class="quick-view__container">
+  <button type="button" class="quickview-close" aria-label="Close">&times;</button>
+
+  <!-- Gallery -->
+  <div class="quick-view__gallery">
+  {% assign image_count = 0 %}
+
+  {% for media in product.media %}
+    {% if media.media_type == 'image' %}
+      {% assign image_count = image_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+
+  {% if image_count > 1 %}
+    <!-- Multiple images → show Splide -->
+    <div id="quickview-splide-{{ product.id }}" class="splide quickview-splide">
+      <span class="discount-badge" style="display:none;"></span>
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for media in product.media %}
+            {% if media.media_type == 'image' %}
+              <li class="splide__slide">
+                <img 
+                  src="{{ media | img_url: '600x' }}" 
+                  alt="{{ media.alt | escape }}" 
+                  loading="lazy"
+                >
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% elsif image_count == 1 %}
+    <!-- Only one image → no slider -->
+    {% for media in product.media %}
+      {% if media.media_type == 'image' %}
+        <img 
+          src="{{ media | img_url: '600x' }}" 
+          alt="{{ media.alt | escape }}" 
+          loading="lazy"
+        >
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <!-- No images → fallback placeholder -->
+    <img 
+      src="{{ 'placeholder.png' | asset_url }}" 
+      alt="Placeholder"
+    >
+  {% endif %}
+</div>
+
+  <!-- Product Info -->
+  <div class="quick-view__info">
+    {%- form 'product', product, id: product_form_id, class: 'product-form', data-product-form: '' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+      <safe-sticky class="product-info">
+        <div class="product-info__block-list">
+
+          <!-- Title -->
+          <div class="product-info__block-item" data-block-type="title">
+            <h2 class="product-title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h2>
+          </div>
+
+          <!-- Price -->
+          <div class="product-info__block-item pricing" data-block-type="price">
+            <span>from</span>
+            <p class="static-price">{{ product.selected_or_first_available_variant.price | money }}</p>
+          </div>
+
+          {%- if show_rating -%}
+            {%- render 'product-rating', show_placeholder: true, display_mode: settings.product_rating_mode -%}
+          {%- endif -%}
+
+          <!-- Description -->
+          <div class="product-info__block-item description" data-block-type="description">
+            <p class="product-description">
+              {{ product.description | strip_html | truncate: 203 }}
+            </p>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <payment-terms class="payment-terms">
+              {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
+              {%- form 'product', product, id: product_installment_form_id -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                {{- form | payment_terms -}}
+              {%- endform -%}
+            </payment-terms> 
+          </div> 
+
+          <!-- Custom Variant Picker -->
+          {% if product.has_only_default_variant == false %}
+          <div class="product-info__block-item custom-variant-picker" data-block-type="variant-picker">
+            {% for option in product.options_with_values %}
+              <div class="variant-option" data-option-index="{{ forloop.index0 }}">
+                <label class="variant-label">{{ option.name }}: <span class="selected-value">{{ option.values.first }}</span></label>
+                <div class="variant-buttons-grid" data-option-index="{{ forloop.index0 }}">
+                  {% for value in option.values %}
+                    <button 
+                      type="button" 
+                      class="variant-button {% if forloop.first %}selected{% endif %}" 
+                      data-value="{{ value }}"
+                      data-option-index="{{ forloop.index0 }}"
+                    >
+                      <span class="variant-value">{{ value }}</span>
+                    </button>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <!-- Price + Compare Price -->
+          <div class="product-info__block-item compare" data-block-type="price">
+            <span class="price-wrapper">
+              {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                <span class="compare-price">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price">{{ product.selected_or_first_available_variant.price | money }}</span>
+            </span>
+          </div>
+
+          <div class="product-info__block-item" data-block-type="quickview-buy-buttons-complete">
+            {%- render 'buy-buttons-quickview',
+                product: product,
+                form_id: product_form_id,
+                show_quantity_selector: true,
+                show_payment_button: true,
+                show_gift_card_recipient: true,
+                show_wishlist: true
+            -%}
+          </div>
+
+        </div>
+      </safe-sticky>
+    {%- endform -%}
+  </div>
+</div>
+
+<!-- Prepare variants array -->
+<script>
+  window['variants_{{ product.id }}'] = [
+    {% for variant in product.variants %}
+      {
+        id: {{ variant.id }},
+        options: {{ variant.options | json }},
+        price_formatted: "{{ variant.price | money }}",
+        compare_at_price_formatted: "{{ variant.compare_at_price | money }}",
+        compare_at_price: {{ variant.compare_at_price | default: 0 }},
+        price: {{ variant.price }},
+        available: {{ variant.available | json }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+
+<script>
+  // Auto-initialize for non-modal usage (if needed)
+  document.addEventListener('DOMContentLoaded', function() {
+    const quickViewContainer = document.querySelector('.quick-view__container');
+    if (quickViewContainer && !document.querySelector('#quickview-modal')) {
+      // Only auto-init if not in a modal context
+      initQuickView('{{ product.id }}', '{{ product_form_id }}');
+    }
+  });
+</script>
