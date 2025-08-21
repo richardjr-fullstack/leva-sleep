@@ -3,7 +3,7 @@ This is the custom Shopify theme for the Leva Elevate Sleep store.
 
 ## Getting Started
 
-To start developing:
+To start develop:
 ```bash
 shopify theme dev -s leva-elevate-sleep.myshopify.com -t 132047241279 --theme-editor-sync
 shopify theme dev -s leva-elevate-sleep.myshopify.com -t 133544083519 --theme-editor-sync
